@@ -14,9 +14,7 @@ public class Artist {
     String name;
     String artWork;
     String web;
-    
-    
-    
+
     Artist(String name, String artWork)
     {
         this.name = name;
@@ -25,7 +23,9 @@ public class Artist {
     
     Artist(String name, String artWork, String web)
     {
-        Artist(name, artWork);
+        this.name = name;
+        this.artWork = artWork;
+        this.web = web;
     }
     
 }

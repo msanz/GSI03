@@ -5,24 +5,23 @@
  */
 package GSILabs.BModel;
 
-import java.util.List;
-
 /**
  *
  * @author GR03
  */
-public class Collective extends Artist {
-     
-    //mirar que coleccion conviene utilizar
-    public List<Artist> members;
+public class IndividualArtist extends Artist {
     
-    public Collective(String name, String artWork) {
+    
+    IndividualArtist(String name, String artWork)
+    {
         super(name, artWork);
     }
-
-    public Collective(String name, String artWork, String web) {
+    
+    IndividualArtist(String name, String artWork, String web)
+    {
         super(name, artWork);
         this.web = web;
     }
-
+    
+    
 }
