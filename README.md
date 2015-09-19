@@ -6,7 +6,7 @@ git config --global user.email "yourname@email.com"
 
 git config --glboal user.name "Bob"
 
-git add <filename>
+git add filename
 
 git commit -m "Your comment here!"
 
