@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  *
- * @author linux1
+ * @author GR03
  */
 public class DateConcert extends DateEvent {
     Time timeOpenDoors;  

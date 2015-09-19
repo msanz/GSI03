@@ -1,7 +1,5 @@
 package GSILabs.BModel;
 
-import java.util.List;
-
 /**
  *
  * @author GR03

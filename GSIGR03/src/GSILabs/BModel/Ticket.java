@@ -7,7 +7,7 @@ package GSILabs.BModel;
 
 /**
  *
- * @author dani
+ * @author GR03
  */
 public class Ticket {
     
