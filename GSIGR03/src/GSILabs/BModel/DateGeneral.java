@@ -6,19 +6,18 @@
 package GSILabs.BModel;
 
 import java.sql.Time;
+import java.util.Date;
 
 /**
  *
  * @author GR03
  */
-public class Date {
+public class DateGeneral {
     Date day;
     Time time;
     
-    Date (Date day, Time time){
+    DateGeneral (Date day, Time time){
         this.day = day;
         this.time = time;
     }
-   
-   
 }

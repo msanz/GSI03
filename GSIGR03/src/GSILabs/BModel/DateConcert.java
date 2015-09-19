@@ -6,6 +6,7 @@
 package GSILabs.BModel;
 
 import java.sql.Time;
+import java.util.Date;
 
 /**
  *

@@ -9,23 +9,40 @@ package GSILabs.BModel;
  *
  * @author GR03
  */
-public class Artist {
+public class Artist implements Performer {
     
     String name;
-    String artWork;
+    String workDescription;
     String web;
 
-    Artist(String name, String artWork)
-    {
+    Artist(String name, String workDescription){
         this.name = name;
-        this.artWork = artWork;
+        this.workDescription = workDescription;
     }
     
-    Artist(String name, String artWork, String web)
-    {
+    Artist(String name, String workDescription, String web){
         this.name = name;
-        this.artWork = artWork;
+        this.workDescription = workDescription;
         this.web = web;
     }
     
+    @Override
+    public String toString() {
+        return "Name: "+ name +" orkDescription: " + workDescription +" Web: " + web +"\n";
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getWorkDescription() {
+        return workDescription;
+    }
+
+    @Override
+    public void setWorkDescription(String description) {
+        this.workDescription = description;
+    }
 }

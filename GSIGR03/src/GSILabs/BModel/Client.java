@@ -16,10 +16,10 @@ public class Client {
     String name;
     String surName1;
     String surName2;
-    Date birthday;
+    DateGeneral birthday;
     List<CreditCard> creditCard;
     
-    public Client (int DNI, String name, String surName1, String surName2, Date birthday){
+    public Client (int DNI, String name, String surName1, String surName2, DateGeneral birthday){
         this.DNI = DNI;
         this.name = name;
         this.surName1 = surName1;

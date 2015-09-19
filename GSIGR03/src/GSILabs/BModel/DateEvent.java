@@ -6,12 +6,12 @@
 package GSILabs.BModel;
 
 import java.sql.Time;
-
+import java.util.Date;
 /**
  *
  * @author GR03
  */
-public class DateEvent extends Date{
+public class DateEvent extends DateGeneral{
     Date dayStart;
     Date dayFinish;
     Time timeStart;
