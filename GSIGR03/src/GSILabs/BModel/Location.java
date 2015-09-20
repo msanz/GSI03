@@ -13,23 +13,20 @@ public class Location {
     
     String name;
     int capacity;
-    Coordinates gpsCoordinates;
-    String oficialWeb;
+    Coordinates gps;
+    String web;
     
-    Location(String name, int capacity, Coordinates gpsCoordinates, String oficialWeb)
-    {
+    public Location(String name, int capacity, Coordinates gps, String web){
         this.name = name;
         this.capacity = capacity;
-        this.gpsCoordinates = gpsCoordinates;
-        this.oficialWeb = oficialWeb;
+        this.gps = gps;
+        this.web = web;
     }
 
-    Location(String name, int capacity, Coordinates gpsCoordinates)
-    {
+    public Location(String name, int capacity, Coordinates gps){
         this.name = name;
         this.capacity = capacity;
-        this.gpsCoordinates = gpsCoordinates;
+        this.gps = gps;
     }
-    
     
 }

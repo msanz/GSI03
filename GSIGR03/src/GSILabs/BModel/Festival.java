@@ -20,7 +20,8 @@ public class Festival implements LastingEvent {
     DateEvent date;
     
     public Festival (String name, DateEvent date){
-    
+        this.name = name;
+        this.date = date;
     }
 
     @Override

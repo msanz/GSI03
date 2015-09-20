@@ -5,6 +5,7 @@
  */
 package GSILabs.BModel;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,10 +17,10 @@ public class Client {
     String name;
     String surName1;
     String surName2;
-    DateGeneral birthday;
+    Date birthday;
     List<CreditCard> creditCard;
     
-    public Client (int DNI, String name, String surName1, String surName2, DateGeneral birthday){
+    public Client (int DNI, String name, String surName1, String surName2, Date birthday){
         this.DNI = DNI;
         this.name = name;
         this.surName1 = surName1;

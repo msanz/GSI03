@@ -16,16 +16,19 @@ import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
 import java.util.Date;
+import java.util.TreeSet;
 
 /**
  *
  * @author GR03
  */
 public class BusinessSystem implements TicketOffice{
-
+    TreeSet<Festival> festivals;
+    TreeSet<Concert> concerts;
+    
     @Override
     public boolean addNewConcert(Concert c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return concerts.add(c);
     }
 
     @Override
@@ -35,7 +38,7 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean deleteConcert(Concert c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return concerts.remove(c);
     }
 
     @Override

@@ -10,6 +10,9 @@ package GSILabs.BSystem;
  * @author GR03
  */
 public class P01Tester {
+     public static void main(String args[]){
+        BusinessSystem businessSystem = new BusinessSystem();
+     }
     
 /**
  * 

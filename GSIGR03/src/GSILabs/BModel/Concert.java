@@ -1,18 +1,18 @@
 package GSILabs.BModel;
+import java.util.Date;
 
 /**
  *
  * @author GR03
  */
 public class Concert implements ImpermanentEvent{
-    
     DateConcert date;
     String name;
     Artist performer;
     Location location;
     Performer[] performers;
     
-    Concert(DateConcert date, String name, Artist performer, Location location)
+    public Concert(DateConcert date, String name, Artist performer, Location location)
     {
         this.date = date;
         this.name = name;
@@ -20,7 +20,7 @@ public class Concert implements ImpermanentEvent{
         this.location = location;
     }
     
-    Concert(DateConcert date, String name, Performer[] performers, Location location)
+    public Concert(DateConcert date, String name, Performer[] performers, Location location)
     {
         this.date = date;
         this.name = name;
@@ -29,7 +29,7 @@ public class Concert implements ImpermanentEvent{
     }
 
     @Override
-    public java.util.Date getStartDate() {
+    public Date getStartDate() {
         return date.dayStart;
     }
 

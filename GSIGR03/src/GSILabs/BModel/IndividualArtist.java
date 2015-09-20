@@ -11,17 +11,13 @@ package GSILabs.BModel;
  */
 public class IndividualArtist extends Artist {
     
-    
-    IndividualArtist(String name, String artWork)
-    {
+    public IndividualArtist(String name, String artWork){
         super(name, artWork);
     }
     
-    IndividualArtist(String name, String artWork, String web)
-    {
+    public IndividualArtist(String name, String artWork, String web){
         super(name, artWork);
         this.web = web;
     }
-    
     
 }

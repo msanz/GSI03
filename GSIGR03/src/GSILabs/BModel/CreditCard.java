@@ -6,13 +6,13 @@
 package GSILabs.BModel;
 
 /**
- *
+ * 
  * @author GR03
  */
 class CreditCard {
     int number;
     
-    public CreditCard(int number){
+    CreditCard(int number){
         this.number = number;
     }
 }

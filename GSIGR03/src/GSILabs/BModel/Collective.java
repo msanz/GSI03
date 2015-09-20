@@ -12,9 +12,7 @@ import java.util.SortedSet;
  * @author GR03
  */
 public class Collective extends Artist implements Performer {
-     
-    //mirar que coleccion conviene utilizar
-    public SortedSet<Artist> members;
+    SortedSet<Artist> members;
     
     public Collective(String name, String workDescription) {
         super(name, workDescription);
@@ -24,7 +22,11 @@ public class Collective extends Artist implements Performer {
         super(name, workDescription);
         this.web = web;
     }
-
+    
+    /**
+     * Rewriting the toString() method
+     * @return Another way to show the information
+     */
     @Override
     public String toString() {
         return "Name: "+ super.name +" ArtWork: " + super.workDescription +" Web: " + web +"\n";
