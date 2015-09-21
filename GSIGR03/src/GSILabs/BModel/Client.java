@@ -5,7 +5,6 @@
  */
 package GSILabs.BModel;
 
-import java.util.Date;
 import java.util.TreeSet;
 
 /**
@@ -13,14 +12,15 @@ import java.util.TreeSet;
  * @author GR03
  */
 public class Client {
-    int DNI;
-    String name;
-    String surName1;
-    String surName2;
-    Date birthday;
-    TreeSet<String> creditCard;
     
-    public Client (int DNI, String name, String surName1, String surName2, Date birthday){
+    private int DNI;
+    private String name;
+    private String surName1;
+    private String surName2;
+    private DateGeneral birthday;
+    private TreeSet<String> creditCard;
+    
+    public Client (int DNI, String name, String surName1, String surName2, DateGeneral birthday){
         this.DNI = DNI;
         this.name = name;
         this.surName1 = surName1;
@@ -32,4 +32,58 @@ public class Client {
         return this.creditCard.add(cCard);
     }
     
+    @Override
+    public boolean equals(Object o)
+    {
+        if(o instanceof Client){
+            Client client = (Client) o;
+            if( this.getDNI() == client.getDNI() )
+                return true;
+            else
+                return false;
+        }
+        return false;
+    }
+
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + this.DNI;
+        return hash;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "DNI: " + getDNI() +
+                " Name: " + getName() +
+                " Surnames: " + getSurName1() + " " + getSurName2() +
+                " Birth date: " + getBirthday();
+    }
+
+    public int getDNI() {
+        return DNI;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurName1() {
+        return surName1;
+    }
+
+    public String getSurName2() {
+        return surName2;
+    }
+
+    public DateGeneral getBirthday() {
+        return birthday;
+    }
+
+    public TreeSet<String> getCreditCard() {
+        return creditCard;
+    }
+
 }

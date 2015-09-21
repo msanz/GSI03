@@ -7,6 +7,11 @@ package GSILabs.BModel;
 
 import java.sql.Time;
 import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,5 +24,22 @@ public class DateGeneral {
     DateGeneral (Date day, Time time){
         this.day = day;
         this.time = time;
+    }
+    
+    /** 
+     * 
+     * @param string string to convert to Date
+     */
+    public DateGeneral (String string)
+    {
+        try
+        {
+            DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+            this.day = format.parse(string);
+        }
+        catch (ParseException ex)
+        {
+            Logger.getLogger(DateGeneral.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

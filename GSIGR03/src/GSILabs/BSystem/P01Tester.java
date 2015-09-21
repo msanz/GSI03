@@ -5,6 +5,9 @@
  */
 package GSILabs.BSystem;
 
+import GSILabs.BModel.Client;
+import GSILabs.BModel.DateGeneral;
+
 /**
  *
  * @author GR03
@@ -12,6 +15,11 @@ package GSILabs.BSystem;
 public class P01Tester {
      public static void main(String args[]){
         BusinessSystem businessSystem = new BusinessSystem();
+        
+
+
+        Client client1 = new Client(15846815, "pepe", "Randez", "Perez", new DateGeneral("14/2/1956"));
+        System.out.println(client1);
      }
     
 /**
