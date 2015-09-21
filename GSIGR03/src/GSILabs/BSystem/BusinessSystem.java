@@ -23,7 +23,6 @@ import java.util.HashSet;
  * @author GR03
  */
 public class BusinessSystem implements TicketOffice{
-    
     HashSet<Festival> festivals;
     HashSet<Concert> concerts;
     HashSet<Exhibition> exhibitions;
