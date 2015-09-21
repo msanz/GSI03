@@ -16,17 +16,17 @@ import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
 import java.util.Date;
-import java.util.TreeSet;
+import java.util.HashSet;
 
 /**
  *
  * @author GR03
  */
 public class BusinessSystem implements TicketOffice{
-    TreeSet<Festival> festivals;
-    TreeSet<Concert> concerts;
-    TreeSet<Exhibition> exhibitions;
-    TreeSet<Client> clients;
+    HashSet<Festival> festivals;
+    HashSet<Concert> concerts;
+    HashSet<Exhibition> exhibitions;
+    HashSet<Client> clients;
     
     @Override
     public boolean addNewConcert(Concert c) {
