@@ -5,6 +5,7 @@
  */
 package GSILabs.BModel;
 
+import java.util.concurrent.atomic.AtomicInteger;
 /**
  *
  * @author GR03
@@ -13,10 +14,18 @@ public class Ticket {
     
     String eventName;
     int[] ticketID;
+    int numberOfPersons;
+    AtomicInteger ID = new AtomicInteger();
     
-    public Ticket (String eventName, int[] ticketID ){
+    public Ticket (String eventName, int numberOfPersons){
         this.eventName = eventName;
-        this.ticketID = ticketID;
+        for (int i = 0; i<numberOfPersons;i++) {
+            this.ticketID[i] = this.ID.get();
+        }
     } 
     
+    
+    
+    
+   
 }

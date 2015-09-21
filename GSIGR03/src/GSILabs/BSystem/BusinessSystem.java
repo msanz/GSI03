@@ -15,7 +15,6 @@ import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -30,7 +29,6 @@ public class BusinessSystem implements TicketOffice{
     HashSet<Exhibition> exhibitions = new HashSet<Exhibition>();
     HashSet<Client> clients = new HashSet<Client>();
     HashSet<Location> locations = new HashSet<Location>();
-    
     
     @Override
     public boolean addNewConcert(Concert c) {
