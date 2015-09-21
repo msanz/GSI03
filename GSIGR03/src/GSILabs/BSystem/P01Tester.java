@@ -5,6 +5,8 @@
  */
 package GSILabs.BSystem;
 
+import GSILabs.BModel.Location;
+import GSILabs.BModel.Coordinates;
 /**
  *
  * @author GR03
@@ -12,6 +14,10 @@ package GSILabs.BSystem;
 public class P01Tester {
      public static void main(String args[]){
         BusinessSystem businessSystem = new BusinessSystem();
+        
+        Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
+        businessSystem.addLocation(location1);
+        System.out.println(businessSystem.getLocation("Madrid").toString());
      }
     
 /**
