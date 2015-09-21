@@ -57,7 +57,7 @@ public class Artist implements Performer {
     
     /**
      * Returns the work description of the artist.
-     * @return workDescription The name of the artist.
+     * @return workDescription The artwork description
      */
     @Override
     public String getWorkDescription() {

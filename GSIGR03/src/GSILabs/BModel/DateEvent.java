@@ -18,7 +18,7 @@ public class DateEvent extends DateGeneral{
     Time timeStart;
     Time timeFinish;
    
-    public DateEvent(Date dayStart, Time timeStart, Time timeFinish ) {
+    public DateEvent(Date dayStart, Time timeStart, Time hourFinish ) {
        super(dayStart, timeStart);
     }
     

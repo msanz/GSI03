@@ -9,12 +9,12 @@ package GSILabs.BModel;
  * The coordinates X and Y of the location festival, concert or exhibition
  * @author GR03
  */
-class Coordinates {
+public class Coordinates {
     
-    private int x;
-    private int y;
+    int x;
+    int y;
     
-    Coordinates(int x, int y)
+    public Coordinates(int x, int y)
     {
         this.x = x;
         this.y = y;

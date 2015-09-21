@@ -5,9 +5,14 @@
  */
 package GSILabs.BSystem;
 
+<<<<<<< HEAD
 import GSILabs.BModel.Client;
 import GSILabs.BModel.DateGeneral;
 
+=======
+import GSILabs.BModel.Location;
+import GSILabs.BModel.Coordinates;
+>>>>>>> af1dc750d4a493b1d0ef6727ec3eb92f6c7d0c65
 /**
  *
  * @author GR03
@@ -16,10 +21,16 @@ public class P01Tester {
      public static void main(String args[]){
         BusinessSystem businessSystem = new BusinessSystem();
         
+<<<<<<< HEAD
 
 
         Client client1 = new Client(15846815, "pepe", "Randez", "Perez", new DateGeneral("14/2/1956"));
         System.out.println(client1);
+=======
+        Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
+        businessSystem.addLocation(location1);
+        System.out.println(businessSystem.getLocation("Madrid").toString());
+>>>>>>> af1dc750d4a493b1d0ef6727ec3eb92f6c7d0c65
      }
     
 /**

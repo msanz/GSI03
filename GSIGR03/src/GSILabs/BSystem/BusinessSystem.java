@@ -15,6 +15,7 @@ import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -23,10 +24,18 @@ import java.util.HashSet;
  * @author GR03
  */
 public class BusinessSystem implements TicketOffice{
+<<<<<<< HEAD
     HashSet<Festival> festivals;
     HashSet<Concert> concerts;
     HashSet<Exhibition> exhibitions;
     HashSet<Client> clients;
+=======
+    HashSet<Festival> festivals = new HashSet<Festival>();
+    HashSet<Concert> concerts = new HashSet<Concert>();
+    HashSet<Exhibition> exhibitions = new HashSet<Exhibition>();
+    HashSet<Client> clients = new HashSet<Client>();
+    HashSet<Location> locations = new HashSet<Location>();
+>>>>>>> af1dc750d4a493b1d0ef6727ec3eb92f6c7d0c65
     
     @Override
     public boolean addNewConcert(Concert c) {
@@ -163,25 +172,34 @@ public class BusinessSystem implements TicketOffice{
     public boolean addSale(Ticket t, Client c, Float price, String cCard) {
         return false;
     }
-
+    
     @Override
     public boolean addLocation(Location loc) {
-        return false;
+        return locations.add(loc);
     }
 
     @Override
     public Location getLocation(String name) {
+        for (Location l:locations){
+            if (l.getName().equals(name))
+                return l;
+        }
         return null;
     }
 
     @Override
     public boolean deleteLocation(Location loc) {
-        return false;
+        return locations.remove(loc);
     }
 
     @Override
     public Location[] getLocations(int minCapacity) {
-        return null;
+        ArrayList<Location> locs = new ArrayList();
+        for (Location l:locations)
+            if (l.getCapacity()>=minCapacity)
+                locs.add(l);
+        
+        return (Location[]) locs.toArray();
     }
 
     @Override
