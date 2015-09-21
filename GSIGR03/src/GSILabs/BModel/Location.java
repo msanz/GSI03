@@ -27,6 +27,22 @@ public class Location {
         this.name = name;
         this.capacity = capacity;
         this.gps = gps;
+        this.web = "Unknown";
     }
     
+    public String getName(){
+        return name;
+    }
+    
+    public int getCapacity(){
+        return capacity;
+    }
+    
+    @Override
+    public String toString() {
+        return "Name: "+ name +
+                " Capacity: " + capacity +
+                " GPS: (" + gps.x +", " + gps.y + ")" + 
+                " Web: " + web;
+    }
 }

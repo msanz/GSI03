@@ -1,32 +1,46 @@
 package GSILabs.BModel;
 import java.util.Date;
-import sun.util.logging.resources.logging;
+import java.util.Objects;
 
 /**
  *
  * @author GR03
  */
-public class Concert implements ImpermanentEvent{
+public class Concert implements ImpermanentEvent {
     DateConcert date;
     String name;
     Artist performer;
     Location location;
     Performer[] performers;
     
-    public Concert(DateConcert date, String name, Artist performer, Location location)
-    {
+    public Concert(DateConcert date, String name, Artist performer, Location location){
         this.date = date;
         this.name = name;
         this.performer = performer;
         this.location = location;
     }
     
-    public Concert(DateConcert date, String name, Performer[] performers, Location location)
-    {
+    public Concert(DateConcert date, String name, Performer[] performers, Location location){
         this.date = date;
         this.name = name;
         this.performers = performers;
         this.location = location;
+    }
+
+    @Override
+    public boolean equals(Object o ) {
+        if (o == null) return false;
+        Concert c = (Concert)o;
+        return ((this.getName().equals(c.getName())) 
+                && (this.getLocation().equals(c.getLocation())));
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.name);
+        hash = 79 * hash + Objects.hashCode(this.location);
+        return hash;
     }
     
     @Override
