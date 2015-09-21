@@ -6,7 +6,7 @@
 package GSILabs.BModel;
 
 import java.util.Date;
-import java.util.List;
+import java.util.TreeSet;
 
 /**
  *
@@ -18,7 +18,7 @@ public class Client {
     String surName1;
     String surName2;
     Date birthday;
-    List<CreditCard> creditCard;
+    TreeSet<String> creditCard;
     
     public Client (int DNI, String name, String surName1, String surName2, Date birthday){
         this.DNI = DNI;
@@ -26,6 +26,10 @@ public class Client {
         this.surName1 = surName1;
         this.surName2 = surName2;
         this.birthday = birthday;
+    }
+    
+    public boolean addCreditCard(String cCard){
+        return this.creditCard.add(cCard);
     }
     
 }

@@ -1,5 +1,6 @@
 package GSILabs.BModel;
 import java.util.Date;
+import sun.util.logging.resources.logging;
 
 /**
  *
@@ -27,7 +28,7 @@ public class Concert implements ImpermanentEvent{
         this.performers = performers;
         this.location = location;
     }
-
+    
     @Override
     public Date getStartDate() {
         return date.dayStart;

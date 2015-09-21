@@ -23,7 +23,15 @@ public class Festival implements LastingEvent {
         this.name = name;
         this.date = date;
     }
-
+    
+    public boolean addConcert(Concert concert){
+        return concerts.add(concert);
+    }
+    
+    public boolean deleteConcert(Concert concert){
+        return concerts.remove(concert);
+    }
+    
     @Override
     public Date getStartDate() {
         //Devolver la apertura de puertas del primer concierto
