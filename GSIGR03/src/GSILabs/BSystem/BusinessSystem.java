@@ -24,18 +24,11 @@ import java.util.HashSet;
  * @author GR03
  */
 public class BusinessSystem implements TicketOffice{
-<<<<<<< HEAD
-    HashSet<Festival> festivals;
-    HashSet<Concert> concerts;
-    HashSet<Exhibition> exhibitions;
-    HashSet<Client> clients;
-=======
     HashSet<Festival> festivals = new HashSet<Festival>();
     HashSet<Concert> concerts = new HashSet<Concert>();
     HashSet<Exhibition> exhibitions = new HashSet<Exhibition>();
     HashSet<Client> clients = new HashSet<Client>();
     HashSet<Location> locations = new HashSet<Location>();
->>>>>>> af1dc750d4a493b1d0ef6727ec3eb92f6c7d0c65
     
     @Override
     public boolean addNewConcert(Concert c) {
