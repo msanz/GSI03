@@ -5,7 +5,7 @@
  */
 package GSILabs.BModel;
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.GregorianCalendar;
 /**
  *
@@ -14,34 +14,13 @@ import java.util.GregorianCalendar;
 public class Ticket {
     
     String eventName;
-    long[] ticketID;
+    int[] ticketID;
     int numberOfPersons;
-    AtomicLong ID = new AtomicLong();
-    
+    AtomicInteger atomic = new AtomicInteger();
     public Ticket (String eventName, int numberOfPersons){
         this.eventName = eventName;
         for (int i = 0; i<numberOfPersons;i++) {
-            this.ticketID[i] = getIDFromDateTime();
+            this.ticketID[i] = atomic.getAndIncrement();
         }
     }
-    
-    private long getIDFromDateTime() {
-        GregorianCalendar calendar = new GregorianCalendar();
-        int year = calendar.get(GregorianCalendar.YEAR);
-        int month = calendar.get(GregorianCalendar.MONTH);
-        int day = calendar.get(GregorianCalendar.DAY_OF_MONTH);
-        int hour = calendar.get(GregorianCalendar.HOUR_OF_DAY);
-        int minute = calendar.get(GregorianCalendar.MINUTE);
-        int second = calendar.get(GregorianCalendar.SECOND);
-        long ms = System.currentTimeMillis();
-        long onlyMs = ms%1000;
-        long id=Long.valueOf(""+year+month+day+hour+minute+second+onlyMs);
-        System.out.print(id);
-        return id;
-    }
-    
-    
-    
-    
-   
 }
