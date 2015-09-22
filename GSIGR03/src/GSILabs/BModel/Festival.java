@@ -5,8 +5,10 @@
  */
 package GSILabs.BModel;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 import java.util.SortedSet;
 
 /**
@@ -15,7 +17,7 @@ import java.util.SortedSet;
  */
 public class Festival implements LastingEvent {
     SortedSet<Concert> concerts;
-    List<Location> locations;
+    HashSet<Location> locations;
     String name;
     DateEvent date;
     
@@ -34,14 +36,12 @@ public class Festival implements LastingEvent {
     
     @Override
     public Date getStartDate() {
-        //Devolver la apertura de puertas del primer concierto
-        return null;
+        return concerts.first().date.dayStart;
     }
 
     @Override
     public Date getEndingDate() {
-        //Devolver el cierre de puertas del ultimo concierto
-        return null;
+        return concerts.last().date.dayFinish;
     }
 
     @Override
@@ -51,8 +51,11 @@ public class Festival implements LastingEvent {
 
     @Override
     public Date[] getDates() {
-        //Hacer la resta entre el primer y ultimo concierto
-        return null;
+        ArrayList<Date> dates = new ArrayList();
+        for (Concert c:concerts){
+             dates.add(c.getDates()[0]);
+        }
+        return (Date[]) dates.toArray();
     }
 
     @Override
@@ -63,7 +66,10 @@ public class Festival implements LastingEvent {
 
     @Override
     public Performer[] getPerformers() {
-        //Devolver la lista de todos los artistas de los conciertos
-        return null;
+       ArrayList<Performer> performers = new ArrayList();
+        for (Concert c:concerts)
+            performers.addAll(Arrays.asList(c.getPerformers()));
+        
+        return (Performer[]) performers.toArray();
     }
 }

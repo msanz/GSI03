@@ -59,14 +59,20 @@ public class Concert implements ImpermanentEvent {
     }
 
     @Override
-    public java.util.Date[] getDates() {
-        //¿Solo implementar en Festival?
-        return null;
+    public Date[] getDates() {
+       Date[] dates = {date.dayStart};
+       return dates;
     }
 
     @Override
     public boolean involvesPerformer(Performer p) {
-        //Comprobar si un artista esta en alguno de los conciertos
+        if (p.getName().toLowerCase().equals(this.performer.getName().toLowerCase()))
+            return true;
+        else
+            for(Performer performer: performers){
+                if(performer.getName().toLowerCase().equals(p.getName().toLowerCase()))
+                        return true;
+            }
         return false;
     }
 
