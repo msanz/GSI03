@@ -31,4 +31,11 @@ public class Collective extends Artist implements Performer {
     public String toString() {
         return "Name: "+ super.name +" ArtWork: " + super.workDescription +" Web: " + web +"\n";
     }
+    
+    @Override
+    public boolean equals(Object o ) {
+        if (o == null) return false;
+        Collective a = (Collective)o;
+        return this.getName().toLowerCase().equals(a.getName().toLowerCase());
+    }
 }

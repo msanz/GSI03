@@ -24,15 +24,14 @@ import java.util.HashSet;
  * @author GR03
  */
 public class BusinessSystem implements TicketOffice{
-    HashSet<Festival> festivals = new HashSet<Festival>();
-    HashSet<Concert> concerts = new HashSet<Concert>();
-    HashSet<Exhibition> exhibitions = new HashSet<Exhibition>();
+    HashSet<Event> events = new HashSet<Event>();
     HashSet<Client> clients = new HashSet<Client>();
     HashSet<Location> locations = new HashSet<Location>();
+    HashSet<Performer> performers = new HashSet<Performer>();
     
     @Override
     public boolean addNewConcert(Concert c) {
-        return concerts.add(c);
+        return events.add(c);
     }
 
     @Override
@@ -42,12 +41,12 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean deleteConcert(Concert c) {
-        return concerts.remove(c);
+        return events.remove(c);
     }
 
     @Override
     public boolean addNewExhibition(Exhibition e) {
-        return exhibitions.add(e);
+        return events.add(e);
     }
 
     @Override
@@ -57,12 +56,12 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean deleteExhibition(Exhibition e) {
-        return exhibitions.remove(e);
+        return events.remove(e);
     }
 
     @Override
     public boolean addNewFestival(Festival f) {
-        return festivals.add(f);
+        return events.add(f);
     }
 
     @Override
@@ -77,7 +76,7 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean deleteFestival(Festival f) {
-        return festivals.remove(f);
+        return events.remove(f);
     }
 
     @Override
@@ -102,7 +101,6 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean addClient(Client c) {
-        
         return clients.add(c);
     }
 
@@ -197,16 +195,22 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean addArtist(Artist a) {
-        return false;
+        return performers.add(a);
     }
 
     @Override
     public boolean addCollective(Collective c) {
-        return false;
+        return performers.add(c);
     }
 
     @Override
     public boolean modifyArtist(Artist a) {
+       for (Performer p:performers){
+            if (p.getName().equals(a.getName())){
+                performers.remove(p);
+                this.addArtist(new Artist(p.getName(),a.getWorkDescription(),a.getWeb()));
+            }
+        }
         return false;
     }
 
@@ -217,27 +221,47 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean removePerformer(String performerName) {
+        for (Performer p:performers){
+            if (p.getName().equals(performerName))
+                return performers.remove(p);
+        }
         return false;
     }
 
     @Override
     public boolean existsPerformer(String performerName) {
+       for (Performer p:performers){
+            if (p.getName().equals(performerName))
+                return true;
+        }
         return false;
     }
 
     @Override
     public boolean existsArtist(String artistName) {
+        for (Performer p:performers){
+            if (p.getName().equals(artistName))
+                return true;
+        }
         return false;
     }
 
     @Override
     public boolean existsCollective(String artistName) {
+        for (Performer p:performers){
+            if (p.getName().equals(artistName))
+                return true;
+        }
         return false;
     }
 
     @Override
     public Performer retrievePerformer(String performerName) {
-       return null;
+       for (Performer p:performers){
+            if (p.getName().equals(performerName))
+                return p;
+        }
+        return null;
     }
     
 }

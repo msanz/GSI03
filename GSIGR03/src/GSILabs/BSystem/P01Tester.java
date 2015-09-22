@@ -6,6 +6,7 @@
 package GSILabs.BSystem;
 
 
+import GSILabs.BModel.Artist;
 import GSILabs.BModel.Client;
 import GSILabs.BModel.DateGeneral;
 import GSILabs.BModel.Location;
@@ -24,6 +25,8 @@ public class P01Tester {
         Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
         businessSystem.addLocation(location1);
         System.out.println(businessSystem.getLocation("Madrid").toString());
+        
+        Artist artist1 = new Artist("Maria", "Cantante de opera");
 
      }
     

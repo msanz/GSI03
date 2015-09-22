@@ -33,14 +33,10 @@ public class Client {
     }
     
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o){
         if(o instanceof Client){
             Client client = (Client) o;
-            if( this.getDNI() == client.getDNI() )
-                return true;
-            else
-                return false;
+            return this.getDNI() == client.getDNI();
         }
         return false;
     }
@@ -54,8 +50,7 @@ public class Client {
     }
     
     @Override
-    public String toString()
-    {
+    public String toString(){
         return "DNI: " + getDNI() +
                 " Name: " + getName() +
                 " Surnames: " + getSurName1() + " " + getSurName2() +

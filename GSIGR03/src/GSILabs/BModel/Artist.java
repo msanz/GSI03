@@ -23,6 +23,7 @@ public class Artist implements Performer {
     public Artist(String name, String workDescription){
         this.name = name;
         this.workDescription = workDescription;
+        this.web = "Unknown";
     }
     
     /**
@@ -71,5 +72,29 @@ public class Artist implements Performer {
     @Override
     public void setWorkDescription(String workDescription) {
         this.workDescription = workDescription;
+    }
+    
+    /**
+     * Returns the web of the artist.
+     * @return web Official website
+     */
+    public String getWeb() {
+        return web;
+    }
+    
+    /**
+     * Set the web of the artist.
+     * @param web Official website
+     */
+    public void setWeb(String web) {
+        this.web = web;
+    }
+    
+    
+    @Override
+    public boolean equals(Object o ) {
+        if (o == null) return false;
+        Artist a = (Artist)o;
+        return this.getName().toLowerCase().equals(a.getName().toLowerCase());
     }
 }

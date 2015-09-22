@@ -45,4 +45,11 @@ public class Location {
                 " GPS: (" + gps.x +", " + gps.y + ")" + 
                 " Web: " + web;
     }
+    
+    @Override
+    public boolean equals(Object o ) {
+        if (o == null) return false;
+        Location l = (Location)o;
+        return this.getName().equals(l.getName());
+    }
 }
