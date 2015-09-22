@@ -6,7 +6,7 @@
 package GSILabs.BModel;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.GregorianCalendar;
+
 /**
  *
  * @author GR03
@@ -14,13 +14,35 @@ import java.util.GregorianCalendar;
 public class Ticket {
     
     String eventName;
-    int[] ticketID;
+    int id;
     int numberOfPersons;
-    AtomicInteger atomic = new AtomicInteger();
-    public Ticket (String eventName, int numberOfPersons){
+    int numberOfUsed;
+    float price;
+    boolean used;
+    
+    public Ticket (String eventName, AtomicInteger atomicInteger){
         this.eventName = eventName;
-        for (int i = 0; i<numberOfPersons;i++) {
-            this.ticketID[i] = atomic.getAndIncrement();
-        }
+        this.id = (int)atomicInteger.getAndIncrement();
+        this.used = false;
+    }
+    
+    public void setNumberOfPersons(int numberOfPersons){
+        this.numberOfPersons = numberOfPersons;
+        this.numberOfUsed = numberOfPersons;
+    }
+    
+    public void checkTicketUsed() {
+        if (numberOfUsed > 1)
+            numberOfUsed--;
+        else
+            setUsed();
+    }
+   
+    public void setUsed(){
+        this.used = true;
+    }
+    
+    public void setPrice(float price){
+        this.price = price;
     }
 }

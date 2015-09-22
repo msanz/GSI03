@@ -6,16 +6,16 @@
 package GSILabs.BModel;
 
 import java.util.Date;
+
 /**
  *
- * @author linux1
+ * @author GR03
  */
 public class Sale {
     Date date;
     int[] ticketID;
     
-    public Sale ( Date date, int[] ticketID)
-    {
+    public Sale ( Date date, int[] ticketID){
         this.date = date;
         this.ticketID = ticketID;
     }
