@@ -21,6 +21,7 @@ public class Festival implements LastingEvent {
     String name;
     DateEvent date;
     
+    public Festival(){}
     public Festival (String name, DateEvent date){
         this.name = name;
         this.date = date;

@@ -42,4 +42,11 @@ public class DateGeneral {
             Logger.getLogger(DateGeneral.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @Override
+    public String toString(){
+        DateFormat dateFormat =  DateFormat.getDateInstance();
+        return dateFormat.format(day);
+        
+    }
 }

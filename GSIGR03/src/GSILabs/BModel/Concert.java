@@ -13,6 +13,7 @@ public class Concert implements ImpermanentEvent {
     Location location;
     Performer[] performers;
     
+    public Concert(){}
     public Concert(DateConcert date, String name, Artist performer, Location location){
         this.date = date;
         this.name = name;

@@ -5,15 +5,11 @@
  */
 package GSILabs.BSystem;
 
-import GSILabs.BModel.Artist;
-import GSILabs.BModel.Collective;
 import GSILabs.BModel.Concert;
 import GSILabs.BModel.Event;
 import GSILabs.BModel.Exhibition;
 import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
-import GSILabs.BModel.Performer;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -23,150 +19,147 @@ import java.util.HashSet;
  */
 public class EventSystem {
     HashSet<Event> events = new HashSet<Event>();
-    HashSet<Location> locations = new HashSet<Location>();
-    HashSet<Performer> performers = new HashSet<Performer>();
     
+    // Event creation and management
+    
+    /**
+     * Adds a new concert to the system. Note that setting up the concert should not produce
+     *  any kind of clash with the existing concerts, etc.
+     * @param c The concert to be added
+     * @return True if an only if the concert c was not null, was well formed and did
+     *  not clash with the information already in the system. False otherwise.
+     */
     public boolean addNewConcert(Concert c) {
-        return events.add(c);
+        return (c != null) ? events.add(c) : false;
     }
 
+    /**
+     * Replace an existing concert. The system must be able to indentify the concert
+     *  as "already existing", then proceed for its replacement.
+     * @param c The concert to be added
+     * @return True if an only if the concert c was not null, was well formed and did
+     *  not clash with the information already in the system. False otherwise.
+     */
     public boolean replaceConcert(Concert c) {
-        return false;
+         return (c != null);
     }
-
+    
+    /**
+     * Deletes a concert from the system. In case c did not exist in the system, 
+     *  this action has no impact.
+     * @param c The concert to be removed
+     * @return True if an only if the concert c was not null, and existed 
+     *  already in the system. False otherwise.
+     */
     public boolean deleteConcert(Concert c) {
-        return events.remove(c);
+       return (c != null) ? events.remove(c) : false;
     }
-
+    
+    /**
+     * Adds an exhibition to the system.
+     * @param e The exhibition to be added.
+     * @return True if e is not null, well formed and does not produce a clash with 
+     *  the information already in the system.
+     */   
     public boolean addNewExhibition(Exhibition e) {
-        return events.add(e);
+        return (e != null) ? events.add(e) : false;
     }
 
+    /**
+     * Replaces the information in the sytem related to the Exhibition e.
+     * @param e The new version of the exhibition
+     * @return True if an only if a previous version of the exhibition existed,
+     *  e is well formed, and it does not produce clashes with the information already
+     *  in the system.
+     */
     public boolean replaceExhibition(Exhibition e) {
-        return false;
+        return (e != null);
     }
 
+    /**
+     * Deletes an exhibition from the system
+     * @param e The exhibition to be deleted
+     * @return True if and only if e is not null, e existed in the systema and it could be
+     *  removed from the system
+     */
     public boolean deleteExhibition(Exhibition e) {
-        return events.remove(e);
+        return (e != null) ? events.remove(e) : false;
     }
 
+    /**
+     * Adds a new festival to the system
+     * @param f The festival to be added
+     * @return True if an only if f is not null, well formed and could be added to the system
+     */
     public boolean addNewFestival(Festival f) {
-        return events.add(f);
+        return (f != null) ? events.add(f) : false;
     }
 
+    /**
+     * Adds a new concert to an existing festival
+     * @param f The festival to which the concert is to be added
+     * @param c The concert itself
+     * @return True if and only if both arguments are not null, both are well formed 
+     *  and the information could be added not causing any clash with the existing information
+     */
     public boolean addConcertToFestival(Festival f, Concert c) {
-        return f.addConcert(c);
+        return ((c != null) && (f != null)) ? f.addConcert(c) : false;
     }
 
+    /**
+     * Replaces the information in the sytem related to the Festival f.
+     * @param f The new version of the festival
+     * @return True if an only if a previous version of the festival existed,
+     *  f is well formed, and it does not produce clashes with the information already
+     *  in the system.
+     */
     public boolean replaceFestival(Festival f) {
-        return false;
+        return (f != null);
     }
-
+    
+    /**
+     * Deletes the festival f from the system. It also deletes all of the concerts 
+     *      associated with it.
+     * @param f The festival to be removed
+     * @return True if the festival existed and could be removed, together with all 
+     *  the concerts it was composed of.
+     */
     public boolean deleteFestival(Festival f) {
-        return events.remove(f);
+        return (f != null) ? events.remove(f) : false;
     }
 
+     /**
+     * Checks whether an event is already registered in the system
+     * @param e The event to be checked
+     * @return True if and only if e is not null, well formed and did exist in the system
+     */
     public boolean existsEvent(Event e) {
-        return false;
+        return (e != null);
     }
-
+    /**
+     * Retrieves all the events whose name matches (partially) with the name
+     * @param name Full or partial name of the events
+     * @return A list of events, potentially being empty
+     */
     public Event[] retrieveEvents(String name) {
         return null;
     }
 
+    /**
+     * Retrieves all the events associated with an specific location
+     * @param loc Location of interest
+     * @return A list of events, potentially being empty
+     */
     public Event[] retrieveEvents(Location loc) {
         return null;
     }
 
+    /**
+     * Retrieves all the events at some given date
+     * @param d Date of interest
+     * @return A list of events, potentially being empty
+     */
     public Event[] retrieveEvents(Date d) {
         return null;
     }
-
-    public boolean addLocation(Location loc) {
-        return locations.add(loc);
-    }
-
-    public Location getLocation(String name) {
-        for (Location l:locations){
-            if (l.getName().equals(name))
-                return l;
-        }
-        return null;
-    }
-
-    public boolean deleteLocation(Location loc) {
-        return locations.remove(loc);
-    }
-
-    public Location[] getLocations(int minCapacity) {
-        ArrayList<Location> locs = new ArrayList();
-        for (Location l:locations)
-            if (l.getCapacity()>=minCapacity)
-                locs.add(l);
-        
-        return (Location[]) locs.toArray();
-    }
-
-    public boolean addArtist(Artist a) {
-        return performers.add(a);
-    }
-
-    public boolean addCollective(Collective c) {
-        return performers.add(c);
-    }
-
-    public boolean modifyArtist(Artist a) {
-       for (Performer p:performers){
-            if (p.getName().equals(a.getName())){
-                performers.remove(p);
-                this.addArtist(new Artist(p.getName(),a.getWorkDescription(),a.getWeb()));
-            }
-        }
-        return false;
-    }
-
-    public boolean modifyCollective(Collective c) {
-        return false;
-    }
-
-    public boolean removePerformer(String performerName) {
-        for (Performer p:performers){
-            if (p.getName().equals(performerName))
-                return performers.remove(p);
-        }
-        return false;
-    }
-
-    public boolean existsPerformer(String performerName) {
-       for (Performer p:performers){
-            if (p.getName().equals(performerName))
-                return true;
-        }
-        return false;
-    }
-
-    public boolean existsArtist(String artistName) {
-        for (Performer p:performers){
-            if (p.getName().equals(artistName))
-                return true;
-        }
-        return false;
-    }
-
-    public boolean existsCollective(String artistName) {
-        for (Performer p:performers){
-            if (p.getName().equals(artistName))
-                return true;
-        }
-        return false;
-    }
-
-    public Performer retrievePerformer(String performerName) {
-       for (Performer p:performers){
-            if (p.getName().equals(performerName))
-                return p;
-        }
-        return null;
-    }
-    
 }
