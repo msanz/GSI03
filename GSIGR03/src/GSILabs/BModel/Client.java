@@ -5,6 +5,7 @@
  */
 package GSILabs.BModel;
 
+import java.util.HashSet;
 import java.util.TreeSet;
 
 /**
@@ -19,6 +20,7 @@ public class Client {
     private String surName2;
     private DateGeneral birthday;
     private TreeSet<String> creditCard;
+    private HashSet<Ticket> tickets;
     
     public Client (int DNI, String name, String surName1, String surName2, DateGeneral birthday){
         this.DNI = DNI;
@@ -26,37 +28,18 @@ public class Client {
         this.surName1 = surName1;
         this.surName2 = surName2;
         this.birthday = birthday;
+        this.creditCard = new TreeSet<>();
+        this.tickets = new HashSet<>();
     }
     
     public boolean addCreditCard(String cCard){
         return this.creditCard.add(cCard);
     }
     
-    @Override
-    public boolean equals(Object o){
-        if(o instanceof Client){
-            Client client = (Client) o;
-            return this.getDNI() == client.getDNI();
-        }
-        return false;
-    }
-
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + this.DNI;
-        return hash;
+    public boolean addTicket(Ticket t) {
+        return this.tickets.add(t);
     }
     
-    @Override
-    public String toString(){
-        return "DNI: " + getDNI() +
-                " Name: " + getName() +
-                " Surnames: " + getSurName1() + " " + getSurName2() +
-                " Birth date: " + getBirthday();
-    }
-
     public int getDNI() {
         return DNI;
     }
@@ -80,5 +63,32 @@ public class Client {
     public TreeSet<String> getCreditCard() {
         return creditCard;
     }
+    
+    public HashSet<Ticket> getTickets() {
+        return tickets;
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Client){
+            Client client = (Client) o;
+            return this.getDNI() == client.getDNI();
+        }
+        return false;
+    }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + this.DNI;
+        return hash;
+    }
+    
+    @Override
+    public String toString(){
+        return "DNI: " + getDNI() +
+                " Name: " + getName() +
+                " Surnames: " + getSurName1() + " " + getSurName2() +
+                " Birth date: " + getBirthday();
+    }
 }

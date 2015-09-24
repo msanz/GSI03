@@ -9,6 +9,7 @@ import GSILabs.BModel.Client;
 import GSILabs.BModel.Event;
 import GSILabs.BModel.Ticket;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -21,15 +22,41 @@ public class ClientSystem {
    
     public ClientSystem(){
         atomic = new AtomicInteger();
-        clients = new HashSet<Client>();
+        clients = new HashSet<>();
     }
     
     public boolean addClient(Client c) {
         return clients.add(c);
     }
 
+    
     public boolean modifyClient(Client c) {
-        return false;
+        
+        //validate input data. c is well formed?
+        
+        boolean clientFound = false;
+        
+        if(containsClient(c))
+        {
+            Iterator clientsIterator = clients.iterator();
+            Client client;
+            //Look for de client with the same DNI that c
+            while (clientsIterator.hasNext() && !clientFound)
+            {
+                client = (Client) clientsIterator.next();
+                
+                if(client.equals(c))
+                {
+                    clientFound = true;
+                    //modify client data
+                    clients.remove(client);
+                    clients.add(c);
+                }
+            }
+        }
+        //return true if everything is well done and false otherwise
+        
+        return clientFound;
     }
 
     public boolean addCardToClient(Client c, String cCard) {
@@ -37,22 +64,75 @@ public class ClientSystem {
     }
    
     public boolean containsClient(Client c) {
+        
+        Iterator clientsIterator = clients.iterator();
+        boolean clientFound = false;
+        Client client;
+        
+        while (clientsIterator.hasNext() && (!clientFound))
+        {
+            client = (Client)clientsIterator.next();
+            
+            if(client.equals(c))
+            {
+                return true;
+            }
+        }
         return false;
     }
 
     public boolean containsClient(int id) {
-        return false;
+        
+        Iterator clientsIterator = clients.iterator();
+        boolean clientFound = false;
+        Client client;
+       
+        while (clientsIterator.hasNext() && !clientFound)
+        {
+            client = (Client) clientsIterator.next();
+            
+            if(client.getDNI() == id)
+            {
+                clientFound = true;
+            }
+        }
+        
+        return clientFound;
     }
 
     public Client retrieveClient(int identifier) {
+        
+        if(containsClient(identifier))
+        {
+            Iterator clientsIterator = clients.iterator();
+            boolean clientFound = false;
+            Client client;
+
+            while (clientsIterator.hasNext() && (!clientFound))
+            {
+                client = (Client)clientsIterator.next();
+
+                if(client.getDNI() == identifier)
+                {
+                    return client;
+                }
+            }
+        }
         return null;
     }
 
     public Ticket[] getListOfTickets(Client c) {
-        return null;
+        
+        return (Ticket[]) retrieveClient(c.getDNI()).getTickets().toArray();
+        
     }
 
     public float getTotalSpending(Client c) {
+        
+        
+        
+        
+        
         return (float)0.0;
     }
 
@@ -69,6 +149,7 @@ public class ClientSystem {
     }
 
     public boolean setIDUsed(Ticket t, Event e, int id) {
+        
         return false;
     }
 
