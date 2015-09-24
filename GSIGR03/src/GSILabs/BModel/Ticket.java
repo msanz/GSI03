@@ -31,18 +31,30 @@ public class Ticket {
         this.numberOfUsed = numberOfPersons;
     }
     
-    public void checkTicketUsed() {
-        if (numberOfUsed > 1)
+    public boolean checkTicketUsed(){
+        return used;
+    }
+    
+    public void useTicket() {
+        
+        if (checkTicketUsed())
+        {
             numberOfUsed--;
-        else
-            setUsed();
+            if (numberOfUsed == 0)
+                this.setUsed();
+        }
     }
    
-    public void setUsed(){
+    private void setUsed(){
         this.used = true;
     }
     
     public void setPrice(float price){
         this.price = price;
+    }
+    
+    public float getPrice()
+    {
+        return price;
     }
 }
