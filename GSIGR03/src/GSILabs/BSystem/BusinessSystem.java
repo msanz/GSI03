@@ -48,7 +48,11 @@ public class BusinessSystem implements TicketOffice{
     public boolean deleteConcert(Concert c) {
         return eventSystem.deleteConcert(c);
     }
-
+    
+    public Concert retrieveConcert(Event e){
+        return eventSystem.retrieveConcert(e);
+    }
+    
     @Override
     public boolean addNewExhibition(Exhibition e) {
         return eventSystem.addNewExhibition(e);
@@ -63,7 +67,11 @@ public class BusinessSystem implements TicketOffice{
     public boolean deleteExhibition(Exhibition e) {
         return eventSystem.deleteExhibition(e);
     }
-
+    
+    public Exhibition retrieveExhibition(Event e){
+        return eventSystem.retrieveExhibition(e);
+    }
+    
     @Override
     public boolean addNewFestival(Festival f) {
         return eventSystem.addNewFestival(f);
@@ -83,7 +91,11 @@ public class BusinessSystem implements TicketOffice{
     public boolean deleteFestival(Festival f) {
         return eventSystem.deleteFestival(f);
     }
-
+    
+    public Festival retrieveFestival(Event e){
+        return eventSystem.retrieveFestival(e);
+    }
+    
     @Override
     public boolean existsEvent(Event e) {
         return eventSystem.existsEvent(e);

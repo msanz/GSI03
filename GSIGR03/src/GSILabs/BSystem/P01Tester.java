@@ -7,13 +7,13 @@ package GSILabs.BSystem;
 
 
 import GSILabs.BModel.Artist;
-import GSILabs.BModel.Client;
 import GSILabs.BModel.Concert;
-import GSILabs.BModel.DateGeneral;
-import GSILabs.BModel.Location;
+import GSILabs.BModel.Client;
 import GSILabs.BModel.Coordinates;
+import GSILabs.BModel.DateGeneral;
 import GSILabs.BModel.Event;
 import GSILabs.BModel.Festival;
+import GSILabs.BModel.Location;
 import java.util.ArrayList;
 
 /**
@@ -23,17 +23,19 @@ import java.util.ArrayList;
 public class P01Tester {
      public static void main(String args[]){
         BusinessSystem businessSystem = new BusinessSystem();
-        
-        /*Concert c = new Concert();
+        /*
+        Concert c = new Concert();
+        Concert c1;
         Festival f = new Festival();
         ArrayList<Event> events = new ArrayList();
         events.add(c);
         events.add(f);
         for(Event e:events){
-            if (e instanceof Concert)
+            if (e instanceof Concert){
                 System.out.println("Soy Concert");
-            if (e instanceof Festival)
-                System.out.println("Soy Festival");
+                c1 = businessSystem.retrieveConcert(e);
+                System.out.println(c1.getName());
+            }
         }*/
                 
         Client client1 = new Client(15846815, "pepe", "Randez", "Perez", new DateGeneral("14/2/1956"));

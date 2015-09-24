@@ -16,11 +16,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author GR03
  */
 public class ClientSystem {
-    HashSet<Client> clients = new HashSet<Client>();
+    HashSet<Client> clients;
     AtomicInteger atomic;
    
     public ClientSystem(){
         atomic = new AtomicInteger();
+        clients = new HashSet<Client>();
     }
     
     public boolean addClient(Client c) {

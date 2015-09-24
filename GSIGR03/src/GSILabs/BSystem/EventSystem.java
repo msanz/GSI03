@@ -18,9 +18,12 @@ import java.util.HashSet;
  * @author GR03
  */
 public class EventSystem {
-    HashSet<Event> events = new HashSet<Event>();
+    HashSet<Event> events;
     
     // Event creation and management
+    public EventSystem(){
+        events = new HashSet<Event>();
+    }
     
     /**
      * Adds a new concert to the system. Note that setting up the concert should not produce
@@ -103,7 +106,7 @@ public class EventSystem {
      *  and the information could be added not causing any clash with the existing information
      */
     public boolean addConcertToFestival(Festival f, Concert c) {
-        return ((c != null) && (f != null)) ? f.addConcert(c) : false;
+        return false;
     }
 
     /**
@@ -134,7 +137,11 @@ public class EventSystem {
      * @return True if and only if e is not null, well formed and did exist in the system
      */
     public boolean existsEvent(Event e) {
-        return (e != null);
+        if (e != null)
+            for (Event event:events)
+                if (event.hashCode() == e.hashCode())
+                        return true; 
+        return false;
     }
     /**
      * Retrieves all the events whose name matches (partially) with the name
@@ -161,5 +168,33 @@ public class EventSystem {
      */
     public Event[] retrieveEvents(Date d) {
         return null;
+    }
+    
+    /**
+     * Retrieve a concert object
+     * @param e
+     * @return An unique concert, if and only if the event is a concert else return null
+     */
+    public Concert retrieveConcert(Event e){
+        return (e instanceof Concert) ? (Concert) e : null;
+    }
+    
+    /**
+     * Retrieve a festival object
+     * @param e
+     * @return An unique festival, if and only if the event is a festival else return null
+     */
+    public Festival retrieveFestival(Event e){
+        return (e instanceof Festival) ? (Festival) e : null;
+    }
+    
+    
+    /**
+     * Retrieve a exhibition object
+     * @param e
+     * @return An unique exhibition, if and only if the event is a exhibition else return null
+     */
+    public Exhibition retrieveExhibition(Event e){
+        return (e instanceof Exhibition) ? (Exhibition) e : null;
     }
 }

@@ -52,13 +52,19 @@ public class Exhibition implements LastingEvent {
 
     @Override
     public Date[] getDates() {
-        //Hacer la resta entre el primer y ultimo dia
-        return null;
+        Date[] dates = {date.dayStart};
+       return dates;
     }
 
     @Override
     public boolean involvesPerformer(Performer p) {
-        //Comprobar si un artista esta en alguno de los conciertos
+        if (p.getName().toLowerCase().equals(this.performer.getName().toLowerCase()))
+            return true;
+        else
+            for(Performer performer: performers){
+                if(performer.getName().toLowerCase().equals(p.getName().toLowerCase()))
+                        return true;
+            }
         return false;
     }
 
