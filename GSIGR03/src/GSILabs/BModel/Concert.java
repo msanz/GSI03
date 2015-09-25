@@ -92,6 +92,8 @@ public class Concert implements ImpermanentEvent {
     public Performer[] getPerformers() {
         ArrayList<Performer> list = new ArrayList();
         if (performers == null)
+            return null;
+        if (performers != null)
             return performers;
         else{
             list.add(performer);

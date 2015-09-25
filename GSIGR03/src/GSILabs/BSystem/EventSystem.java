@@ -35,7 +35,7 @@ public class EventSystem {
      */
     public boolean addNewConcert(Concert c) {
         System.out.println("Concierto agregado correctamente.");
-        return (c != null) ? events.add(c) : false;
+        return events.add(c);
     }
 
     /**
@@ -46,11 +46,10 @@ public class EventSystem {
      *  not clash with the information already in the system. False otherwise.
      */
     public boolean replaceConcert(Concert c) {
-       if (c== null) return false;
        for (Event e:events){
             if (e.equals(c)){
                 events.remove(e);
-                return this.addNewConcert(c);
+                return true;
             }
         }
         return false;
@@ -74,7 +73,7 @@ public class EventSystem {
      *  the information already in the system.
      */   
     public boolean addNewExhibition(Exhibition e) {
-        return (e != null) ? events.add(e) : false;
+        return events.add(e);
     }
 
     /**
@@ -85,7 +84,13 @@ public class EventSystem {
      *  in the system.
      */
     public boolean replaceExhibition(Exhibition e) {
-        return (e != null);
+        for (Event event:events){
+            if (event.equals(e)){
+                events.remove(event);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

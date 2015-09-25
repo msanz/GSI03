@@ -32,18 +32,16 @@ public class P01Tester {
         Artist artist2 = new Artist("Ana", "Cantante de opera");
         
         Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
-        businessSystem.addArtist(artist2);
+        //businessSystem.addArtist(artist2);
         //businessSystem.addArtist(artist1);
+        
         Concert concert1 = new Concert(new DateConcert("14/2/1999","12:10"), "Concierto 1", artist1, location1);
         Concert concert2 = new Concert(new DateConcert("14/2/2000","12:10"), "Concierto 1", artist2, location1);    
         
-
-        businessSystem.addNewConcert(concert1);
-            
-        
-        System.out.println(concert2.getClass().getName());    
+        if(!businessSystem.addNewConcert(concert1))
+            System.out.println("Error al agregar el concierto");
        
-        businessSystem.replaceConcert(concert2);
+        //businessSystem.replaceConcert(concert2);
 
         Ticket ticket;
 
@@ -55,8 +53,6 @@ public class P01Tester {
         businessSystem.addNewTicket(ticket);
         
         businessSystem.addLocation(location1);
-        System.out.println(businessSystem.getLocation("Madrid").toString());
-
     }
     
 /**

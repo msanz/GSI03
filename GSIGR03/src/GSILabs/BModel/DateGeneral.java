@@ -56,4 +56,8 @@ public class DateGeneral {
         DateFormat timeFormat = new SimpleDateFormat("H:mm");
         return "Day: " + dayFormat.format(day) + " - " + timeFormat.format(time);
     }
+    
+    public boolean checkBirthday(){
+       return (day.getYear() - (new Date()).getYear() >= 18 );              
+    }
 }

@@ -5,6 +5,7 @@
  */
 package GSILabs.BModel;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -72,7 +73,15 @@ public class Exhibition implements LastingEvent {
 
     @Override
     public Performer[] getPerformers() {
-        return performers;
+         ArrayList<Performer> list = new ArrayList();
+        if (performers == null)
+            return null;
+        if (performers != null)
+            return performers;
+        else{
+            list.add(performer);
+            return (Performer[]) list.toArray();
+        }
     }
     
 }

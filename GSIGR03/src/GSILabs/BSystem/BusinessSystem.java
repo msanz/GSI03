@@ -43,24 +43,38 @@ public class BusinessSystem implements TicketOffice{
     
     @Override
     public boolean addNewConcert(Concert c) {
-       boolean b = false;
        if (c == null || c.getPerformers() == null) 
            return false;
        if (c.getPerformers().length == 1){
            if(performerSystem.existsPerformer(c.getPerformers()[0].getName()))
                return eventSystem.addNewConcert(c);
        }else{
-               for (Performer p:c.getPerformers())
-                   if(!performerSystem.existsPerformer(p.getName()))
-                       return false;
-               return eventSystem.addNewConcert(c);
+            for (Performer p:c.getPerformers())
+                if(!performerSystem.existsPerformer(p.getName()))
+                    return false;
+           return eventSystem.addNewConcert(c);
        }
        return false;
     }
 
     @Override
     public boolean replaceConcert(Concert c) {
-        return eventSystem.replaceConcert(c);
+        if (c == null)
+            return false;
+        if (eventSystem.replaceConcert(c)){
+                if (c.getPerformers() == null) 
+                    return false;
+            if (c.getPerformers().length == 1){
+               if(performerSystem.existsPerformer(c.getPerformers()[0].getName()))
+                   return eventSystem.addNewConcert(c);
+            }else{
+                for (Performer p:c.getPerformers())
+                    if(!performerSystem.existsPerformer(p.getName()))
+                        return false;
+               return eventSystem.addNewConcert(c);
+            }
+        }
+        return false;
     }
 
     @Override
@@ -74,17 +88,38 @@ public class BusinessSystem implements TicketOffice{
     
     @Override
     public boolean addNewExhibition(Exhibition e) {
-        if (e != null)
+       if (e == null || e.getPerformers() == null) 
+           return false;
+       if (e.getPerformers().length == 1){
+           if(performerSystem.existsPerformer(e.getPerformers()[0].getName()))
+               return eventSystem.addNewExhibition(e);
+       }else{
             for (Performer p:e.getPerformers())
-                if(performerSystem.existsPerformer(p.getName()))
-                    return eventSystem.addNewExhibition(e);
-        
-        return false;
+                if(!performerSystem.existsPerformer(p.getName()))
+                    return false;
+           return eventSystem.addNewExhibition(e);
+       }
+       return false;
     }
 
     @Override
     public boolean replaceExhibition(Exhibition e) {
-        return eventSystem.replaceExhibition(e);
+         if (e == null)
+            return false;
+        if (eventSystem.replaceExhibition(e)){
+            if (e.getPerformers() == null) 
+                return false;
+            if (e.getPerformers().length == 1){
+               if(performerSystem.existsPerformer(e.getPerformers()[0].getName()))
+                   return eventSystem.replaceExhibition(e);
+            }else{
+                for (Performer p:e.getPerformers())
+                    if(!performerSystem.existsPerformer(p.getName()))
+                        return false;
+               return eventSystem.replaceExhibition(e);
+            }
+        }
+        return false;
     }
 
     @Override
