@@ -28,8 +28,9 @@ public class ClientSystem {
     }
     
     public boolean addClient(Client c) {
-        
-        return clients.add(c);
+        if (c.getBirthday().checkBirthday())
+            return clients.add(c);
+        return false;
     }
 
     

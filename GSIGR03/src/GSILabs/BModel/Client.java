@@ -27,9 +27,9 @@ public class Client {
         this.name = name;
         this.surName1 = surName1;
         this.surName2 = surName2;
+        this.birthday = birthday;
         this.creditCard = new TreeSet<>();
         this.sales = new HashSet<>();
-        //if  (birthday.checkBirthday()) this.birthday = birthday;        
     }
     
     public boolean addCreditCard(String cCard){
