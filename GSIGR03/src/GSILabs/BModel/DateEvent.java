@@ -15,19 +15,28 @@ import java.util.Date;
 public class DateEvent extends DateGeneral{
     Date dayStart;
     Date dayFinish;
-    Time timeStart;
-    Time timeFinish;
+    Date timeStart;
+    Date timeFinish;
    
-    public DateEvent(Date dayStart, Time timeStart, Time hourFinish ) {
-       super(dayStart, timeStart);
+    public DateEvent(String dayString, String timeString) {
+        super(dayString, timeString);
+    }
+       
+    public void setDayStart(String string){
+        this.dayStart = super.dayFormat(string);
     }
     
-    public DateEvent(Date dayStart, Date dayFinish, Time timeStart, Time timeFinish ) {
-       super(dayStart, timeStart);
-       this.dayStart = dayStart;
-       this.dayFinish = dayFinish;
-       this.timeStart = timeStart;
-       this.timeFinish = timeFinish;
+    public void setDayFinish(String string){
+        this.dayFinish = super.dayFormat(string);
     }
     
+    public void setTimeStart(String string){
+        this.timeStart = super.timeFormat(string);
+    }
+    
+    public void setTimeFinish(String string){
+        this.timeFinish = super.timeFormat(string);
+    }
+            
+ 
 }

@@ -5,7 +5,6 @@
  */
 package GSILabs.BModel;
 
-import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -13,14 +12,13 @@ import java.util.Date;
  * @author GR03
  */
 public class DateConcert extends DateEvent {
-    Time timeOpenDoors;  
+    Date timeOpenDoors;  
 
-    public DateConcert(Date dayStart, Date dayFinish, Time timeStart, Time timeFinish) {
-        super(dayStart, dayFinish, timeStart, timeFinish);
+    public DateConcert(String dayString, String timeString) {
+        super(dayString, timeString);
     }
     
-    public DateConcert(Date dayStart, Date dayFinish, Time timeOpenDoors, Time timeStart, Time timeFinish) {
-        super(dayStart, dayFinish, timeStart, timeFinish);
-        this.timeOpenDoors = timeOpenDoors;
+    public void setTimeOpenDoors(String string){
+        this.timeOpenDoors = super.timeFormat(string);   
     }
 }

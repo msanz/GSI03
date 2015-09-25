@@ -50,10 +50,11 @@ public class PerformerSystem {
      *  in the system.
      */
     public boolean modifyArtist(Artist a) {
+       if (a == null) return false;
        for (Performer p:performers){
-            if (p.getName().equals(a.getName())){
+            if (p.equals(a)){
                 performers.remove(p);
-                this.addArtist(new Artist(p.getName(),a.getWorkDescription(),a.getWeb()));
+                return this.addArtist(a);
             }
         }
         return false;
@@ -67,6 +68,13 @@ public class PerformerSystem {
      *  in the system.
      */
     public boolean modifyCollective(Collective c) {
+        if (c == null) return false;
+        for (Performer p:performers){
+            if (p.getName().equals(c.getName())){
+                performers.remove(p);
+                this.addCollective(c);
+            }
+        }
         return false;
     }
     
@@ -85,7 +93,7 @@ public class PerformerSystem {
     }
     
     /**
-     * Checkes whether there exist a performer with that name in the system
+     * Checks whether there exist a performer with that name in the system
      * @param performerName Name of interest
      * @return True if and only if it exists
      */
@@ -98,26 +106,26 @@ public class PerformerSystem {
     }
 
     /**
-     * Checkes whether there exist a performer with that name in the system
+     * Checks whether there exist a performer with that name in the system
      * @param artistName Name of interest
      * @return True if and only if it exists
      */
     public boolean existsArtist(String artistName) {
         for (Performer p:performers){
-            if (p.getName().equals(artistName))
+            if ((p.getName().equals(artistName)) && (p instanceof Artist))
                 return true;
         }
         return false;
     }
 
     /**
-     * Checkes whether there exist a performer with that name in the system
+     * Checks whether there exist a performer with that name in the system
      * @param artistName Name of interest
      * @return True if and only if it exists
      */
     public boolean existsCollective(String artistName) {
         for (Performer p:performers){
-            if (p.getName().equals(artistName))
+            if ((p.getName().equals(artistName)) && (p instanceof Collective))
                 return true;
         }
         return false;

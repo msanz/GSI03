@@ -40,11 +40,13 @@ public class Artist implements Performer {
     
     /**
      * Rewriting the toString() method
-     * @return Another way to show the information
+     * @return Other style to show the information
      */
     @Override
     public String toString() {
-        return "Name: "+ name +" workDescription: " + workDescription +" Web: " + web +"\n";
+        return "Name artist: "+ name +
+               "\nWork description: " + workDescription +
+               "\nWeb: " + web;
     }
     
     /**

@@ -43,7 +43,19 @@ public class BusinessSystem implements TicketOffice{
     
     @Override
     public boolean addNewConcert(Concert c) {
-        return eventSystem.addNewConcert(c);
+       boolean b = false;
+       if (c == null || c.getPerformers() == null) 
+           return false;
+       if (c.getPerformers().length == 1){
+           if(performerSystem.existsPerformer(c.getPerformers()[0].getName()))
+               return eventSystem.addNewConcert(c);
+       }else{
+               for (Performer p:c.getPerformers())
+                   if(!performerSystem.existsPerformer(p.getName()))
+                       return false;
+               return eventSystem.addNewConcert(c);
+       }
+       return false;
     }
 
     @Override
@@ -62,7 +74,12 @@ public class BusinessSystem implements TicketOffice{
     
     @Override
     public boolean addNewExhibition(Exhibition e) {
-        return eventSystem.addNewExhibition(e);
+        if (e != null)
+            for (Performer p:e.getPerformers())
+                if(performerSystem.existsPerformer(p.getName()))
+                    return eventSystem.addNewExhibition(e);
+        
+        return false;
     }
 
     @Override
@@ -81,7 +98,11 @@ public class BusinessSystem implements TicketOffice{
     
     @Override
     public boolean addNewFestival(Festival f) {
-        return eventSystem.addNewFestival(f);
+        if (f != null)
+            for (Performer p:f.getPerformers())
+                if(performerSystem.existsPerformer(p.getName()))
+                    return eventSystem.addNewFestival(f);
+        return false;
     }
 
     @Override
@@ -122,7 +143,7 @@ public class BusinessSystem implements TicketOffice{
     public Event[] retrieveEvents(Date d) {
         return eventSystem.retrieveEvents(d);
     }
-
+ 
     @Override
     public boolean addClient(Client c) {
         return clientSystem.addClient(c);

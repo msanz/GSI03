@@ -40,10 +40,10 @@ public class Location {
     
     @Override
     public String toString() {
-        return "Name: "+ name +
-                " Capacity: " + capacity +
-                " GPS: (" + gps.x +", " + gps.y + ")" + 
-                " Web: " + web;
+        return "Name location: "+ name +
+                "\nCapacity: " + capacity +
+                "\nGPS: (" + gps.x +", " + gps.y + ")" + 
+                "\nWeb: " + web;
     }
     
     @Override

@@ -18,6 +18,8 @@ public class Exhibition implements LastingEvent {
     Artist performer;
     Performer[] performers;
     String[] links;
+    
+    public Exhibition(){}
 
     public Exhibition (String name, String org, DateEvent date, Artist performer, String[] links){
         this.name = name;

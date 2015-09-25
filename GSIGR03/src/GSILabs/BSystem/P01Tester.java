@@ -10,7 +10,10 @@ import GSILabs.BModel.Artist;
 import GSILabs.BModel.Client;
 import GSILabs.BModel.Concert;
 import GSILabs.BModel.Coordinates;
+import GSILabs.BModel.DateConcert;
 import GSILabs.BModel.DateGeneral;
+import GSILabs.BModel.Event;
+import GSILabs.BModel.Exhibition;
 import GSILabs.BModel.Location;
 import GSILabs.BModel.Ticket;
 
@@ -19,59 +22,42 @@ import GSILabs.BModel.Ticket;
  * @author GR03
  */
 public class P01Tester {
-     public static void main(String args[]){
-         
-        
-        
+    public static void main(String args[]){  
         BusinessSystem businessSystem = new BusinessSystem();
-        /*
-        Concert c = new Concert();
-        Concert c1;
-        Festival f = new Festival();
-        ArrayList<Event> events = new ArrayList();
-        events.add(c);
-        events.add(f);
-        for(Event e:events){
-            if (e instanceof Concert){
-                System.out.println("Soy Concert");
-                c1 = businessSystem.retrieveConcert(e);
-                System.out.println(c1.getName());
-            }
-        }*/
-                
-        Client client1 = new Client(15846815, "pepe", "Randez", "Perez", new DateGeneral("14/2/1956"));
-//        System.out.println(client1);
-//        System.out.println(businessSystem.containsClient(15846815));
+
+        Client client1 = new Client(15846815, "pepe", "Randez", "Perez", new DateGeneral("14/2/1956","12:10"));
         businessSystem.addClient(client1);
-//        System.out.println(businessSystem.containsClient(15846815));
-        businessSystem.addClient(client1);
-//        System.out.println(businessSystem.clientSystem.clients.size());
-        
-        
-        Ticket ticket;
-        int numTickets = 30;
-        
-        for (int i = 0; i < numTickets; i++) {
-            ticket = new Ticket("U2-Madrid", businessSystem.getAtomicInteger());
-            businessSystem.addNewTicket(ticket);
-            //System.out.println(ticket);
-         }
-        
-        System.out.println(businessSystem.clientSystem.systemTickets.size());
-        
-        
-        ticket = new Ticket("U2-Barcelona", businessSystem.getAtomicInteger());
-        businessSystem.addNewTicket(ticket);
-//        System.out.println(ticket);    
-            
-        Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
-        businessSystem.addLocation(location1);
-        System.out.println(businessSystem.getLocation("Madrid").toString());
         
         Artist artist1 = new Artist("Maria", "Cantante de opera");
-        System.out.println(artist1);
+        Artist artist2 = new Artist("Ana", "Cantante de opera");
+        
+        Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
+        businessSystem.addArtist(artist2);
+        //businessSystem.addArtist(artist1);
+        Concert concert1 = new Concert(new DateConcert("14/2/1999","12:10"), "Concierto 1", artist1, location1);
+        Concert concert2 = new Concert(new DateConcert("14/2/2000","12:10"), "Concierto 1", artist2, location1);    
+        
 
-     }
+        businessSystem.addNewConcert(concert1);
+            
+        
+        System.out.println(concert2.getClass().getName());    
+       
+        businessSystem.replaceConcert(concert2);
+
+        Ticket ticket;
+
+        for (int i = 0; i < 30; i++) {
+            ticket = new Ticket("U2-Madrid", businessSystem.getAtomicInteger());
+            businessSystem.addNewTicket(ticket);
+        }
+        ticket = new Ticket("U2-Barcelona", businessSystem.getAtomicInteger());
+        businessSystem.addNewTicket(ticket);
+        
+        businessSystem.addLocation(location1);
+        System.out.println(businessSystem.getLocation("Madrid").toString());
+
+    }
     
 /**
  * 

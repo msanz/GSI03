@@ -1,4 +1,5 @@
 package GSILabs.BModel;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ public class Concert implements ImpermanentEvent {
     Performer[] performers;
     
     public Concert(){}
+    
     public Concert(DateConcert date, String name, Artist performer, Location location){
         this.date = date;
         this.name = name;
@@ -27,7 +29,16 @@ public class Concert implements ImpermanentEvent {
         this.performers = performers;
         this.location = location;
     }
-
+    
+    /*public boolean wellForm(){
+        return !(performer == null || performers.length == 0);
+    }*/
+    
+    /**
+     * Compare two objects by name and location
+     * @param o is a object
+     * @return true if and only if two objects have the same name and location if not false
+     */
     @Override
     public boolean equals(Object o ) {
         if (o == null) return false;
@@ -79,7 +90,26 @@ public class Concert implements ImpermanentEvent {
 
     @Override
     public Performer[] getPerformers() {
-        return performers;
+        ArrayList<Performer> list = new ArrayList();
+        if (performers == null)
+            return performers;
+        else{
+            list.add(performer);
+            return (Performer[]) list.toArray();
+        }
+    }
+    
+    /**
+     * Rewriting the toString() method
+     * @return Other style to show the information
+     */
+    @Override
+    public String toString() {
+        return "Name concert: " + name +
+               "\n" + location +
+               "\n" + performer +
+               "\n" + date;
+                
     }
     
 }

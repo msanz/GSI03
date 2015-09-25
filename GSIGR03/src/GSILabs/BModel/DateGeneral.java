@@ -5,7 +5,6 @@
  */
 package GSILabs.BModel;
 
-import java.sql.Time;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -19,34 +18,42 @@ import java.util.logging.Logger;
  */
 public class DateGeneral {
     Date day;
-    Time time;
-    
-    DateGeneral (Date day, Time time){
-        this.day = day;
-        this.time = time;
-    }
+    Date time;    
     
     /** 
-     * 
-     * @param string string to convert to Date
+     * Convert string day and time to Date and Time types
+     * @param dayString string day style "dd/mm/yyyy"
+     * @param timeString string time style "H:mm"
      */
-    public DateGeneral (String string)
-    {
-        try
-        {
+    public DateGeneral (String dayString, String timeString){
+        this.day = this.dayFormat(dayString);
+        this.time = this.timeFormat(timeString);
+    }
+    
+    public Date dayFormat(String string){
+        try{
             DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
-            this.day = format.parse(string);
-        }
-        catch (ParseException ex)
-        {
+            return format.parse(string);
+        }catch (ParseException ex){
             Logger.getLogger(DateGeneral.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
+    }
+    
+    public Date timeFormat(String string){
+        try{
+            DateFormat format = new SimpleDateFormat("H:mm");
+            return format.parse(string);
+        }catch (ParseException ex){
+            Logger.getLogger(DateGeneral.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     @Override
     public String toString(){
-        DateFormat dateFormat =  DateFormat.getDateInstance();
-        return dateFormat.format(day);
-        
+        DateFormat dayFormat = DateFormat.getDateInstance();
+        DateFormat timeFormat = new SimpleDateFormat("H:mm");
+        return "Day: " + dayFormat.format(day) + " - " + timeFormat.format(time);
     }
 }

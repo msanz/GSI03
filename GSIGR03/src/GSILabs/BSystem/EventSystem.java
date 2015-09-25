@@ -10,6 +10,7 @@ import GSILabs.BModel.Event;
 import GSILabs.BModel.Exhibition;
 import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -33,6 +34,7 @@ public class EventSystem {
      *  not clash with the information already in the system. False otherwise.
      */
     public boolean addNewConcert(Concert c) {
+        System.out.println("Concierto agregado correctamente.");
         return (c != null) ? events.add(c) : false;
     }
 
@@ -44,7 +46,14 @@ public class EventSystem {
      *  not clash with the information already in the system. False otherwise.
      */
     public boolean replaceConcert(Concert c) {
-         return (c != null);
+       if (c== null) return false;
+       for (Event e:events){
+            if (e.equals(c)){
+                events.remove(e);
+                return this.addNewConcert(c);
+            }
+        }
+        return false;
     }
     
     /**
@@ -69,7 +78,7 @@ public class EventSystem {
     }
 
     /**
-     * Replaces the information in the sytem related to the Exhibition e.
+     * Replaces the information in the system related to the Exhibition e.
      * @param e The new version of the exhibition
      * @return True if an only if a previous version of the exhibition existed,
      *  e is well formed, and it does not produce clashes with the information already
@@ -158,6 +167,11 @@ public class EventSystem {
      * @return A list of events, potentially being empty
      */
     public Event[] retrieveEvents(Location loc) {
+        ArrayList<Event> list = new ArrayList();
+        for (Event e:events){
+            list.add(e);
+            return (Event[]) list.toArray();
+        }
         return null;
     }
 
@@ -172,7 +186,7 @@ public class EventSystem {
     
     /**
      * Retrieve a concert object
-     * @param e
+     * @param e Event object
      * @return An unique concert, if and only if the event is a concert else return null
      */
     public Concert retrieveConcert(Event e){
@@ -181,7 +195,7 @@ public class EventSystem {
     
     /**
      * Retrieve a festival object
-     * @param e
+     * @param e Event object
      * @return An unique festival, if and only if the event is a festival else return null
      */
     public Festival retrieveFestival(Event e){
@@ -191,7 +205,7 @@ public class EventSystem {
     
     /**
      * Retrieve a exhibition object
-     * @param e
+     * @param e Event object
      * @return An unique exhibition, if and only if the event is a exhibition else return null
      */
     public Exhibition retrieveExhibition(Event e){
