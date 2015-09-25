@@ -10,22 +10,25 @@ import GSILabs.BModel.Event;
 import GSILabs.BModel.Ticket;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
  * @author GR03
  */
 public class ClientSystem {
+    
+    HashSet<Ticket> systemTickets;
     HashSet<Client> clients;
-    AtomicInteger atomic;
    
-    public ClientSystem(){
-        atomic = new AtomicInteger();
+    
+    public ClientSystem() {
+        
         clients = new HashSet<>();
+        systemTickets = new HashSet<>();
     }
     
     public boolean addClient(Client c) {
+        
         return clients.add(c);
     }
 
@@ -123,21 +126,33 @@ public class ClientSystem {
 
     public Ticket[] getListOfTickets(Client c) {
         
-        return (Ticket[]) retrieveClient(c.getDNI()).getTickets().toArray();
+        return (Ticket[]) retrieveClient(c.getDNI()).getSales().toArray();
         
     }
 
     public float getTotalSpending(Client c) {
         
+        HashSet<Ticket> tickets = retrieveClient(c.getDNI()).getSales();
+        float sum = 0;
         
+        for (Ticket ticket: tickets)
+        {
+            sum = sum + ticket.getPrice();
+        }
         
-        
-        
-        return (float)0.0;
+        return sum;
     }
 
     public boolean addNewTicket(Ticket t) {
-        return false;
+        //comprobar que esta bien formado
+        if (t != null)
+        {
+            return systemTickets.add(t);
+        }
+        else {
+            //lanzar excepcion de ticket nulo
+            return false;
+        }
     }
 
     public boolean hasIDCollision(Ticket t) {

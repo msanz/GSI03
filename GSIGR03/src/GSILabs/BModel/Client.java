@@ -20,7 +20,7 @@ public class Client {
     private String surName2;
     private DateGeneral birthday;
     private TreeSet<String> creditCard;
-    private HashSet<Ticket> tickets;
+    private HashSet<Ticket> sales;
     
     public Client (int DNI, String name, String surName1, String surName2, DateGeneral birthday){
         this.DNI = DNI;
@@ -29,7 +29,7 @@ public class Client {
         this.surName2 = surName2;
         this.birthday = birthday;
         this.creditCard = new TreeSet<>();
-        this.tickets = new HashSet<>();
+        this.sales = new HashSet<>();
     }
     
     public boolean addCreditCard(String cCard){
@@ -37,7 +37,7 @@ public class Client {
     }
     
     public boolean addTicket(Ticket t) {
-        return this.tickets.add(t);
+        return this.sales.add(t);
     }
     
     public int getDNI() {
@@ -64,8 +64,8 @@ public class Client {
         return creditCard;
     }
     
-    public HashSet<Ticket> getTickets() {
-        return tickets;
+    public HashSet<Ticket> getSales() {
+        return sales;
     }
     
     @Override

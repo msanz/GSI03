@@ -7,14 +7,12 @@ package GSILabs.BSystem;
 
 
 import GSILabs.BModel.Artist;
-import GSILabs.BModel.Concert;
 import GSILabs.BModel.Client;
+import GSILabs.BModel.Concert;
 import GSILabs.BModel.Coordinates;
 import GSILabs.BModel.DateGeneral;
-import GSILabs.BModel.Event;
-import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
-import java.util.ArrayList;
+import GSILabs.BModel.Ticket;
 
 /**
  *
@@ -22,6 +20,9 @@ import java.util.ArrayList;
  */
 public class P01Tester {
      public static void main(String args[]){
+         
+        
+        
         BusinessSystem businessSystem = new BusinessSystem();
         /*
         Concert c = new Concert();
@@ -39,13 +40,36 @@ public class P01Tester {
         }*/
                 
         Client client1 = new Client(15846815, "pepe", "Randez", "Perez", new DateGeneral("14/2/1956"));
-        System.out.println(client1);
-
+//        System.out.println(client1);
+//        System.out.println(businessSystem.containsClient(15846815));
+        businessSystem.addClient(client1);
+//        System.out.println(businessSystem.containsClient(15846815));
+        businessSystem.addClient(client1);
+//        System.out.println(businessSystem.clientSystem.clients.size());
+        
+        
+        Ticket ticket;
+        int numTickets = 30;
+        
+        for (int i = 0; i < numTickets; i++) {
+            ticket = new Ticket("U2-Madrid", businessSystem.getAtomicInteger());
+            businessSystem.addNewTicket(ticket);
+            //System.out.println(ticket);
+         }
+        
+        System.out.println(businessSystem.clientSystem.systemTickets.size());
+        
+        
+        ticket = new Ticket("U2-Barcelona", businessSystem.getAtomicInteger());
+        businessSystem.addNewTicket(ticket);
+//        System.out.println(ticket);    
+            
         Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
         businessSystem.addLocation(location1);
         System.out.println(businessSystem.getLocation("Madrid").toString());
         
         Artist artist1 = new Artist("Maria", "Cantante de opera");
+        System.out.println(artist1);
 
      }
     

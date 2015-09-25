@@ -5,6 +5,7 @@
  */
 package GSILabs.BModel;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -56,5 +57,30 @@ public class Ticket {
     public float getPrice()
     {
         return price;
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Ticket){
+            Ticket ticket = (Ticket) o;
+            return (eventName.equals(ticket.eventName)) && (id == ticket.id);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 19 * hash + Objects.hashCode(this.eventName);
+        return hash;
+    }
+    
+    @Override
+    public String toString(){
+        return "Event Name: " + eventName + "\n" +
+                " id: " + id + "\n" +
+                " numberOfPersons: " + numberOfPersons + "\n" +
+                "price :" + price + "\n" +
+                " numberOfUsed: " + numberOfUsed;
     }
 }

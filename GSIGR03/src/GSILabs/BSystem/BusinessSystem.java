@@ -16,22 +16,29 @@ import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
  * @author GR03
  */
 public class BusinessSystem implements TicketOffice{
-    private ClientSystem clientSystem;
+    ClientSystem clientSystem;
     private EventSystem eventSystem;
     private LocationSystem locationSystem;
     private PerformerSystem performerSystem;
+    private final AtomicInteger atomicInteger;
     
     public BusinessSystem (){
         clientSystem = new ClientSystem();
         eventSystem = new EventSystem();
         locationSystem = new LocationSystem();
         performerSystem = new PerformerSystem();
+        atomicInteger = new AtomicInteger();
+    }
+
+    public AtomicInteger getAtomicInteger() {
+        return atomicInteger;
     }
     
     @Override
