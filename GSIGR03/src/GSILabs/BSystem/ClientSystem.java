@@ -140,17 +140,4 @@ public class ClientSystem {
         
         return sum;
     }
-
-    public boolean addNewTicket(Ticket t) {
-        //comprobar que esta bien formado
-        if (t != null)
-        {
-            return tickets.add(t);
-        }
-        else {
-            //lanzar excepcion de ticket nulo
-            return false;
-        }
-    }
-
 }
