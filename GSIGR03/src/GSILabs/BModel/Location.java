@@ -50,6 +50,6 @@ public class Location {
     public boolean equals(Object o ) {
         if (o == null) return false;
         Location l = (Location)o;
-        return this.getName().equals(l.getName());
+        return this.getName().toLowerCase().equals(l.getName().toLowerCase());
     }
 }

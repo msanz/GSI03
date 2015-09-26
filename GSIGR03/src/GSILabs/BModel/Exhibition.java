@@ -61,7 +61,7 @@ public class Exhibition implements LastingEvent {
 
     @Override
     public boolean involvesPerformer(Performer p) {
-        if (p.getName().toLowerCase().equals(this.performer.getName().toLowerCase()))
+        if (p.getName().toLowerCase().equals(performer.getName().toLowerCase()))
             return true;
         else
             for(Performer performer: performers){

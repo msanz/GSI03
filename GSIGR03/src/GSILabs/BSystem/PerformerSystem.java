@@ -70,7 +70,7 @@ public class PerformerSystem {
     public boolean modifyCollective(Collective c) {
         if (c == null) return false;
         for (Performer p:performers){
-            if (p.getName().equals(c.getName())){
+            if (p.getName().toLowerCase().equals(c.getName().toLowerCase())){
                 performers.remove(p);
                 this.addCollective(c);
             }
@@ -86,7 +86,7 @@ public class PerformerSystem {
      */
     public boolean removePerformer(String performerName) {
         for (Performer p:performers){
-            if (p.getName().equals(performerName))
+            if (p.getName().toLowerCase().equals(performerName.toLowerCase()))
                 return performers.remove(p);
         }
         return false;
@@ -99,7 +99,7 @@ public class PerformerSystem {
      */
     public boolean existsPerformer(String performerName) {
        for (Performer p:performers){
-            if (p.getName().equals(performerName))
+            if (p.getName().toLowerCase().equals(performerName.toLowerCase()))
                 return true;
         }
         return false;
@@ -112,7 +112,7 @@ public class PerformerSystem {
      */
     public boolean existsArtist(String artistName) {
         for (Performer p:performers){
-            if ((p.getName().equals(artistName)) && (p instanceof Artist))
+            if ((p.getName().toLowerCase().equals(artistName.toLowerCase())) && (p instanceof Artist))
                 return true;
         }
         return false;
@@ -125,7 +125,7 @@ public class PerformerSystem {
      */
     public boolean existsCollective(String artistName) {
         for (Performer p:performers){
-            if ((p.getName().equals(artistName)) && (p instanceof Collective))
+            if ((p.getName().toLowerCase().equals(artistName.toLowerCase())) && (p instanceof Collective))
                 return true;
         }
         return false;
@@ -138,7 +138,7 @@ public class PerformerSystem {
      */
     public Performer retrievePerformer(String performerName) {
        for (Performer p:performers){
-            if (p.getName().equals(performerName))
+            if (p.getName().toLowerCase().equals(performerName.toLowerCase()))
                 return p;
         }
         return null;

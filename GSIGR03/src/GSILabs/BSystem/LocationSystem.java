@@ -38,12 +38,12 @@ public class LocationSystem {
      */
     public Location getLocation(String name) {
         for (Location l:locations){
-            if (l.getName().equals(name))
+            if (l.getName().toLowerCase().equals(name.toLowerCase()))
                 return l;
         }
         return null;
     }
-
+    
      /**
      * Deletes a location from the system. This can only be done if there is no events
      *  associated with that location.

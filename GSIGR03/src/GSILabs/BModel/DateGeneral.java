@@ -53,7 +53,7 @@ public class DateGeneral {
     @Override
     public String toString(){
         DateFormat dayFormat = DateFormat.getDateInstance();
-        DateFormat timeFormat = new SimpleDateFormat("H:mm");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
         return "Day: " + dayFormat.format(day) + " - " + timeFormat.format(time);
     }
     

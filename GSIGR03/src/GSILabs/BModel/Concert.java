@@ -30,10 +30,6 @@ public class Concert implements ImpermanentEvent {
         this.location = location;
     }
     
-    /*public boolean wellForm(){
-        return !(performer == null || performers.length == 0);
-    }*/
-    
     /**
      * Compare two objects by name and location
      * @param o is a object
@@ -41,7 +37,8 @@ public class Concert implements ImpermanentEvent {
      */
     @Override
     public boolean equals(Object o ) {
-        if (o == null) return false;
+        if (o == null) 
+            return false;
         Concert c = (Concert)o;
         return ((this.getName().equals(c.getName())) 
                 && (this.getLocation().equals(c.getLocation())));

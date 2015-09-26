@@ -20,6 +20,8 @@ public class DateEvent extends DateGeneral{
    
     public DateEvent(String dayString, String timeString) {
         super(dayString, timeString);
+        this.dayStart = super.dayFormat(dayString);
+        this.timeStart = super.timeFormat(timeString);
     }
        
     public void setDayStart(String string){
@@ -37,6 +39,4 @@ public class DateEvent extends DateGeneral{
     public void setTimeFinish(String string){
         this.timeFinish = super.timeFormat(string);
     }
-            
- 
 }

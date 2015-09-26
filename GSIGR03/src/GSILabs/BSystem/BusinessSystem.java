@@ -43,40 +43,30 @@ public class BusinessSystem implements TicketOffice{
     
     @Override
     public boolean addNewConcert(Concert c) {
-       if (c == null || c.getPerformers() == null) 
-           return false;
-       if (c.getPerformers().length == 1){
-           if(performerSystem.existsPerformer(c.getPerformers()[0].getName()))
+       if (existPerformerInSystem(c)){
+           if ((c.getLocation()) != null){
                return eventSystem.addNewConcert(c);
-       }else{
-            for (Performer p:c.getPerformers())
-                if(!performerSystem.existsPerformer(p.getName()))
-                    return false;
-           return eventSystem.addNewConcert(c);
+           }
        }
        return false;
+       
     }
 
     @Override
     public boolean replaceConcert(Concert c) {
-        if (c == null)
+        if (c == null){
             return false;
-        if (eventSystem.replaceConcert(c)){
-                if (c.getPerformers() == null) 
-                    return false;
-            if (c.getPerformers().length == 1){
-               if(performerSystem.existsPerformer(c.getPerformers()[0].getName()))
-                   return eventSystem.addNewConcert(c);
-            }else{
-                for (Performer p:c.getPerformers())
-                    if(!performerSystem.existsPerformer(p.getName()))
-                        return false;
-               return eventSystem.addNewConcert(c);
+        }
+        if (existPerformerInSystem(c)){
+            if (c.getLocation() != null){
+                if (eventSystem.replaceConcert(c)){
+                    return this.addNewConcert(c);
+                }
             }
         }
         return false;
     }
-
+            
     @Override
     public boolean deleteConcert(Concert c) {
         return eventSystem.deleteConcert(c);
@@ -86,17 +76,27 @@ public class BusinessSystem implements TicketOffice{
         return eventSystem.retrieveConcert(e);
     }
     
+    private boolean existPerformerInSystem(Concert concert){
+        if (concert == null || concert.getPerformers() == null){
+            return false;
+        }else if (concert.getPerformers().length == 1){
+           if(performerSystem.existsPerformer(concert.getPerformers()[0].getName())){
+               return true;
+           }           
+        }else{
+            for (Performer p:concert.getPerformers()){
+                if(!performerSystem.existsPerformer(p.getName())){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    
     @Override
     public boolean addNewExhibition(Exhibition e) {
-       if (e == null || e.getPerformers() == null) 
-           return false;
-       if (e.getPerformers().length == 1){
-           if(performerSystem.existsPerformer(e.getPerformers()[0].getName()))
-               return eventSystem.addNewExhibition(e);
-       }else{
-            for (Performer p:e.getPerformers())
-                if(!performerSystem.existsPerformer(p.getName()))
-                    return false;
+       if (existPerformerInSystem(e)){
            return eventSystem.addNewExhibition(e);
        }
        return false;
@@ -104,24 +104,34 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean replaceExhibition(Exhibition e) {
-         if (e == null)
+        if (e == null){
             return false;
-        if (eventSystem.replaceExhibition(e)){
-            if (e.getPerformers() == null) 
-                return false;
-            if (e.getPerformers().length == 1){
-               if(performerSystem.existsPerformer(e.getPerformers()[0].getName()))
-                   return eventSystem.replaceExhibition(e);
-            }else{
-                for (Performer p:e.getPerformers())
-                    if(!performerSystem.existsPerformer(p.getName()))
-                        return false;
-               return eventSystem.replaceExhibition(e);
-            }
+        }
+        if (existPerformerInSystem(e)){
+            return eventSystem.replaceExhibition(e);
         }
         return false;
     }
-
+    
+    private boolean existPerformerInSystem(Exhibition exhibition){
+        if (exhibition == null || exhibition.getPerformers() == null){
+            return false;
+        }else
+            if (exhibition.getPerformers().length == 1){
+                if(performerSystem.existsPerformer(exhibition.getPerformers()[0].getName())){
+                    return true;
+                }           
+            }else{
+                for (Performer p:exhibition.getPerformers()){
+                    if(!performerSystem.existsPerformer(p.getName())){
+                        return false;
+                    }
+                }
+                return true;
+            }
+        return false;
+    }
+    
     @Override
     public boolean deleteExhibition(Exhibition e) {
         return eventSystem.deleteExhibition(e);
@@ -139,7 +149,7 @@ public class BusinessSystem implements TicketOffice{
                     return eventSystem.addNewFestival(f);
         return false;
     }
-
+     
     @Override
     public boolean addConcertToFestival(Festival f, Concert c) {
         return eventSystem.addConcertToFestival(f,c);
@@ -157,6 +167,25 @@ public class BusinessSystem implements TicketOffice{
     
     public Festival retrieveFestival(Event e){
         return eventSystem.retrieveFestival(e);
+    }
+    
+    private boolean existPerformerInSystem(Festival festival){
+        if (festival == null || festival.getPerformers() == null){
+            return false;
+        }else
+            if (festival.getPerformers().length == 1){
+                if(performerSystem.existsPerformer(festival.getPerformers()[0].getName())){
+                    return true;
+                }           
+            }else{
+                for (Performer p:festival.getPerformers()){
+                    if(!performerSystem.existsPerformer(p.getName())){
+                        return false;
+                    }
+                }
+                return true;
+            }
+        return false;
     }
     
     @Override
@@ -313,7 +342,7 @@ public class BusinessSystem implements TicketOffice{
     }
     
     /**
-     * Replaces the information in the sytem related to the artist e.
+     * Replaces the information in the system related to the artist e.
      * @param a The new version of the artist
      * @return True if an only if a previous version of the artist existed,
      *  e is well formed, and it does not produce clashes with the information already
@@ -325,7 +354,7 @@ public class BusinessSystem implements TicketOffice{
     }
     
     /**
-     * Replaces the information in the sytem related to the collective e.
+     * Replaces the information in the system related to the collective e.
      * @param c The new version of the collective
      * @return True if an only if a previous version of the collective existed,
      *  e is well formed, and it does not produce clashes with the information already
@@ -348,7 +377,7 @@ public class BusinessSystem implements TicketOffice{
     }
     
     /**
-     * Checkes whether there exist a performer with that name in the system
+     * Checks whether there exist a performer with that name in the system
      * @param performerName Name of interest
      * @return True if and only if it exists
      */
@@ -358,7 +387,7 @@ public class BusinessSystem implements TicketOffice{
     }
 
     /**
-     * Checkes whether there exist a performer with that name in the system
+     * Checks whether there exist a performer with that name in the system
      * @param artistName Name of interest
      * @return True if and only if it exists
      */
@@ -368,7 +397,7 @@ public class BusinessSystem implements TicketOffice{
     }
 
     /**
-     * Checkes whether there exist a performer with that name in the system
+     * Checks whether there exist a performer with that name in the system
      * @param artistName Name of interest
      * @return True if and only if it exists
      */
