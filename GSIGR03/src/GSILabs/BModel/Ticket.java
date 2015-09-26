@@ -87,4 +87,8 @@ public class Ticket {
     public String getEventNameInTicket() {
         return this.eventName;
     }
+    
+    public boolean getUsedStatus() {
+        return used;
+    }
 }

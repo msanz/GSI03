@@ -1,4 +1,4 @@
-/*
+/**
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,6 +11,7 @@ import GSILabs.BModel.Location;
 import GSILabs.BModel.Ticket;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.TreeSet;
 
 /**
  *
@@ -102,7 +103,7 @@ public class TicketSystem {
         while (it.hasNext() ) {
             ticket = (Ticket)it.next();
             if ( t.hashCode()== ticket.hashCode() ) {
-                if (ticket.getEventNameInTicket() == e.getName()) {
+                if (ticket.getEventNameInTicket().equals(e.getName())) {
                     ticket.useTicket();
                 }
             }
@@ -123,9 +124,33 @@ public class TicketSystem {
      */
     boolean addSale(Ticket t,Client c,Float price,String cCard) {
         //meterle al hashset del cliente, el ticket en su lista.
+        Iterator it = tickets.iterator();
+        Ticket ticket;
+        TreeSet sales;
+        sales = c.getCreditCard();
+        Iterator cr = sales.iterator();
+        String creditCard;
+        //check if ticket exist
+        while (it.hasNext()) {
+            ticket = (Ticket)it.next();
+            if ( t.hashCode()== ticket.hashCode() ) {
+                while(cr.hasNext()) {
+                    creditCard = (String)cr.next();                
+                    if ( creditCard.equals(cCard) ) {
+                        if (t.getUsedStatus() == false ) {
+                            t.setPrice(price);
+                            c.addTicket(t);
+                            return true;
+                        }
+                    }
+                }
+            }
         
+    }
         return false;
     }
+}
+
 
     
-}
+
