@@ -7,7 +7,6 @@ package GSILabs.BSystem;
 
 import GSILabs.BModel.Client;
 import GSILabs.BModel.Event;
-import GSILabs.BModel.Location;
 import GSILabs.BModel.Ticket;
 import java.util.HashSet;
 import java.util.Iterator;

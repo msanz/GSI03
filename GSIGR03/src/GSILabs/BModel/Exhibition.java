@@ -55,7 +55,7 @@ public class Exhibition implements LastingEvent {
 
     @Override
     public Date[] getDates() {
-       Date[] dates = {date.dayStart};
+       Date[] dates = {date.dayStart, date.dayFinish};
        return dates;
     }
 

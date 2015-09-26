@@ -16,23 +16,23 @@ import java.util.SortedSet;
  * @author GR03
  */
 public class Festival implements LastingEvent {
-    SortedSet<Concert> concerts;
-    HashSet<Location> locations;
+    private SortedSet<Concert> concerts;
+    private HashSet<Location> locations;
     String name;
     DateEvent date;
     
     public Festival(){}
-    public Festival (String name, DateEvent date){
-        this.name = name;
-        this.date = date;
+    public Festival (String name){
+        this.name = name;        
     }
     
     public boolean addConcert(Concert concert){
-        return concerts.add(concert);
+        date = concert.date;
+        return (locations.add(concert.getLocation()) && concerts.add(concert));
     }
     
     public boolean deleteConcert(Concert concert){
-        return concerts.remove(concert);
+        return (locations.remove(concert.getLocation()) && concerts.remove(concert));
     }
     
     @Override
@@ -76,5 +76,13 @@ public class Festival implements LastingEvent {
             performers.addAll(Arrays.asList(c.getPerformers()));
         
         return (Performer[]) performers.toArray();
+    }
+    
+    public SortedSet<Concert> getConcerts(){
+        return concerts;
+    }
+    
+    public HashSet<Location> getLocation(){
+        return locations;
     }
 }

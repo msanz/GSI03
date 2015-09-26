@@ -129,11 +129,16 @@ public class EventSystem {
      *  and the information could be added not causing any clash with the existing information
      */
     public boolean addConcertToFestival(Festival f, Concert c) {
-        return false;
+        for (Concert concert:f.getConcerts()){
+            if (!existsEvent(concert)){
+                return false;
+            }
+        }
+        return f.addConcert(c);
     }
 
     /**
-     * Replaces the information in the sytem related to the Festival f.
+     * Replaces the information in the system related to the Festival f.
      * @param f The new version of the festival
      * @return True if an only if a previous version of the festival existed,
      *  f is well formed, and it does not produce clashes with the information already
