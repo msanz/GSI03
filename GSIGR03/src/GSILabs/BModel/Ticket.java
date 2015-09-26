@@ -83,4 +83,8 @@ public class Ticket {
                 "price :" + price + "\n" +
                 " numberOfUsed: " + numberOfUsed;
     }
+    
+    public String getEventNameInTicket() {
+        return this.eventName;
+    }
 }
