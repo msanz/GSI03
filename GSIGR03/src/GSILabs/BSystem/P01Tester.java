@@ -15,6 +15,7 @@ import GSILabs.BModel.DateConcert;
 import GSILabs.BModel.DateGeneral;
 import GSILabs.BModel.Location;
 import GSILabs.BModel.Ticket;
+import java.util.Date;
 
 /**
  *
@@ -23,35 +24,96 @@ import GSILabs.BModel.Ticket;
 public class P01Tester {
     public static void main(String args[]){  
         BusinessSystem businessSystem = new BusinessSystem();
-
+        
+        //S1
+        System.out.println("S1) Si introduce a un cliente, este puede ser luego localizado a partir de su ID");
+        
         Client client1 = new Client(15846815, "pepe", "Randez", "Perez", new DateGeneral("14/2/1956","12:10"));
-        businessSystem.addClient(client1);
+        
+        if(businessSystem.addClient(client1)){
+            System.out.println("Cliente agregado correctamente");
+        }else{
+            System.out.println("Error al agregar el cliente");
+        }
+        
+        //S2
+        System.out.println("S2) Si busca a un cliente que no existe con findClient, el resultado es null;");
+        Client client = businessSystem.retrieveClient(15846815);
+        
+        if (client != null){
+            System.out.println("Cliente encontrado");
+            System.out.println(client);
+        }else{
+            System.out.println("El cliente no ha sido encontrado");
+        }
+        
+        //S3
+        System.out.println("S3) No se pueden introducir un artista y un colectivo con el mismo nombre;");
         
         Artist artist1 = new Artist("Maria", "Cantante de opera");
-        Artist artist2 = new Artist("Maria", "Cantante de opera");
-        Artist artist3 = new Artist("Mari", "Cantante de opera");
         
-        Collective collective1 = new Collective("Mari", "Muchas marias juntas");
+        Collective collective1 = new Collective("Maria", "Muchas marias juntas");
+        
+        if(businessSystem.addArtist(artist1)){
+            System.out.println("Artista agregado correctamente");
+        }else{
+            System.out.println("Error al agregar el artista");
+        }
+        
+        if (businessSystem.addCollective(collective1)){
+            System.out.println("Colectivo agregado correctamente");
+        }else{
+            System.out.println("Erro al agregar el colectivo");
+        }
+        
+        //S4
+        System.out.println("S4) Si se añade un artista, y se elimina posteriormente, se puede introducir un colectivo con el mismo nombre;");
+        
+        if (businessSystem.removePerformer("Maria")){
+            System.out.println("Performer eliminado correctamente");
+        }else{
+            System.out.println("Error al eliminar el performer");
+        }
+        
+        if (businessSystem.addCollective(collective1)){
+            System.out.println("Colectivo agregado correctamente");
+        }else{
+            System.out.println("Error al agregar el colectivo");
+        }
+        
+        //S7
+        System.out.println("S7) No se puede asociar un evento a una localización que no existe;");
         
         Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
-        Location location2 = new Location("Barcelona", 50, new Coordinates(10,20));
-        
         Concert concert1 = new Concert(new DateConcert("14/2/1999","12:10"), "Concierto 1", artist1, location1);
-        Concert concert2 = new Concert(new DateConcert("14/2/1999","12:10"), "Concierto 1", artist2, location2);    
         
-        businessSystem.addArtist(artist1);
-        businessSystem.addArtist(artist2);
-        
-        businessSystem.addCollective(collective1);
-        
-        businessSystem.modifyArtist(artist3);            
-        
-        if(!businessSystem.addNewConcert(concert2))
+        if (businessSystem.addNewConcert(concert1)){
+            System.out.println("Concierto agregado correctamente");
+        }else{
             System.out.println("Error al agregar el concierto");
+        }
         
-        if(!businessSystem.addNewConcert(concert1))
-            System.out.println("Error al agregar el concierto");
+        if (businessSystem.addLocation(location1)){
+            System.out.println("Localizacion agregada correctamente");
+        }else{
+            System.out.println("Error al agregar la localizacion");
+        }
        
+        if (businessSystem.addNewConcert(concert1)){
+            System.out.println("Concierto agregado correctamente");
+        }else{
+            System.out.println("Error al agregar el concierto");
+        }
+        
+        //S10
+        System.out.println("S10) No se puede introducir un usuario menor de edad.");
+        Client client2 = new Client(15846815, "pepe", "Randez", "Perez", new DateGeneral("14/2/2010","12:10"));
+        if (businessSystem.addClient(client2)){
+            System.out.println("Cliente agregado correctamente");
+        }else{
+            System.out.println("Error al agregar el cliente");
+        }
+        
         Ticket ticket;
 
         for (int i = 0; i < 30; i++) {
@@ -66,16 +128,11 @@ public class P01Tester {
     
 /**
  * 
- * S1) Si introduce a un cliente, este puede ser luego localizado a partir de su ID;
- * S2) Si busca a un cliente que no existe con findClient, el resultado es null;
- * S3) No se pueden introducir un artista y un colectivo con el mismo nombre;
- * S4) Si se añade un artista, y se elimina posteriormente, se puede introducir un colectivo con el mismo nombre;
  * S5) No se pueden añadir dos eventos diferentes del mismo artista el mismo día;
  * S6) El sistema calcula de manera adecuada el gasto de cada cliente en entradas (probar con más de
  *     dos entradas, así como con entradas asociadas a diferentes clientes);
- * S7) No se puede asociar un evento a una localización que no existe;
  * S8) No se puede añadir a un festival un concierto que ya se le hubiera añadido;
- * S9) No se puede asignar una venta a un cliente que no existe;
- * S10) No se puede introducir un usuario menor de edad.
+ * S9) No se puede asignar una venta a un cliente que no existe.
+ * 
  */
 }

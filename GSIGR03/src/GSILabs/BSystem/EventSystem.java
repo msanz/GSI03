@@ -34,7 +34,6 @@ public class EventSystem {
      *  not clash with the information already in the system. False otherwise.
      */
     public boolean addNewConcert(Concert c) {
-        System.out.println("Concierto agregado correctmanete");
         return events.add(c);
         /*if (c.getPerformers().length == 1){
             for (Event e: events){

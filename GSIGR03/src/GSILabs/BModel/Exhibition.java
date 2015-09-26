@@ -55,7 +55,7 @@ public class Exhibition implements LastingEvent {
 
     @Override
     public Date[] getDates() {
-        Date[] dates = {date.dayStart};
+       Date[] dates = {date.dayStart};
        return dates;
     }
 
@@ -73,14 +73,13 @@ public class Exhibition implements LastingEvent {
 
     @Override
     public Performer[] getPerformers() {
-         ArrayList<Performer> list = new ArrayList();
         if (performers == null)
             return null;
         if (performers != null)
             return performers;
         else{
-            list.add(performer);
-            return (Performer[]) list.toArray();
+            Performer[] list = {performer};
+            return list;
         }
     }
     

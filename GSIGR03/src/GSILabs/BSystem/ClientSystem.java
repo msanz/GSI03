@@ -6,7 +6,6 @@
 package GSILabs.BSystem;
 
 import GSILabs.BModel.Client;
-import GSILabs.BModel.Event;
 import GSILabs.BModel.Ticket;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -20,7 +19,6 @@ public class ClientSystem {
     HashSet<Ticket> tickets;
     HashSet<Client> clients;
    
-    
     public ClientSystem() {
         
         clients = new HashSet<>();

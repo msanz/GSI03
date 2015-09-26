@@ -52,12 +52,12 @@ public class DateGeneral {
     
     @Override
     public String toString(){
-        DateFormat dayFormat = DateFormat.getDateInstance();
+        DateFormat dayFormat = new SimpleDateFormat("dd/mm/yyyy");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm");
         return "Day: " + dayFormat.format(day) + " - " + timeFormat.format(time);
     }
     
     public boolean checkBirthday(){
-       return (day.getYear() - (new Date()).getYear() >= 18 );              
+       return (((new Date()).getYear() + 1900) - (day.getYear() + 1900) >= 18 );              
     }
 }

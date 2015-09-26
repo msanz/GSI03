@@ -75,13 +75,15 @@ public class Concert implements ImpermanentEvent {
 
     @Override
     public boolean involvesPerformer(Performer p) {
-        if (p.getName().toLowerCase().equals(this.performer.getName().toLowerCase()))
+        if (p.getName().toLowerCase().equals(performer.getName().toLowerCase())){
             return true;
-        else
+        }else{
             for(Performer performer: performers){
-                if(performer.getName().toLowerCase().equals(p.getName().toLowerCase()))
-                        return true;
+                if(performer.getName().toLowerCase().equals(p.getName().toLowerCase())){
+                    return true;
+                }
             }
+        }    
         return false;
     }
 

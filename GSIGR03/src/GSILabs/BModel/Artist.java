@@ -92,7 +92,6 @@ public class Artist implements Performer {
         this.web = web;
     }
     
-    
     @Override
     public boolean equals(Object o ) {
         if (o == null) 

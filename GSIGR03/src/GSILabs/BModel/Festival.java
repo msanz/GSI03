@@ -61,7 +61,11 @@ public class Festival implements LastingEvent {
 
     @Override
     public boolean involvesPerformer(Performer p) {
-        //Comprobar si un artista esta en alguno de los conciertos
+        for (Concert c:concerts){
+            if(c.involvesPerformer(p)){
+                return true;
+            }
+        }
         return false;
     }
 
