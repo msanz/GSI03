@@ -263,7 +263,6 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean addNewTicket(Ticket t) {
             return ticketSystem.addNewTicket(t);
-//return clientSystem.addNewTicket(t);
     }
 
     @Override
