@@ -124,6 +124,37 @@ public class P01Tester {
         businessSystem.addNewTicket(ticket);
         
         businessSystem.addLocation(location1);
+        
+        //S9
+        ticket = new Ticket("EventoRaruno", businessSystem.getAtomicInteger());
+        businessSystem.addNewTicket(ticket);
+        client2 = new Client(15846813, "pepe", "Randez", "Perez", new DateGeneral("14/2/1990","12:10"));
+        client2.addCreditCard("creditcard");
+        if (businessSystem.addClient(client2)){
+            System.out.println("Cliente agregado correctamente");
+        }else{
+            System.out.println("Error al agregar el cliente");
+        }
+        if ( businessSystem.addSale(ticket, client2,(float)2.2222, "creditcard")) {
+            System.out.println("Venta realizada correctamente" );
+            
+        }
+        else 
+        {
+            System.out.println("Cliente no encontrado. Imposible realizar venta");
+        }
+        
+                ticket = new Ticket("EventoRaruno", businessSystem.getAtomicInteger());
+        businessSystem.addNewTicket(ticket);
+        client = new Client(15846815, "Rogelio", "Benedicto", "Pascasio", new DateGeneral("11/5/2015","14:12"));
+        if ( businessSystem.addSale(ticket, client,(float)2.2222, "creditcard")) {
+            System.out.println("Venta realizada correctamente" );
+            
+        }
+        else 
+        {
+            System.out.println("Cliente no encontrado. Imposible realizar venta");
+        }
     }
     
 /**
@@ -132,7 +163,7 @@ public class P01Tester {
  * S6) El sistema calcula de manera adecuada el gasto de cada cliente en entradas (probar con más de
  *     dos entradas, así como con entradas asociadas a diferentes clientes);
  * S8) No se puede añadir a un festival un concierto que ya se le hubiera añadido;
- * S9) No se puede asignar una venta a un cliente que no existe.
+ * 
  * 
  */
 }
