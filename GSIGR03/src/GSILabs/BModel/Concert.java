@@ -87,14 +87,11 @@ public class Concert implements ImpermanentEvent {
 
     @Override
     public Performer[] getPerformers() {
-        ArrayList<Performer> list = new ArrayList();
-        if (performers == null)
-            return null;
-        if (performers != null)
+        if (performers != null){
             return performers;
-        else{
-            list.add(performer);
-            return (Performer[]) list.toArray();
+        }else{
+            Performer[] list = {performer};
+            return list;
         }
     }
     
@@ -112,8 +109,10 @@ public class Concert implements ImpermanentEvent {
     }
     
     public boolean collisionDay(Date day){
+        System.out.println("Date.Daystart: " + date.dayStart + " Date day: " + day);
         if (!day.before(date.dayStart)){
             if (!day.after(date.dayFinish)){
+                
                 return true;
             }
         }

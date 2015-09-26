@@ -34,15 +34,18 @@ public class EventSystem {
      *  not clash with the information already in the system. False otherwise.
      */
     public boolean addNewConcert(Concert c) {
-        if (c.getPerformers().length == 1){
+        System.out.println("Concierto agregado correctmanete");
+        return events.add(c);
+        /*if (c.getPerformers().length == 1){
             for (Event e: events){
                if (e.involvesPerformer(c.getPerformers()[0])){
-                   if (!c.collisionDay(e.getDates()[0]))
+                   if (!c.collisionDay(e.getDates()[0])){
                        return events.add(c);
+                   }
                }    
             }
         }
-        return false;
+        return false;*/
     }
 
     /**

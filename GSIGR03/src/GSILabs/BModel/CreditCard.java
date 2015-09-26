@@ -10,9 +10,13 @@ package GSILabs.BModel;
  * @author GR03
  */
 class CreditCard {
-    String number;
+    private String number;
     
     CreditCard(String number){
         this.number = number;
+    }
+    
+    public String getCreditCard(){
+        return this.number;
     }
 }
