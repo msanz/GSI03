@@ -209,7 +209,7 @@ public class BusinessSystem implements TicketOffice{
     public Event[] retrieveEvents(Date d) {
         return eventSystem.retrieveEvents(d);
     }
- 
+    
     @Override
     public boolean addClient(Client c) {
         return clientSystem.addClient(c);
@@ -237,6 +237,7 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public Client retrieveClient(int identifier) {
+        
         return clientSystem.retrieveClient(identifier);
     }
 
@@ -249,10 +250,20 @@ public class BusinessSystem implements TicketOffice{
     public float getTotalSpending(Client c) {
         return clientSystem.getTotalSpending(c);
     }
-
+    
+    //check if one client through DNI as id, exist. Return false if retrieve client returns null or return true if retrieveclient return DNI.
+    public boolean checkClientExist(Client c) {
+        if (retrieveClient(c.getDNI()) == null ) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     @Override
     public boolean addNewTicket(Ticket t) {
-        return clientSystem.addNewTicket(t);
+            return ticketSystem.addNewTicket(t);
+//return clientSystem.addNewTicket(t);
     }
 
     @Override
@@ -272,8 +283,14 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean addSale(Ticket t, Client c, Float price, String cCard) {
-        return ticketSystem.addSale(t, c, price, cCard);
+        if (checkClientExist(c)) {
+            return ticketSystem.addSale(t, c, price, cCard);
+        }
+        else {
+            return false;
+        }
     }
+        
     
     // Locations management
     
