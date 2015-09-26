@@ -29,31 +29,29 @@ public class P01Tester {
         
         Artist artist1 = new Artist("Maria", "Cantante de opera");
         Artist artist2 = new Artist("Maria", "Cantante de opera");
-        
-        Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
-        businessSystem.addArtist(artist2);
-        businessSystem.addArtist(artist1);
+        Artist artist3 = new Artist("Mari", "Cantante de opera");
         
         Collective collective1 = new Collective("Mari", "Muchas marias juntas");
-        System.out.println(businessSystem.performerSystem.performers.size());
-        businessSystem.addCollective(collective1);
-        businessSystem.modifyArtist(artist1);
         
-        System.out.println(businessSystem.performerSystem.performers.size());
+        Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
+        Location location2 = new Location("Barcelona", 50, new Coordinates(10,20));
         
-        Artist artist3 = new Artist("Mari", "Cantante de opera");
-        if (!businessSystem.modifyArtist(artist3))
-            System.out.println("Error al modificar el artista");
-        
-        System.out.println(businessSystem.performerSystem.performers.size());
         Concert concert1 = new Concert(new DateConcert("14/2/1999","12:10"), "Concierto 1", artist1, location1);
-        Concert concert2 = new Concert(new DateConcert("14/2/2000","12:10"), "Concierto 1", artist2, location1);    
+        Concert concert2 = new Concert(new DateConcert("14/2/1999","12:10"), "Concierto 1", artist2, location2);    
+        
+        businessSystem.addArtist(artist1);
+        businessSystem.addArtist(artist2);
+        
+        businessSystem.addCollective(collective1);
+        
+        businessSystem.modifyArtist(artist3);            
+        
+        if(!businessSystem.addNewConcert(concert2))
+            System.out.println("Error al agregar el concierto");
         
         if(!businessSystem.addNewConcert(concert1))
             System.out.println("Error al agregar el concierto");
        
-        //businessSystem.replaceConcert(concert2);
-
         Ticket ticket;
 
         for (int i = 0; i < 30; i++) {
