@@ -16,20 +16,12 @@ public class DateConcert extends DateEvent {
 
     public DateConcert(String dayString, String timeString) {
         super(dayString, timeString);
-        this.timeOpenDoors = super.timeFormat(timeString);   
+        this.timeOpenDoors = super.timeFormat(timeString);
+        this.dayStart = this.dayFinish;
     }
     
     public void setTimeOpenDoors(String string){
         this.timeOpenDoors = super.timeFormat(string);   
     }
-    
-    public boolean collisionDay(DateConcert dateConcert){
-        if (!dateConcert.dayStart.before(super.dayStart)){
-            if (!dateConcert.dayFinish.after(super.dayFinish)){
-                return true;
-            }
-        }
-        
-        return false;
-    }
+
 }

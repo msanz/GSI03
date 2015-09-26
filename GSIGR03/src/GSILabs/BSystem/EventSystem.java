@@ -34,8 +34,15 @@ public class EventSystem {
      *  not clash with the information already in the system. False otherwise.
      */
     public boolean addNewConcert(Concert c) {
-        System.out.println("Concierto agregado correctamente.");
-        return events.add(c);
+        if (c.getPerformers().length == 1){
+            for (Event e: events){
+               if (e.involvesPerformer(c.getPerformers()[0])){
+                   if (!c.collisionDay(e.getDates()[0]))
+                       return events.add(c);
+               }    
+            }
+        }
+        return false;
     }
 
     /**
@@ -96,7 +103,7 @@ public class EventSystem {
     /**
      * Deletes an exhibition from the system
      * @param e The exhibition to be deleted
-     * @return True if and only if e is not null, e existed in the systema and it could be
+     * @return True if and only if e is not null, e existed in the system and it could be
      *  removed from the system
      */
     public boolean deleteExhibition(Exhibition e) {

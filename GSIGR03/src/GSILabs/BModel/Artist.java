@@ -95,7 +95,8 @@ public class Artist implements Performer {
     
     @Override
     public boolean equals(Object o ) {
-        if (o == null) return false;
+        if (o == null) 
+            return false;
         Artist a = (Artist)o;
         return this.getName().toLowerCase().equals(a.getName().toLowerCase());
     }

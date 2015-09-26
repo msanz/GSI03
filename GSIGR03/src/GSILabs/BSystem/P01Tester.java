@@ -8,12 +8,11 @@ package GSILabs.BSystem;
 
 import GSILabs.BModel.Artist;
 import GSILabs.BModel.Client;
+import GSILabs.BModel.Collective;
 import GSILabs.BModel.Concert;
 import GSILabs.BModel.Coordinates;
 import GSILabs.BModel.DateConcert;
 import GSILabs.BModel.DateGeneral;
-import GSILabs.BModel.Event;
-import GSILabs.BModel.Exhibition;
 import GSILabs.BModel.Location;
 import GSILabs.BModel.Ticket;
 
@@ -29,12 +28,24 @@ public class P01Tester {
         businessSystem.addClient(client1);
         
         Artist artist1 = new Artist("Maria", "Cantante de opera");
-        Artist artist2 = new Artist("Ana", "Cantante de opera");
+        Artist artist2 = new Artist("Maria", "Cantante de opera");
         
         Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
-        //businessSystem.addArtist(artist2);
-        //businessSystem.addArtist(artist1);
+        businessSystem.addArtist(artist2);
+        businessSystem.addArtist(artist1);
         
+        Collective collective1 = new Collective("Mari", "Muchas marias juntas");
+        System.out.println(businessSystem.performerSystem.performers.size());
+        businessSystem.addCollective(collective1);
+        businessSystem.modifyArtist(artist1);
+        
+        System.out.println(businessSystem.performerSystem.performers.size());
+        
+        Artist artist3 = new Artist("Mari", "Cantante de opera");
+        if (!businessSystem.modifyArtist(artist3))
+            System.out.println("Error al modificar el artista");
+        
+        System.out.println(businessSystem.performerSystem.performers.size());
         Concert concert1 = new Concert(new DateConcert("14/2/1999","12:10"), "Concierto 1", artist1, location1);
         Concert concert2 = new Concert(new DateConcert("14/2/2000","12:10"), "Concierto 1", artist2, location1);    
         

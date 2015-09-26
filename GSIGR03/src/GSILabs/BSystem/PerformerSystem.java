@@ -29,7 +29,10 @@ public class PerformerSystem {
      *  system
      */
     public boolean addArtist(Artist a) {
-        return performers.add(a);
+        if (!this.existsPerformer(a.getName())) {
+            return performers.add(a);       
+        }
+        return false;
     }
 
     /**
@@ -39,18 +42,23 @@ public class PerformerSystem {
      *  system
      */
     public boolean addCollective(Collective c) {
-        return performers.add(c);
+        if (!this.existsPerformer(c.getName())) {
+            return performers.add(c);
+        }
+        return false;
     }
     
     /**
-     * Replaces the information in the sytem related to the artist e.
+     * Replaces the information in the system related to the artist e.
      * @param a The new version of the artist
      * @return True if an only if a previous version of the artist existed,
      *  e is well formed, and it does not produce clashes with the information already
      *  in the system.
      */
     public boolean modifyArtist(Artist a) {
-       if (a == null) return false;
+       if (a == null || (this.existsPerformer(a.getName()))){ 
+           return false;
+       }
        for (Performer p:performers){
             if (p.equals(a)){
                 performers.remove(p);
@@ -61,14 +69,16 @@ public class PerformerSystem {
     }
     
     /**
-     * Replaces the information in the sytem related to the collective e.
+     * Replaces the information in the system related to the collective e.
      * @param c The new version of the collective
      * @return True if an only if a previous version of the collective existed,
      *  e is well formed, and it does not produce clashes with the information already
      *  in the system.
      */
     public boolean modifyCollective(Collective c) {
-        if (c == null) return false;
+        if (c == null || (this.existsPerformer(c.getName()))){ 
+           return false;
+       }
         for (Performer p:performers){
             if (p.getName().toLowerCase().equals(c.getName().toLowerCase())){
                 performers.remove(p);

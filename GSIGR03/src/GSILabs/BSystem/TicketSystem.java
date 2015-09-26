@@ -76,7 +76,7 @@ public class TicketSystem {
         boolean exist = false;
         while (it.hasNext()) {
             ticket = (Ticket) it.next();
-            if (e.getName() == ticket.getEventNameInTicket()) {
+            if (e.getName().equals(ticket.getEventNameInTicket())) {
                 if ( id == ticket.hashCode()) {
                     exist = true;
                 }

@@ -111,4 +111,13 @@ public class Concert implements ImpermanentEvent {
                 
     }
     
+    public boolean collisionDay(Date day){
+        if (!day.before(date.dayStart)){
+            if (!day.after(date.dayFinish)){
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }

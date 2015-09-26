@@ -24,9 +24,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class BusinessSystem implements TicketOffice{
     ClientSystem clientSystem;
-    private EventSystem eventSystem;
-    private LocationSystem locationSystem;
-    private PerformerSystem performerSystem;
+    EventSystem eventSystem;
+    LocationSystem locationSystem;
+    TicketSystem ticketSystem;
+    PerformerSystem performerSystem;
     private final AtomicInteger atomicInteger;
     
     public BusinessSystem (){
@@ -34,6 +35,7 @@ public class BusinessSystem implements TicketOffice{
         eventSystem = new EventSystem();
         locationSystem = new LocationSystem();
         performerSystem = new PerformerSystem();
+        ticketSystem = new TicketSystem();
         atomicInteger = new AtomicInteger();
     }
 
@@ -255,22 +257,22 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean hasIDCollision(Ticket t) {
-        return clientSystem.hasIDCollision(t);
+        return ticketSystem.hasIDCollision(t);
     }
 
     @Override
     public boolean availableTicketID(Event e, int id) {
-        return clientSystem.availableTicketID(e, id);
+        return ticketSystem.availableTicketID(e, id);
     }
 
     @Override
     public boolean setIDUsed(Ticket t, Event e, int id) {
-        return clientSystem.setIDUsed(t, e, id);
+        return ticketSystem.setIDUsed(t, e, id);
     }
 
     @Override
     public boolean addSale(Ticket t, Client c, Float price, String cCard) {
-        return clientSystem.addSale(t, c, price, cCard);
+        return ticketSystem.addSale(t, c, price, cCard);
     }
     
     // Locations management

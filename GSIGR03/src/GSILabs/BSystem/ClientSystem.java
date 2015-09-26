@@ -17,14 +17,14 @@ import java.util.Iterator;
  */
 public class ClientSystem {
     
-    HashSet<Ticket> systemTickets;
+    HashSet<Ticket> tickets;
     HashSet<Client> clients;
    
     
     public ClientSystem() {
         
         clients = new HashSet<>();
-        systemTickets = new HashSet<>();
+        tickets = new HashSet<>();
     }
     
     public boolean addClient(Client c) {
@@ -133,10 +133,9 @@ public class ClientSystem {
 
     public float getTotalSpending(Client c) {
         
-        HashSet<Ticket> tickets = retrieveClient(c.getDNI()).getSales();
         float sum = 0;
         
-        for (Ticket ticket: tickets)
+        for (Ticket ticket: retrieveClient(c.getDNI()).getSales())
         {
             sum = sum + ticket.getPrice();
         }
@@ -148,7 +147,7 @@ public class ClientSystem {
         //comprobar que esta bien formado
         if (t != null)
         {
-            return systemTickets.add(t);
+            return tickets.add(t);
         }
         else {
             //lanzar excepcion de ticket nulo
@@ -156,20 +155,4 @@ public class ClientSystem {
         }
     }
 
-    public boolean hasIDCollision(Ticket t) {
-        return false;
-    }
-
-    public boolean availableTicketID(Event e, int id) {
-        return false;
-    }
-
-    public boolean setIDUsed(Ticket t, Event e, int id) {
-        
-        return false;
-    }
-
-    public boolean addSale(Ticket t, Client c, Float price, String cCard) {
-        return false;
-    }
 }
