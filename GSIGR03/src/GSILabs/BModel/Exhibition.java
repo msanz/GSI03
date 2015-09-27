@@ -17,16 +17,18 @@ public class Exhibition implements LastingEvent {
     String org;
     DateEvent date;
     Artist performer;
+    Location location;
     Performer[] performers;
     String[] links;
     
     public Exhibition(){}
 
-    public Exhibition (String name, String org, DateEvent date, Artist performer, String[] links){
+    public Exhibition (String name, String org, DateEvent date, Artist performer, Location location, String[] links){
         this.name = name;
         this.org = org;
         this.date = date;
         this.performer = performer;
+        this.location = location;
         this.links = links;
     }
     
@@ -36,6 +38,10 @@ public class Exhibition implements LastingEvent {
         this.date = date;
         this.performers = performers;
         this.links = links;
+    }
+    
+    public Location getLocation(){
+        return location;
     }
     
     @Override

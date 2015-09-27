@@ -56,9 +56,6 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean replaceConcert(Concert c) {
-        if (c == null){
-            return false;
-        }
         if (existPerformerInSystem(c)){
             if (c.getLocation() != null){
                 if (eventSystem.replaceConcert(c)){
@@ -106,11 +103,10 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean replaceExhibition(Exhibition e) {
-        if (e == null){
-            return false;
-        }
         if (existPerformerInSystem(e)){
-            return eventSystem.replaceExhibition(e);
+            if (eventSystem.replaceExhibition(e)){
+                return this.addNewExhibition(e);
+            }
         }
         return false;
     }
@@ -118,7 +114,7 @@ public class BusinessSystem implements TicketOffice{
     private boolean existPerformerInSystem(Exhibition exhibition){
         if (exhibition == null || exhibition.getPerformers() == null){
             return false;
-        }else
+        }else{
             if (exhibition.getPerformers().length == 1){
                 if(performerSystem.existsPerformer(exhibition.getPerformers()[0].getName())){
                     return true;
@@ -131,6 +127,7 @@ public class BusinessSystem implements TicketOffice{
                 }
                 return true;
             }
+        }
         return false;
     }
     
@@ -145,10 +142,9 @@ public class BusinessSystem implements TicketOffice{
     
     @Override
     public boolean addNewFestival(Festival f) {
-        if (f != null)
-            for (Performer p:f.getPerformers())
-                if(performerSystem.existsPerformer(p.getName()))
-                    return eventSystem.addNewFestival(f);
+        if (!existsEvent(f)){
+            return eventSystem.addNewFestival(f);
+        }
         return false;
     }
      
@@ -159,7 +155,10 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean replaceFestival(Festival f) {
-        return eventSystem.replaceFestival(f);
+        if (eventSystem.replaceFestival(f)){
+            return this.addNewFestival(f);
+        }
+        return false;
     }
 
     @Override

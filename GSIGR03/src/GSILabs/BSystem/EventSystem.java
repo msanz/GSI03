@@ -56,7 +56,7 @@ public class EventSystem {
      */
     public boolean replaceConcert(Concert c) {
        for (Event e:events){
-            if (e.equals(c)){
+            if (existsEvent(c)){
                 events.remove(e);
                 return true;
             }
@@ -94,7 +94,7 @@ public class EventSystem {
      */
     public boolean replaceExhibition(Exhibition e) {
         for (Event event:events){
-            if (event.equals(e)){
+            if (existsEvent(e)){
                 events.remove(event);
                 return true;
             }
@@ -145,7 +145,13 @@ public class EventSystem {
      *  in the system.
      */
     public boolean replaceFestival(Festival f) {
-        return (f != null);
+        for (Event event:events){
+            if (existsEvent(f)){
+                events.remove(event);
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -165,10 +171,13 @@ public class EventSystem {
      * @return True if and only if e is not null, well formed and did exist in the system
      */
     public boolean existsEvent(Event e) {
-        if (e != null)
-            for (Event event:events)
-                if (event.hashCode() == e.hashCode())
-                        return true; 
+        if (e != null){
+            for (Event event:events){
+                if (event.hashCode() == e.hashCode()){
+                    return true;
+                }
+            }
+        }    
         return false;
     }
     /**
@@ -177,7 +186,17 @@ public class EventSystem {
      * @return A list of events, potentially being empty
      */
     public Event[] retrieveEvents(String name) {
-        return null;
+        ArrayList<Event> list = new ArrayList();
+        for (Event e:events){
+            if (e.getName().contains(name)){
+                list.add(e);
+            }
+        }
+        if (list.isEmpty()){
+            return null;
+        }else{
+            return (Event[]) list.toArray();
+        }
     }
 
     /**
@@ -188,10 +207,17 @@ public class EventSystem {
     public Event[] retrieveEvents(Location loc) {
         ArrayList<Event> list = new ArrayList();
         for (Event e:events){
-            list.add(e);
+            if (retrieveConcert(e) != null){
+                if (retrieveConcert(e).getLocation().equals(loc)){
+                    list.add(e);
+                }
+            }
+        }
+        if (list.isEmpty()){
+            return null;
+        }else{
             return (Event[]) list.toArray();
         }
-        return null;
     }
 
     /**
@@ -220,7 +246,6 @@ public class EventSystem {
     public Festival retrieveFestival(Event e){
         return (e instanceof Festival) ? (Festival) e : null;
     }
-    
     
     /**
      * Retrieve a exhibition object
