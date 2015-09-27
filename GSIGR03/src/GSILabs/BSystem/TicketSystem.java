@@ -138,7 +138,7 @@ public class TicketSystem {
                     if ( creditCard.equals(cCard) ) {
                         if (t.getUsedStatus() == false ) {
                             t.setPrice(price);
-                            //For now, all tickets has 2 uses available when are selled
+                            //For now, all tickets have 2 uses available when are selled
                             t.setNumberOfPersons(2);
                             c.addTicket(t);
                             return true;
