@@ -48,8 +48,10 @@ public class Location {
     
     @Override
     public boolean equals(Object o ) {
-        if (o == null) return false;
-        Location l = (Location)o;
-        return this.getName().toLowerCase().equals(l.getName().toLowerCase());
+        if (o instanceof Location){ 
+            Location l = (Location)o;
+            return this.getName().toLowerCase().equals(l.getName().toLowerCase());
+        }
+        return false;
     }
 }

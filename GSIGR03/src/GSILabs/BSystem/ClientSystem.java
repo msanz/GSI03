@@ -20,7 +20,6 @@ public class ClientSystem {
     HashSet<Client> clients;
    
     public ClientSystem() {
-        
         clients = new HashSet<>();
         tickets = new HashSet<>();
     }

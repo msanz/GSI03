@@ -13,6 +13,7 @@ import GSILabs.BModel.Concert;
 import GSILabs.BModel.Coordinates;
 import GSILabs.BModel.DateConcert;
 import GSILabs.BModel.DateGeneral;
+import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
 import GSILabs.BModel.Ticket;
 import java.util.Date;
@@ -85,7 +86,7 @@ public class P01Tester {
         System.out.println("S7) No se puede asociar un evento a una localización que no existe;");
         
         Location location1 = new Location("Madrid", 50, new Coordinates(10,20));
-        Concert concert1 = new Concert(new DateConcert("14/2/1999","12:10"), "Concierto 1", artist1, location1);
+        Concert concert1 = new Concert("Concierto 1", artist1, location1, new DateConcert("14/2/1999","12:10"));
         
         if (businessSystem.addNewConcert(concert1)){
             System.out.println("Concierto agregado correctamente");
@@ -104,6 +105,31 @@ public class P01Tester {
         }else{
             System.out.println("Error al agregar el concierto");
         }
+        
+        Concert concert3 = new Concert("Concierto 3", artist1, location1, new DateConcert("14/2/2000","12:10")); 
+        
+        //S8
+        System.out.println("S8) No se puede añadir a un festival un concierto que ya se le hubiera añadido.");
+        Festival festival = new Festival("NavajaNegra"); 
+        
+        if (businessSystem.addNewFestival(festival)){
+            System.out.println("Festival agregado correctamente");
+        }else{
+            System.out.println("Error al agregar el festvial");
+        }
+        
+        if(businessSystem.addConcertToFestival(festival, concert1)){
+            System.out.println("Concierto agregado a festvial correctamente");
+        }else{
+            System.out.println("Error al agregar el concierto al festival");
+        }
+        
+        /*
+        if(businessSystem.addConcertToFestival(festival, concert1)){
+            System.out.println("Concierto agregado a festvial correctamente");
+        }else{
+            System.out.println("Error al agregar el concierto al festival");
+        }*/
         
         //S9
         System.out.println("S9) No se puede asignar una venta a un cliente que no existe.");
@@ -157,8 +183,6 @@ public class P01Tester {
  * 
  * S5) No se pueden añadir dos eventos diferentes del mismo artista el mismo día;
  * S6) El sistema calcula de manera adecuada el gasto de cada cliente en entradas (probar con más de
- *     dos entradas, así como con entradas asociadas a diferentes clientes);
- * S8) No se puede añadir a un festival un concierto que ya se le hubiera añadido.
- * 
+ *     dos entradas, así como con entradas asociadas a diferentes clientes). 
  */
 }

@@ -10,12 +10,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  *
  * @author GR03
  */
-public class Festival implements LastingEvent {
+public class Festival implements LastingEvent, Comparable<Concert> {
     private SortedSet<Concert> concerts;
     private HashSet<Location> locations;
     String name;
@@ -24,6 +25,8 @@ public class Festival implements LastingEvent {
     public Festival(){}
     public Festival (String name){
         this.name = name;        
+        this.locations = new HashSet<Location>();
+        this.concerts = new TreeSet<Concert>();
     }
     
     public boolean addConcert(Concert concert){
@@ -84,5 +87,10 @@ public class Festival implements LastingEvent {
     
     public HashSet<Location> getLocation(){
         return locations;
+    }
+
+    @Override
+    public int compareTo(Concert t) {
+        return 0;
     }
 }

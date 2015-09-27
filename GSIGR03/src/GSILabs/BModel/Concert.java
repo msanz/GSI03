@@ -16,14 +16,14 @@ public class Concert implements ImpermanentEvent {
     
     public Concert(){}
     
-    public Concert(DateConcert date, String name, Artist performer, Location location){
+    public Concert(String name, Artist performer, Location location, DateConcert date){
         this.date = date;
         this.name = name;
         this.performer = performer;
         this.location = location;
     }
     
-    public Concert(DateConcert date, String name, Performer[] performers, Location location){
+    public Concert(String name, Performer[] performers, Location location, DateConcert date){
         this.date = date;
         this.name = name;
         this.performers = performers;
@@ -37,11 +37,12 @@ public class Concert implements ImpermanentEvent {
      */
     @Override
     public boolean equals(Object o ) {
-        if (o == null) 
-            return false;
-        Concert c = (Concert)o;
-        return ((this.getName().equals(c.getName())) 
-                && (this.getLocation().equals(c.getLocation())));
+        if (o instanceof Concert){ 
+            Concert c = (Concert)o;
+            return (this.getName().toLowerCase().equals(c.getName().toLowerCase()) 
+                    && this.getLocation().equals(c.getLocation()));
+        }
+        return false;
     }
 
     @Override

@@ -13,6 +13,7 @@ import GSILabs.BModel.Location;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.SortedSet;
 
 /**
  *
@@ -129,12 +130,19 @@ public class EventSystem {
      *  and the information could be added not causing any clash with the existing information
      */
     public boolean addConcertToFestival(Festival f, Concert c) {
-        for (Concert concert:f.getConcerts()){
-            if (!existsEvent(concert)){
-                return false;
+        if (existsEvent(c)){
+            SortedSet<Concert> concerts = f.getConcerts();
+            if (concerts == null){
+                return f.addConcert(c);
             }
+            for (Concert concert:concerts){
+                if (!existsEvent(concert)){
+                    return false;
+                }
+            }
+            return f.addConcert(c);
         }
-        return f.addConcert(c);
+        return false;
     }
 
     /**
@@ -173,7 +181,7 @@ public class EventSystem {
     public boolean existsEvent(Event e) {
         if (e != null){
             for (Event event:events){
-                if (event.hashCode() == e.hashCode()){
+                if (event.equals(e)){
                     return true;
                 }
             }
