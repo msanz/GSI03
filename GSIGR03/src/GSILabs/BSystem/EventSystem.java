@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.SortedSet;
 
 /**
- *
+ * This EventSystem, is a subsystem for manage a hashset of events
  * @author GR03
  */
 public class EventSystem {
@@ -188,6 +188,7 @@ public class EventSystem {
         }    
         return false;
     }
+    
     /**
      * Retrieves all the events whose name matches (partially) with the name
      * @param name Full or partial name of the events
