@@ -42,7 +42,7 @@ public class Artist implements Performer {
     
     /**
      * Rewriting the toString() method
-     * @return Other style to show the information
+     * @return other style to show the information
      */
     @Override
     public String toString() {
@@ -53,7 +53,7 @@ public class Artist implements Performer {
     
     /**
      * Returns the name of the artist.
-     * @return name The name of the artist.
+     * @return the name of the artist.
      */
     @Override
     public String getName() {
@@ -62,7 +62,7 @@ public class Artist implements Performer {
     
     /**
      * Returns the work description of the artist.
-     * @return workDescription The artwork description
+     * @return the artwork description
      */
     @Override
     public String getWorkDescription() {
@@ -80,7 +80,7 @@ public class Artist implements Performer {
     
     /**
      * Returns the web of the artist.
-     * @return web Official website
+     * @return the official website
      */
     public String getWeb() {
         return web;
