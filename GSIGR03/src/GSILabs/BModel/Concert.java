@@ -154,7 +154,7 @@ public class Concert implements ImpermanentEvent {
         return "Name concert: " + name +
                "\n" + location +
                "\n" + performer +
-               "\n" + date
+               "\n" + date;
     }
     
     public boolean collisionDay(Date day){
