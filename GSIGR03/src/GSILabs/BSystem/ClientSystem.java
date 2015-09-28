@@ -11,17 +11,18 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- *
+ * A clientSystem is a subsystem from BussinessSystem, that manage a hashset of clients objects.
  * @author GR03
  */
 public class ClientSystem {
     
-    HashSet<Ticket> tickets;
     HashSet<Client> clients;
-   
+    
+    /**
+     * Initialicing hasset of clients
+     */
     public ClientSystem() {
-        clients = new HashSet<>();
-        tickets = new HashSet<>();
+        clients = new HashSet<>();  
     }
     
     /**
@@ -138,6 +139,7 @@ public class ClientSystem {
         
         return clientFound;
     }
+    
     /**
      * Retrieves the client associated with an identifier
      * @param identifier Idenfifier of interest
