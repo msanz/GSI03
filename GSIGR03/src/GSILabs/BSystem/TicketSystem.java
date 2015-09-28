@@ -12,18 +12,23 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- *
+ * This is a system that administrate the ticket sales to the clients
  * @author iecha
+ * 
  */
 public class TicketSystem {
     HashSet<Ticket> tickets;
+    HashSet<Ticket> ticketSales;
     
+    /**
+     * Creating a two new hashsets. One for all the tickets that can be selled. The second is for all the tickts selled
+     */
     TicketSystem() {
-        tickets = new HashSet<Ticket>();        
+        tickets = new HashSet<Ticket>();
+        //Added a second hashset of tickets, for saving all the sales, and clean the tickets hash set
+        //All methods are rewrited.
+        ticketSales = new HashSet<Ticket>();
     }
-    
-    
-    // Ticket management
     
     /**
      * Adds a new ticket to the pool
@@ -49,12 +54,20 @@ public class TicketSystem {
      */
     boolean hasIDCollision(Ticket t) {
         Iterator it = tickets.iterator();
+        Iterator it2 = ticketSales.iterator();
         Ticket ticket;
+        Ticket ticket2;
         boolean exist = false;
         //check it using hascode();
         while (it.hasNext()) {
             ticket = (Ticket) it.next();
             if ( t.hashCode()== ticket.hashCode() ) {
+                exist = true;
+            }
+        }
+        while (it2.hasNext() && exist != true ) {
+            ticket2 = (Ticket)it2.next();
+            if ( t.hashCode() == ticket2.hashCode() ) {
                 exist = true;
             }
         }
@@ -96,13 +109,21 @@ public class TicketSystem {
     boolean setIDUsed(Ticket t,Event e, int id) {
         //comprobar si existe el ticket, si corresponde a mi evento, y si no ha quemado todas sus plazas.
         Iterator it = tickets.iterator();
+        Iterator it2 = ticketSales.iterator();
         Ticket ticket;
+        Ticket ticket2;
         boolean didit = false;
         while (it.hasNext() ) {
             ticket = (Ticket)it.next();
             if ( t.hashCode()== ticket.hashCode() ) {
                 if (ticket.getEventNameInTicket().equals(e.getName())) {
                     ticket.useTicket();
+                }
+            }
+            ticket2 = (Ticket)it2.next();
+            if ( t.hashCode()== ticket2.hashCode() ) {
+                if (ticket2.getEventNameInTicket().equals(e.getName())) {
+                    ticket2.useTicket();
                 }
             }
         }
@@ -135,11 +156,13 @@ public class TicketSystem {
                 while(cr.hasNext()) {
                     creditCard = (String)cr.next();                
                     if ( creditCard.equals(cCard) ) {
-                        if (t.getUsedStatus() == false ) {
+                        if (t.checkTicketUsed() == false ) {
                             t.setPrice(price);
                             //For now, all tickets have 2 uses available when are selled
                             t.setNumberOfPersons(2);
                             c.addTicket(t);
+                            ticketSales.add(t);
+                            tickets.remove(t);
                             return true;
                         }
                     }
