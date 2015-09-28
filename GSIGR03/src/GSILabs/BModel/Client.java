@@ -121,10 +121,18 @@ public class Client {
         return creditCard;
     }
     
+    /**
+     * This return all the hashset of tickets from this client
+     * @return the tickets buyed from this client.
+     */
     public HashSet<Ticket> getSales() {
         return sales;
     }
     
+    /**
+     * This put a new ticket sale into the tickets hashset of the client.
+     * @param sales the new hashset of sales
+     */
     public void setSales(HashSet<Ticket> sales) {
         this.sales = sales;
     }
