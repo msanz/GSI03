@@ -5,8 +5,8 @@
  */
 package GSILabs.BModel;
 
-/**
- *
+/** 
+ * A location is the site where a event can be placed
  * @author GR03
  */
 public class Location {
@@ -16,13 +16,26 @@ public class Location {
     Coordinates gps;
     String web;
     
+    /**
+     * this sets a new location
+     * @param name the name of the place
+     * @param capacity max number of people in this place
+     * @param gps the gps coordinates
+     * @param web a siteweb of the location
+     */
     public Location(String name, int capacity, Coordinates gps, String web){
         this.name = name;
         this.capacity = capacity;
         this.gps = gps;
         this.web = web;
     }
-
+    
+    /**
+     *  The same as above but without web
+     * @param name
+     * @param capacity
+     * @param gps 
+     */
     public Location(String name, int capacity, Coordinates gps){
         this.name = name;
         this.capacity = capacity;
@@ -30,10 +43,18 @@ public class Location {
         this.web = "Unknown";
     }
     
+    /**
+     * Gets the name of the place
+     * @return the name
+     */
     public String getName(){
         return name;
     }
     
+    /**
+     * returns the capacity value
+     * @return 
+     */
     public int getCapacity(){
         return capacity;
     }
