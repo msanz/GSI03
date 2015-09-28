@@ -6,7 +6,6 @@
 package GSILabs.BModel;
 
 import java.util.HashSet;
-import java.util.TreeSet;
 
 /**
  *
@@ -19,7 +18,7 @@ public class Client {
     private String surName1;
     private String surName2;
     private DateGeneral birthday;
-    private TreeSet<String> creditCard;
+    private HashSet<String> creditCard;
     private HashSet<Ticket> sales;
     
     public Client (int DNI, String name, String surName1, String surName2, DateGeneral birthday){
@@ -28,12 +27,25 @@ public class Client {
         this.surName1 = surName1;
         this.surName2 = surName2;
         this.birthday = birthday;
-        this.creditCard = new TreeSet<>();
+        this.creditCard = new HashSet<>();
         this.sales = new HashSet<>();
     }
     
+    /** 
+     * 
+     * @param card string with credit card number
+     * @return true if the string is formed by 16 numeric digits
+     */
+    public boolean validateCreditCard(String card){
+        return (card.matches("\\d{16,16}") && !card.equals(""));
+    }
+    
     public boolean addCreditCard(String cCard){
-        return this.creditCard.add(cCard);
+        if(validateCreditCard(cCard))
+        {
+            return this.creditCard.add(cCard);
+        }
+        return false;
     }
     
     public boolean addTicket(Ticket t) {
@@ -60,12 +72,16 @@ public class Client {
         return birthday;
     }
 
-    public TreeSet<String> getCreditCard() {
+    public HashSet<String> getCreditCard() {
         return creditCard;
     }
     
     public HashSet<Ticket> getSales() {
         return sales;
+    }
+    
+    public void setSales(HashSet<Ticket> sales) {
+        this.sales = sales;
     }
     
     @Override

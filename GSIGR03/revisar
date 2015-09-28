@@ -5,8 +5,3 @@
 3) ¿hashcode() en Location?
 
 4) ¿necesario poner a cero atomicInteger para cada evento?
-
-5) el metodo findClient() no existe en la interfaz
- * S2) Si busca a un cliente que no existe con findClient, el resultado es null;
-
-

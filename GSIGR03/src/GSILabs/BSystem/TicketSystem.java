@@ -10,7 +10,6 @@ import GSILabs.BModel.Event;
 import GSILabs.BModel.Ticket;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.TreeSet;
 
 /**
  *
@@ -125,7 +124,7 @@ public class TicketSystem {
         //meterle al hashset del cliente, el ticket en su lista.
         Iterator it = tickets.iterator();
         Ticket ticket;
-        TreeSet sales;
+        HashSet sales;
         sales = c.getCreditCard();
         Iterator cr = sales.iterator();
         String creditCard;
