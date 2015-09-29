@@ -5,6 +5,8 @@
  */
 package GSILabs.BModel;
 
+import java.util.Objects;
+
 /** 
  * A location is the site where a event can be placed
  * @author GR03
@@ -32,9 +34,9 @@ public class Location {
     
     /**
      *  The same as above but without web
-     * @param name
-     * @param capacity
-     * @param gps 
+     * @param name location's name
+     * @param capacity location's capacity
+     * @param gps gps coordinates of the location
      */
     public Location(String name, int capacity, Coordinates gps){
         this.name = name;
@@ -53,7 +55,7 @@ public class Location {
     
     /**
      * returns the capacity value
-     * @return 
+     * @return the capacity of the location
      */
     public int getCapacity(){
         return capacity;
@@ -74,5 +76,12 @@ public class Location {
             return this.getName().toLowerCase().equals(l.getName().toLowerCase());
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.name);
+        return hash;
     }
 }

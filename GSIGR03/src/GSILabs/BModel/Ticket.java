@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This document is part of the lab material for the subject:
+ * Gestion de Sistemas de Informacion
+ * to be released at the
+ * Universidad Publica de Navarra
+ * during the first semester of the Academic Year 2015-2016
  */
 package GSILabs.BModel;
 
@@ -9,9 +11,11 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * A ticket is a object that allows to enter to a event. Is associated with event name.
+ * A ticket is a object that allows to enter to a event.
+ * Is associated with event name.
  * All the tickets are diferent
  * @author GR03
+ * @version 1.0
  */
 public class Ticket {
     
@@ -23,7 +27,7 @@ public class Ticket {
     boolean used;
     
     /**
-     * ticket constructor. Only needs a event name, and a atomic integer object initializated.
+     * Create a new Ticket. Only needs a event name, and a atomic integer object initializated.
      * @param eventName The name of the event
      * @param atomicInteger The atomic integer object, for creating ticket's ids
      */
@@ -89,6 +93,11 @@ public class Ticket {
         return price;
     }
     
+    /** 
+     * Check if two tickets for a event has the same id
+     * @param o object to compare
+     * @return true if and only if the object to compare is a ticket for the same event and has the same id, false otherwise.
+     */
     @Override
     public boolean equals(Object o){
         if(o instanceof Ticket){
@@ -98,6 +107,10 @@ public class Ticket {
         return false;
     }
 
+    /** 
+     * Generate a hashCode based in event's name
+     * @return hashCode for the new event
+     */
     @Override
     public int hashCode() {
         int hash = 3;
@@ -105,6 +118,10 @@ public class Ticket {
         return hash;
     }
     
+    /**
+     * Override toString method from class Object
+     * @return ticket information in a specific format
+     */
     @Override
     public String toString(){
         return "Event Name: " + eventName + "\n" +
@@ -115,8 +132,8 @@ public class Ticket {
     }
     
     /**
-     * This returns a string with the name of the ticket's event
-     * @return 
+     * Get the event from a ticket
+     * @return a string with the name of the ticket's event
      */
     public String getEventNameInTicket() {
         return this.eventName;

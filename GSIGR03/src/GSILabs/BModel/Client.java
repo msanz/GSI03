@@ -10,7 +10,7 @@ package GSILabs.BModel;
 import java.util.HashSet;
 
 /**
- * A client is someone who buy a ticket
+ * A client is someone who can buy tickets for diferent events
  * @author GR03
  * @version 1.0
  */
@@ -48,12 +48,12 @@ public class Client {
      * @return true if the string is formed by 16 numeric digits
      */
     public boolean validateCreditCard(String card){
-        return (card.matches("\\d{16,16}") && !card.equals(""));
+        return card.matches("\\d{16,16}");
     }
     
     /**
      * Add a credit card to the credit pool
-     * @param card string with credit card
+     * @param cCard string with credit card
      * @return true if the credit card is well formed and it adds to the pool false in other cas
      */
     public boolean addCreditCard(String cCard){
@@ -137,6 +137,12 @@ public class Client {
         this.sales = sales;
     }
     
+    
+    /** 
+     * Check if the client has the same DNI
+     * @param o object to compare
+     * @return true if and only if the object to compare is a client and has the same DNI, false otherwise.
+     */
     @Override
     public boolean equals(Object o){
         if(o instanceof Client){
@@ -146,6 +152,11 @@ public class Client {
         return false;
     }
 
+    
+    /** 
+     * Generate a hashCode based in client's DNI
+     * @return hashCode for the new client
+     */
     @Override
     public int hashCode() {
         int hash = 3;
