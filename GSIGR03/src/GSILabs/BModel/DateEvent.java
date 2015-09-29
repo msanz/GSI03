@@ -79,5 +79,4 @@ public class DateEvent extends DateGeneral{
     public Date getTimeFinish() {
         return timeFinish;
     }
-    
 }

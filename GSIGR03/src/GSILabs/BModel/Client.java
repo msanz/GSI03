@@ -152,7 +152,6 @@ public class Client {
         return false;
     }
 
-    
     /** 
      * Generate a hashCode based in client's DNI
      * @return hashCode for the new client

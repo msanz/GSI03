@@ -15,6 +15,7 @@ import java.util.Objects;
  * @version 1.0
  */
 public class Artist implements Performer {
+    
     private String name;
     private String workDescription;
     private String web;

@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  * @author GR03
  */
 public class DateGeneral {
+    
     private final Date day;
     private final Date time;    
     

@@ -17,6 +17,7 @@ import java.util.Date;
  * @version 1.0
  */
 public class DateConcert extends DateEvent {
+    
     private Date timeOpenDoors;  
     
     /** 
@@ -45,5 +46,4 @@ public class DateConcert extends DateEvent {
     public Date getTimeOpenDoors(){
         return timeOpenDoors;
     }
-
 }

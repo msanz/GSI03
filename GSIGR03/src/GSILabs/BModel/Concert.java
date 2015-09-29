@@ -16,7 +16,7 @@ import java.util.Objects;
  * @version 1.0
  */
 public class Concert implements ImpermanentEvent {
-    DateConcert date;
+    private DateConcert date;
     private String name;
     private Artist performer;
     private Location location;
@@ -116,7 +116,7 @@ public class Concert implements ImpermanentEvent {
     }
 
     /**
-     * Checks if the performer has involved in the concert
+     * Checks if the performer has involved in the concert. It is compare by name
      * @param p An unique performer object
      * @return true if and only if the performer has involved in the concert
      */
