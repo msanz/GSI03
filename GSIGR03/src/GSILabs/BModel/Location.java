@@ -64,6 +64,10 @@ public class Location {
         return capacity;
     }
     
+     /**
+     * Rewriting the toString() method
+     * @return show location's information in another style
+     */
     @Override
     public String toString() {
         return "Name location: "+ name +
@@ -86,6 +90,10 @@ public class Location {
         return false;
     }
 
+    /** 
+     * Generate a hashCode based in location's name
+     * @return hashCode for the new location
+     */
     @Override
     public int hashCode() {
         int hash = 7;
