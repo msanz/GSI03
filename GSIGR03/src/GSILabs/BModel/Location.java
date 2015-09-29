@@ -16,13 +16,13 @@ import java.util.Objects;
  */
 public class Location {
     
-    String name;
-    int capacity;
-    Coordinates gps;
-    String web;
+    private String name;
+    private int capacity;
+    private Coordinates gps;
+    private String web;
     
     /**
-     * this sets a new location
+     * This sets a new location
      * @param name the name of the place
      * @param capacity max number of people in this place
      * @param gps the gps coordinates
@@ -57,7 +57,7 @@ public class Location {
     }
     
     /**
-     * returns the capacity value
+     * Returns the capacity value
      * @return the capacity of the location
      */
     public int getCapacity(){

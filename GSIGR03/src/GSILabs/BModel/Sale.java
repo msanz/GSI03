@@ -14,6 +14,7 @@ import java.util.Date;
  * @author GR03
  * @version 1.0
  */
+
 public class Sale {
     Date date;
     int[] ticketID;

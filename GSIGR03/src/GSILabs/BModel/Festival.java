@@ -23,10 +23,10 @@ public class Festival implements LastingEvent {
     
     private SortedSet<Concert> concerts;
     private HashSet<Location> locations;
-    String name;
+    private String name;
     
     /** 
-     * Creates a new Festival.In locations there are all concert's locations.
+     * Create a new Festival.In locations there are all concert's locations.
      * @param name name of the festival. this name should be unique
      */
     public Festival (String name){
@@ -41,7 +41,6 @@ public class Festival implements LastingEvent {
      * @return true if and only if the concert is add to the festival
      */
     public boolean addConcert(Concert concert){
-  
         return (locations.add(concert.getLocation()) && concerts.add(concert));
     }
     
