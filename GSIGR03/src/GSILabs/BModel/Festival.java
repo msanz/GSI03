@@ -110,6 +110,10 @@ public class Festival implements LastingEvent {
         return false;
     }
 
+    /**
+     * Get performers from the festival
+     * @return returns an array that contains the performers of the festival
+     */
     @Override
     public Performer[] getPerformers() {
        ArrayList<Performer> performers = new ArrayList();
@@ -119,10 +123,18 @@ public class Festival implements LastingEvent {
         return (Performer[]) performers.toArray();
     }
     
+    /**
+     * Get concerts sorted by date
+     * @return concerts in the festival sorted by date
+     */
     public SortedSet<Concert> getConcerts(){
         return concerts;
     }
     
+    /**
+     * Get the locations of the festival.
+     * @return locations for the festival's concerts.
+     */
     public HashSet<Location> getLocation(){
         return locations;
     }

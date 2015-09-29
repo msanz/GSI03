@@ -64,6 +64,17 @@ public class Client {
         return false;
     }
     
+    /**
+     * Set client credit cards.
+     * @param cCards hashset that contains the credit cards from a client
+     */
+    public void setCredicCards(HashSet<String> cCards) {
+        
+        for (String cCard : cCards) {
+            this.addCreditCard(cCard);
+        }
+    }
+    
      /**
      * Add ticket to the tickets pool
      * @param t Ticket object
