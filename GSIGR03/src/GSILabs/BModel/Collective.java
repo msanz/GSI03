@@ -1,23 +1,38 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This document is part of the lab material for the subject:
+ * Gestion de Sistemas de Informacion
+ * to be released at the
+ * Universidad Publica de Navarra
+ * during the first semester of the Academic Year 2015-2016
  */
+
 package GSILabs.BModel;
 
 import java.util.SortedSet;
 
 /**
- *
+ * A collective is a collection of artist that take part of concert or exhibition.
  * @author GR03
+ * @version 1.0
  */
 public class Collective extends Artist implements Performer {
     SortedSet<Artist> members;
     
+    /**
+     * Create a new collective 
+     * @param name The name of collective
+     * @param workDescription The artwork description
+     */
     public Collective(String name, String workDescription) {
         super(name, workDescription);
     }
-
+    
+    /**
+     * Create a new collective 
+     * @param name The name of collective
+     * @param workDescription The artwork description
+     * @param web The website of the collective
+     */
     public Collective(String name, String workDescription, String web) {
         super(name, workDescription);
         this.web = web;
@@ -32,11 +47,17 @@ public class Collective extends Artist implements Performer {
         return "Name: "+ super.name +" ArtWork: " + super.workDescription +" Web: " + web +"\n";
     }
     
+    /**
+    * Checks if the name the objects is the same.
+    * @param o Object
+    * @return true if and only if the name in lowercase is the same and false otherwise
+    */
     @Override
     public boolean equals(Object o ) {
-        if (o == null) 
-            return false;
-        Collective a = (Collective)o;
-        return this.getName().toLowerCase().equals(a.getName().toLowerCase());
+        if (o instanceof Artist){ 
+            Collective a = (Collective)o;
+            return this.getName().toLowerCase().equals(a.getName().toLowerCase());
+        }
+        return false;
     }
 }

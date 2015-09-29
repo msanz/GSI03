@@ -1,8 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This document is part of the lab material for the subject:
+ * Gestion de Sistemas de Informacion
+ * to be released at the
+ * Universidad Publica de Navarra
+ * during the first semester of the Academic Year 2015-2016
  */
+
 package GSILabs.BModel;
 
 import java.util.Date;
@@ -12,7 +15,7 @@ import java.util.Date;
  * @author GR03
  */
 public class DateConcert extends DateEvent {
-    Date timeOpenDoors;  
+    private Date timeOpenDoors;  
 
     public DateConcert(String dayString, String timeString) {
         super(dayString, timeString);
@@ -22,6 +25,10 @@ public class DateConcert extends DateEvent {
     
     public void setTimeOpenDoors(String string){
         this.timeOpenDoors = super.timeFormat(string);   
+    }
+    
+    public Date getTimeOpenDoors(){
+        return timeOpenDoors;
     }
 
 }
