@@ -5,19 +5,19 @@
  * Universidad Publica de Navarra
  * during the first semester of the Academic Year 2015-2016
  */
+
 package GSILabs.BModel;
 
 import java.util.Objects;
-
 /**
  * An artist is a person who takes part of concert or exhibition.
  * @author GR03
  * @version 1.0
  */
 public class Artist implements Performer {
-    String name;
-    String workDescription;
-    String web;
+    private String name;
+    private String workDescription;
+    private String web;
     
     /**
      * Create a new Artist with name and work description.

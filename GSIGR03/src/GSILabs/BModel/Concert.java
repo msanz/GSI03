@@ -17,10 +17,10 @@ import java.util.Objects;
  */
 public class Concert implements ImpermanentEvent {
     DateConcert date;
-    String name;
-    Artist performer;
-    Location location;
-    Performer[] performers;
+    private String name;
+    private Artist performer;
+    private Location location;
+    private Performer[] performers;
     
     /**
      * Create a new concert
@@ -83,7 +83,7 @@ public class Concert implements ImpermanentEvent {
      */
     @Override
     public Date getStartDate() {
-        return date.dayStart;
+        return date.getDay();
     }
     
     /**
@@ -111,7 +111,7 @@ public class Concert implements ImpermanentEvent {
      */
     @Override
     public Date[] getDates() {
-       Date[] dates = {date.dayStart};
+       Date[] dates = {date.getDay()};
        return dates;
     }
 
@@ -159,11 +159,12 @@ public class Concert implements ImpermanentEvent {
                "\n" + performer +
                "\n" + date;
     }
-    //TODO
+    
+    //TO-DO
     public boolean collisionDay(Date day){
-        System.out.println("Date.Daystart: " + date.dayStart + " Date day: " + day);
-        if (!day.before(date.dayStart)){
-            if (!day.after(date.dayFinish)){
+        System.out.println("Date.Daystart: " + date.getDay() + " Date day: " + day);
+        if (!day.before(date.getDay())){
+            if (!day.after(date.getDayFinish())){
                 return true;
             }
         }

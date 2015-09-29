@@ -20,7 +20,6 @@ public class Festival implements LastingEvent{
     private SortedSet<Concert> concerts;
     private HashSet<Location> locations;
     String name;
-    DateEvent date;
     
     public Festival(){}
     public Festival (String name){
@@ -30,7 +29,7 @@ public class Festival implements LastingEvent{
     }
     
     public boolean addConcert(Concert concert){
-        date = concert.date;
+  
         return (locations.add(concert.getLocation()) && concerts.add(concert));
     }
     
@@ -40,12 +39,12 @@ public class Festival implements LastingEvent{
     
     @Override
     public Date getStartDate() {
-        return concerts.first().date.dayStart;
+        return concerts.first().getStartDate();
     }
 
     @Override
     public Date getEndingDate() {
-        return concerts.last().date.dayFinish;
+        return concerts.last().getStartDate();
     }
 
     @Override

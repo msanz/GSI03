@@ -5,7 +5,6 @@
  */
 package GSILabs.BModel;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -46,12 +45,12 @@ public class Exhibition implements LastingEvent {
     
     @Override
     public Date getStartDate() {
-        return date.dayStart;
+        return date.getDayStart();
     }
 
     @Override
     public Date getEndingDate() {
-        return date.dayFinish;
+        return date.getDayFinish();
     }
 
     @Override
@@ -61,7 +60,7 @@ public class Exhibition implements LastingEvent {
 
     @Override
     public Date[] getDates() {
-       Date[] dates = {date.dayStart, date.dayFinish};
+       Date[] dates = {date.getDayStart(), date.getDayFinish()};
        return dates;
     }
 

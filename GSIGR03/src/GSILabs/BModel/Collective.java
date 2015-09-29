@@ -16,7 +16,7 @@ import java.util.SortedSet;
  * @version 1.0
  */
 public class Collective extends Artist implements Performer {
-    SortedSet<Artist> members;
+    private SortedSet<Artist> members;
     
     /**
      * Create a new collective 
@@ -35,7 +35,7 @@ public class Collective extends Artist implements Performer {
      */
     public Collective(String name, String workDescription, String web) {
         super(name, workDescription);
-        this.web = web;
+        this.setWeb(web);
     }
     
     /**
@@ -44,7 +44,7 @@ public class Collective extends Artist implements Performer {
      */
     @Override
     public String toString() {
-        return "Name: "+ super.name +" ArtWork: " + super.workDescription +" Web: " + web +"\n";
+        return "Name: "+ super.getName() +" ArtWork: " + super.getWorkDescription() +" Web: " + super.getWeb() +"\n";
     }
     
     /**
