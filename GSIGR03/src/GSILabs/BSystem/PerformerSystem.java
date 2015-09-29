@@ -11,8 +11,9 @@ import GSILabs.BModel.Performer;
 import java.util.HashSet;
 
 /**
- *
+ * PerformerSystem is a subsystem for manage a hashset of performers
  * @author GR03
+ * @version 1.0
  */
 public class PerformerSystem {
     
@@ -96,8 +97,9 @@ public class PerformerSystem {
      */
     public boolean removePerformer(String performerName) {
         for (Performer p:performers){
-            if (p.getName().toLowerCase().equals(performerName.toLowerCase()))
+            if (p.getName().toLowerCase().equals(performerName.toLowerCase())){
                 return performers.remove(p);
+            }
         }
         return false;
     }
@@ -109,8 +111,9 @@ public class PerformerSystem {
      */
     public boolean existsPerformer(String performerName) {
        for (Performer p:performers){
-            if (p.getName().toLowerCase().equals(performerName.toLowerCase()))
+            if (p.getName().toLowerCase().equals(performerName.toLowerCase())){
                 return true;
+            }
         }
         return false;
     }
@@ -122,8 +125,9 @@ public class PerformerSystem {
      */
     public boolean existsArtist(String artistName) {
         for (Performer p:performers){
-            if ((p.getName().toLowerCase().equals(artistName.toLowerCase())) && (p instanceof Artist))
+            if ((p.getName().toLowerCase().equals(artistName.toLowerCase())) && (p instanceof Artist)){
                 return true;
+            }
         }
         return false;
     }
@@ -135,8 +139,9 @@ public class PerformerSystem {
      */
     public boolean existsCollective(String artistName) {
         for (Performer p:performers){
-            if ((p.getName().toLowerCase().equals(artistName.toLowerCase())) && (p instanceof Collective))
+            if ((p.getName().toLowerCase().equals(artistName.toLowerCase())) && (p instanceof Collective)){
                 return true;
+            }
         }
         return false;
     }
