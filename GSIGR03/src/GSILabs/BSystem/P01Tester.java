@@ -118,11 +118,11 @@ public class P01Tester {
             System.out.println("Error al agregar el festvial");
         }
         
-        if(businessSystem.addConcertToFestival(festival, concert1)){
-            System.out.println("Concierto agregado a festvial correctamente");
-        }else{
-            System.out.println("Error al agregar el concierto al festival");
-        }
+//        if(businessSystem.addConcertToFestival(festival, concert1)){
+//            System.out.println("Concierto agregado a festvial correctamente");
+//        }else{
+//            System.out.println("Error al agregar el concierto al festival");
+//        }
         
         /*
         if(businessSystem.addConcertToFestival(festival, concert1)){
@@ -147,15 +147,16 @@ public class P01Tester {
         ticket = new Ticket("EventoRaruno", businessSystem.getAtomicInteger());
         businessSystem.addNewTicket(ticket);
         Client client2 = new Client(15846813, "pepe", "Randez", "Perez", new DateGeneral("14/2/1990","12:10"));
-        client2.addCreditCard("creditcard");
+        client2.addCreditCard("5263214589758963");
         if (businessSystem.addClient(client2)){
             System.out.println("Cliente agregado correctamente");
         }else{
             System.out.println("Error al agregar el cliente");
         }
         
-        if ( businessSystem.addSale(ticket, client2,(float)2.2222, "creditcard")) {
-            System.out.println("Venta realizada correctamente" );
+        if ( businessSystem.addSale(ticket, client2,(float)2.2222, client2.getCreditCard().toArray()[0].toString())) {
+            System.out.println("Venta realizada correctamente.\nDetalle de la venta:" );
+            System.out.println(businessSystem.ticketSystem.ticketSales);
         }else {
             System.out.println("Cliente no encontrado. Imposible realizar venta");
         }
