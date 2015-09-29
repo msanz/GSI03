@@ -82,6 +82,39 @@ public class P01Tester {
             System.out.println("Error al agregar el colectivo");
         }
         
+        //S6
+        Ticket ticketS61 = new Ticket("Disturbed", businessSystem.getAtomicInteger());
+        businessSystem.addNewTicket(ticketS61);
+        
+        Ticket ticketS62 = new Ticket("All that Remains", businessSystem.getAtomicInteger());
+        businessSystem.addNewTicket(ticketS62);
+        
+        Ticket ticketS63 = new Ticket("Nickelback", businessSystem.getAtomicInteger());
+        businessSystem.addNewTicket(ticketS63);
+        
+        Client clients6 = new Client(12345678, "Juan", "Sanchez", "Perez", new DateGeneral("14/2/1990","12:10"));
+        clients6.addCreditCard("5263214589758963");
+        if (businessSystem.addClient(clients6)){
+            System.out.println("Cliente agregado correctamente");
+        }else{
+            System.out.println("Error al agregar el cliente");
+        }
+        
+        Client clients7 = new Client(12345690, "Perico", "El de Los", "Palotes", new DateGeneral("14/2/1980","12:10"));
+        clients7.addCreditCard("5263214589758963");
+        if (businessSystem.addClient(clients7)){
+            System.out.println("Cliente agregado correctamente");
+        }else{
+            System.out.println("Error al agregar el cliente");
+        }
+        
+        businessSystem.addSale(ticketS61, clients6,(float)1.2, clients6.getCreditCard().toArray()[0].toString());
+        businessSystem.addSale(ticketS62, clients6,(float)5.2, clients6.getCreditCard().toArray()[0].toString());
+        System.out.println("Total gastado por clients6 " +businessSystem.getTotalSpending(clients6));
+        businessSystem.addSale(ticketS63, clients7,(float)55.2222, clients7.getCreditCard().toArray()[0].toString());
+        System.out.println("Total gastado por clients7 " +businessSystem.getTotalSpending(clients7));
+        
+        
         //S7
         System.out.println("S7) No se puede asociar un evento a una localización que no existe;");
         
@@ -177,7 +210,9 @@ public class P01Tester {
             System.out.println("Cliente agregado correctamente");
         }else{
             System.out.println("Error al agregar el cliente");
-        } 
+        }
+        
+        
     }
     
 /**
