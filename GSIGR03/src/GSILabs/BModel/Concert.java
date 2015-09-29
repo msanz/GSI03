@@ -7,7 +7,6 @@
 */
 
 package GSILabs.BModel;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
@@ -53,7 +52,7 @@ public class Concert implements ImpermanentEvent {
     
     /**
      * Compare two objects by name and location
-     * @param o is a object
+     * @param o Object
      * @return true if and only if two objects have the same name and location if not false
      */
     @Override
@@ -66,6 +65,10 @@ public class Concert implements ImpermanentEvent {
         return false;
     }
 
+    /**
+     * Generate a hashcode based in name and location. 
+     * @return the hash of the object
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -156,7 +159,7 @@ public class Concert implements ImpermanentEvent {
                "\n" + performer +
                "\n" + date;
     }
-    
+    //TODO
     public boolean collisionDay(Date day){
         System.out.println("Date.Daystart: " + date.dayStart + " Date day: " + day);
         if (!day.before(date.dayStart)){

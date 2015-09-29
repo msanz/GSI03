@@ -1,8 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This document is part of the lab material for the subject:
+ * Gestion de Sistemas de Informacion
+ * to be released at the
+ * Universidad Publica de Navarra
+ * during the first semester of the Academic Year 2015-2016
  */
+
 package GSILabs.BModel;
 
 import java.util.Objects;
@@ -65,10 +68,15 @@ public class Location {
     public String toString() {
         return "Name location: "+ name +
                 "\nCapacity: " + capacity +
-                "\nGPS: (" + gps.x +", " + gps.y + ")" + 
+                "\nGPS: (" + gps.getX() +", " + gps.getY() + ")" + 
                 "\nWeb: " + web;
     }
     
+    /**
+    * Checks if the name the objects is the same.
+    * @param o Object
+    * @return true if and only if the name in lowercase is the same and false otherwise
+    */
     @Override
     public boolean equals(Object o ) {
         if (o instanceof Location){ 

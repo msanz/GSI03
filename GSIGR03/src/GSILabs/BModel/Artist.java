@@ -7,6 +7,8 @@
  */
 package GSILabs.BModel;
 
+import java.util.Objects;
+
 /**
  * An artist is a person who takes part of concert or exhibition.
  * @author GR03
@@ -94,11 +96,28 @@ public class Artist implements Performer {
         this.web = web;
     }
     
+    /**
+    * Checks if the name the objects is the same.
+    * @param o Object
+    * @return true if and only if the name in lowercase is the same and false otherwise
+    */
     @Override
     public boolean equals(Object o ) {
-        if (o == null) 
-            return false;
-        Artist a = (Artist)o;
-        return this.getName().toLowerCase().equals(a.getName().toLowerCase());
+        if (o instanceof Artist){ 
+            Artist a = (Artist)o;
+            return this.getName().toLowerCase().equals(a.getName().toLowerCase());
+        }
+        return false;
+    }
+
+    /**
+     * Generate a hashcode based in name. 
+     * @return the hash of the object
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + Objects.hashCode(this.name);
+        return hash;
     }
 }

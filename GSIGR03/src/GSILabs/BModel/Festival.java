@@ -16,7 +16,7 @@ import java.util.TreeSet;
  *
  * @author GR03
  */
-public class Festival implements LastingEvent, Comparable<Concert> {
+public class Festival implements LastingEvent{
     private SortedSet<Concert> concerts;
     private HashSet<Location> locations;
     String name;
@@ -89,8 +89,5 @@ public class Festival implements LastingEvent, Comparable<Concert> {
         return locations;
     }
 
-    @Override
-    public int compareTo(Concert t) {
-        return 0;
-    }
+
 }

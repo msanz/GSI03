@@ -1,8 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This document is part of the lab material for the subject:
+ * Gestion de Sistemas de Informacion
+ * to be released at the
+ * Universidad Publica de Navarra
+ * during the first semester of the Academic Year 2015-2016
  */
+
 package GSILabs.BModel;
 
 /**
@@ -11,21 +14,36 @@ package GSILabs.BModel;
  */
 public class Coordinates {
     
-    int x;
-    int y;
+    private int x;
+    private int y;
     
+    /**
+     * Create a new coordinates object with x and y values.
+     * @param x coordinate value X of the location
+     * @param y coordinate value Y of the location
+     */
     public Coordinates(int x, int y)
     {
         this.x = x;
         this.y = y;
     }
+    
     /**
-     * Return the Coordinates object
+     * Returns the X coordinates
      * @return coordinates object
      */
-    public Coordinates get()
+    public int getX()
     {
-        return this;
+        return this.x;
+    }
+    
+    /**
+     * Returns the Y coordinates
+     * @return coordinates object
+     */
+    public int getY()
+    {
+        return this.y;
     }
     
     /**

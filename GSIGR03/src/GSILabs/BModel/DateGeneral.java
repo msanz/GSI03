@@ -1,8 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This document is part of the lab material for the subject:
+ * Gestion de Sistemas de Informacion
+ * to be released at the
+ * Universidad Publica de Navarra
+ * during the first semester of the Academic Year 2015-2016
  */
+
 package GSILabs.BModel;
 
 import java.util.Date;
@@ -13,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This class manager the day and time of the 
  * @author GR03
  */
 public class DateGeneral {
@@ -30,7 +33,7 @@ public class DateGeneral {
         this.time = this.timeFormat(timeString);
     }
     
-    public Date dayFormat(String string){
+    Date dayFormat(String string){
         try{
             DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
             return format.parse(string);
@@ -40,7 +43,7 @@ public class DateGeneral {
         return null;
     }
     
-    public Date timeFormat(String string){
+    Date timeFormat(String string){
         try{
             DateFormat format = new SimpleDateFormat("H:mm");
             return format.parse(string);
