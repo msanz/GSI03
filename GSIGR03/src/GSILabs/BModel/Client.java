@@ -69,7 +69,6 @@ public class Client {
      * @param cCards hashset that contains the credit cards from a client
      */
     public void setCredicCards(HashSet<String> cCards) {
-        
         for (String cCard : cCards) {
             this.addCreditCard(cCard);
         }

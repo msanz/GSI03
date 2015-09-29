@@ -82,7 +82,7 @@ public class Festival implements LastingEvent {
     }
 
     /**
-     * TO-DO : quitar duplicados && comprobar que están ordenadas
+     * TO-DO : quitar duplicados AND comprobar que están ordenadas
      * Get all the dates of the festival's concerts
      * @return array that contains all the dates of the concerts in the festival
      */

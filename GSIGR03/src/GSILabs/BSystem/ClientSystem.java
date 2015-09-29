@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This document is part of the lab material for the subject:
+ * Gestion de Sistemas de Informacion
+ * to be released at the
+ * Universidad Publica de Navarra
+ * during the first semester of the Academic Year 2015-2016
  */
 package GSILabs.BSystem;
 
@@ -18,8 +20,9 @@ public class ClientSystem {
     
     HashSet<Client> clients;
     
-    /**
-     * Initialicing hasset of clients
+    /** 
+     * Create a new Client System.
+     * Initialicing hashset of clients
      */
     public ClientSystem() {
         clients = new HashSet<>();  
@@ -173,7 +176,6 @@ public class ClientSystem {
      * @return The list of tickets that has been sold to the client, if any.
      */
     public Ticket[] getListOfTickets(Client c) {
-        
         return (Ticket[]) retrieveClient(c.getDNI()).getSales().toArray();
     }
     
@@ -183,7 +185,6 @@ public class ClientSystem {
      * @return The sum of the prices of the tickets
      */
     public float getTotalSpending(Client c) {
-        
         float sum = 0;
         
         for (Ticket ticket: retrieveClient(c.getDNI()).getSales())
