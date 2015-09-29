@@ -128,13 +128,42 @@ public class Exhibition implements LastingEvent {
      */
     @Override
     public Performer[] getPerformers() {
-        if (performers == null)
+        if (performers == null){
             return null;
-        if (performers != null)
+        }    
+        if (performers != null){
             return performers;
-        else{
+        }else{
             Performer[] list = {performer};
             return list;
         }
+    }
+    
+    /**
+     * Rewriting the toString() method
+     * @return Other style to show the information
+     */
+    @Override
+    public String toString() {
+        return "Name exhibition: " + name +
+               "\n" + org +  
+               "\n" + location +
+               "\n" + performer +
+               "\n" + date;
+    }
+    
+    /**
+     * Compare two objects by name and location
+     * @param o Object
+     * @return true if and only if two objects have the same name and location if not false
+     */
+    @Override
+    public boolean equals(Object o ) {
+        if (o instanceof Exhibition){ 
+            Exhibition c = (Exhibition)o;
+            return (this.getName().toLowerCase().equals(c.getName().toLowerCase()) 
+                    && this.getLocation().equals(c.getLocation()));
+        }
+        return false;
     }
 }
