@@ -65,15 +65,16 @@ public class ClientSystem {
                     clientFound = true;
                     //modify client data
                     HashSet<Ticket> sales = client.getSales();
+                    HashSet<String> cCards = client.getCreditCard();
                     clients.remove(client);
                     //maintain client sales
                     c.setSales(sales);
+                    c.setCredicCards(cCards);
                     clients.add(c);
                 }
             }
         }
         //return true if everything is well done and false otherwise
-        
         return clientFound;
     }
 
