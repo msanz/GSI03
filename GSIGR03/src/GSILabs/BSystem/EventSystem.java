@@ -24,9 +24,12 @@ import java.util.SortedSet;
  * @version 1.0
  */
 public class EventSystem {
-    HashSet<Event> events;
+
+    private HashSet<Event> events;
     
-    // Event creation and management
+    /**
+    * Create a new Event System with a hashset of events.
+    */
     public EventSystem(){
         events = new HashSet<Event>();
     }
