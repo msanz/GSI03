@@ -19,9 +19,12 @@ import java.util.HashSet;
  */
 public class LocationSystem {
     
-    HashSet<Location> locations;
-    
-    LocationSystem(){
+    private HashSet<Location> locations;
+
+    /**
+    * Create a new Location System with a hashset of locations.
+    */
+    public LocationSystem(){
         locations = new HashSet<Location>();
     }
 
