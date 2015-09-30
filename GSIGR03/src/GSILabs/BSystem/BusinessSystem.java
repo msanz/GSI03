@@ -1,8 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This document is part of the lab material for the subject:
+ * Gestion de Sistemas de Informacion
+ * to be released at the
+ * Universidad Publica de Navarra
+ * during the first semester of the Academic Year 2015-2016
  */
+
 package GSILabs.BSystem;
 
 import GSILabs.BModel.Artist;
@@ -19,15 +22,16 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- *
+ * The business system is the main system. It has diferents kinds of subsystems.
  * @author GR03
+ * @version 1.0
  */
 public class BusinessSystem implements TicketOffice{
-    ClientSystem clientSystem;
-    EventSystem eventSystem;
-    LocationSystem locationSystem;
-    TicketSystem ticketSystem;
-    PerformerSystem performerSystem;
+    private ClientSystem clientSystem;
+    private EventSystem eventSystem;
+    private LocationSystem locationSystem;
+    private TicketSystem ticketSystem;
+    private PerformerSystem performerSystem;
     private final AtomicInteger atomicInteger;
     
     public BusinessSystem (){
@@ -51,7 +55,6 @@ public class BusinessSystem implements TicketOffice{
            }
        }
        return false;
-       
     }
 
     @Override
@@ -288,7 +291,6 @@ public class BusinessSystem implements TicketOffice{
             return false;
         }
     }
-        
     
     // Locations management
     
