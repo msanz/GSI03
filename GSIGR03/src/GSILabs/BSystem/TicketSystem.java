@@ -1,8 +1,11 @@
-/**
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/*
+ * This document is part of the lab material for the subject:
+ * Gestion de Sistemas de Informacion
+ * to be released at the
+ * Universidad Publica de Navarra
+ * during the first semester of the Academic Year 2015-2016
  */
+
 package GSILabs.BSystem;
 
 import GSILabs.BModel.Client;
@@ -13,8 +16,8 @@ import java.util.Iterator;
 
 /**
  * This is a system that administrate the ticket sales to the clients
- * @author iecha
- * 
+ * @author GR03
+ * @version 1.0
  */
 public class TicketSystem {
     HashSet<Ticket> tickets;
@@ -40,9 +43,9 @@ public class TicketSystem {
         if (t.equals(t)) {
             tickets.add(t);
             return true;
-        }
-        else
+        }else{
             return false;
+        }
     }
     
     /**
@@ -61,7 +64,7 @@ public class TicketSystem {
         //check it using hascode();
         while (it.hasNext()) {
             ticket = (Ticket) it.next();
-            if ( t.hashCode()== ticket.hashCode() ) {
+            if ( t.hashCode() == ticket.hashCode() ) {
                 exist = true;
             }
         }
@@ -82,7 +85,6 @@ public class TicketSystem {
      *      includes the identifier id
      */
     boolean availableTicketID(Event e, int id) {
-        //ver si tengo tickets de ese evento, y aun no esta ese hashcode en mi hashset
         Iterator it = tickets.iterator();
         Ticket ticket;
         boolean exist = false;
@@ -106,32 +108,29 @@ public class TicketSystem {
      * @return True if and only if the Ticket exists, is associated with the Event e,
      *      contains the identifier id and it was not used before.
      */
-    boolean setIDUsed(Ticket t,Event e, int id) {
-        //comprobar si existe el ticket, si corresponde a mi evento, y si no ha quemado todas sus plazas.
-        Iterator it = tickets.iterator();
+    boolean setIDUsed(Ticket t, Event e, int id) {
+        Iterator it1 = tickets.iterator();
         Iterator it2 = ticketSales.iterator();
-        Ticket ticket;
+        Ticket ticket1;
         Ticket ticket2;
         boolean didit = false;
-        while (it.hasNext() ) {
-            ticket = (Ticket)it.next();
-            if ( t.hashCode()== ticket.hashCode() ) {
-                if (ticket.getEventNameInTicket().equals(e.getName())) {
-                    ticket.useTicket();
+        while (it1.hasNext() ) {
+            ticket1 = (Ticket)it1.next();
+            if ( t.hashCode() == ticket.hashCode() ) {
+                if (ticket1.getEventNameInTicket().equals(e.getName())) {
+                    ticket1.useTicket();
                 }
             }
             ticket2 = (Ticket)it2.next();
-            if ( t.hashCode()== ticket2.hashCode() ) {
+            if ( t.hashCode() == ticket2.hashCode() ) {
                 if (ticket2.getEventNameInTicket().equals(e.getName())) {
                     ticket2.useTicket();
                 }
             }
         }
-        
         return didit;
     }
     
-    //Sales and so
     /**
      * Registers the sale of an existing ticket to an existing client.
      * @param t     The ticket to be sold
@@ -142,12 +141,11 @@ public class TicketSystem {
      *      sale could be registered (e.g. the ticket was not sold in beforehand, etc.)
      */
     boolean addSale(Ticket t,Client c,Float price,String cCard) {
-        //meterle al hashset del cliente, el ticket en su lista.
         Iterator it = tickets.iterator();
+        Iterator cr = sales.iterator();
         Ticket ticket;
         HashSet sales;
         sales = c.getCreditCard();
-        Iterator cr = sales.iterator();
         String creditCard;
         //check if ticket exist
         while (it.hasNext()) {
@@ -168,7 +166,6 @@ public class TicketSystem {
                     }
                 }
             }
-        
     }
         return false;
     }
@@ -176,4 +173,3 @@ public class TicketSystem {
 
 
     
-
