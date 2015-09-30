@@ -1,8 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This document is part of the lab material for the subject:
+ * Gestion de Sistemas de Informacion
+ * to be released at the
+ * Universidad Publica de Navarra
+ * during the first semester of the Academic Year 2015-2016
  */
+
 package GSILabs.BSystem;
 
 import GSILabs.BModel.Artist;
@@ -17,9 +20,12 @@ import java.util.HashSet;
  */
 public class PerformerSystem {
     
-    HashSet<Performer> performers;
-    
-    PerformerSystem(){
+    private HashSet<Performer> performers;
+
+    /**
+    * Create a new Performer System with a hashset of performers.
+    */
+    public PerformerSystem(){
         performers = new HashSet<Performer>();
     }
     
