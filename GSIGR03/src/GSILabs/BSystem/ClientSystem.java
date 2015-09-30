@@ -18,7 +18,7 @@ import java.util.Iterator;
  */
 public class ClientSystem {
     
-    HashSet<Client> clients;
+    private HashSet<Client> clients;
     
     /** 
      * Create a new Client System.
@@ -35,8 +35,9 @@ public class ClientSystem {
      *  to the system
      */
     public boolean addClient(Client c) {
-        if (c.getBirthday().checkBirthday())
+        if (c.getBirthday().checkBirthday()){
             return clients.add(c);
+        }
         return false;
     }
 
@@ -50,7 +51,9 @@ public class ClientSystem {
     public boolean modifyClient(Client c) {
         
         boolean clientFound = false;
-        
+        HashSet<Ticket> sales = new HashSet<>();
+        HashSet<String> cCards = new HashSet<>();
+
         if (    (c != null) &&
                 (!"".equals(c.getName())) &&
                 (c.getBirthday().checkBirthday()) &&
@@ -67,8 +70,8 @@ public class ClientSystem {
                 {
                     clientFound = true;
                     //modify client data
-                    HashSet<Ticket> sales = client.getSales();
-                    HashSet<String> cCards = client.getCreditCard();
+                    sales = client.getSales();
+                    cCards = client.getCreditCard();
                     clients.remove(client);
                     //maintain client sales
                     c.setSales(sales);
