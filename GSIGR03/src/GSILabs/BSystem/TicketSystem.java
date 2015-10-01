@@ -27,10 +27,10 @@ public class TicketSystem {
      * Creating a two new hashsets. One for all the tickets that can be selled. The second is for all the tickts selled
      */
     TicketSystem() {
-        tickets = new HashSet<Ticket>();
+        tickets = new HashSet<>();
         //Added a second hashset of tickets, for saving all the sales, and clean the tickets hash set
         //All methods are rewrited.
-        ticketSales = new HashSet<Ticket>();
+        ticketSales = new HashSet<>();
     }
     
     /**
@@ -109,19 +109,19 @@ public class TicketSystem {
      *      contains the identifier id and it was not used before.
      */
     boolean setIDUsed(Ticket t, Event e, int id) {
-        Iterator it1 = tickets.iterator();
-        Iterator it2 = ticketSales.iterator();
+        Iterator ticketsIterator = tickets.iterator();
+        Iterator salesIterator = ticketSales.iterator();
         Ticket ticket1;
         Ticket ticket2;
         boolean didit = false;
-        while (it1.hasNext() ) {
-            ticket1 = (Ticket)it1.next();
-            if ( t.hashCode() == ticket.hashCode() ) {
+        while (ticketsIterator.hasNext() ) {
+            ticket1 = (Ticket)ticketsIterator.next();
+            if ( t.hashCode() == ticket1.hashCode() ) {
                 if (ticket1.getEventNameInTicket().equals(e.getName())) {
                     ticket1.useTicket();
                 }
             }
-            ticket2 = (Ticket)it2.next();
+            ticket2 = (Ticket)salesIterator.next();
             if ( t.hashCode() == ticket2.hashCode() ) {
                 if (ticket2.getEventNameInTicket().equals(e.getName())) {
                     ticket2.useTicket();
@@ -141,11 +141,11 @@ public class TicketSystem {
      *      sale could be registered (e.g. the ticket was not sold in beforehand, etc.)
      */
     boolean addSale(Ticket t,Client c,Float price,String cCard) {
-        Iterator it = tickets.iterator();
-        Iterator cr = sales.iterator();
         Ticket ticket;
         HashSet sales;
         sales = c.getCreditCard();
+        Iterator it = tickets.iterator();
+        Iterator cr = sales.iterator();
         String creditCard;
         //check if ticket exist
         while (it.hasNext()) {

@@ -16,7 +16,7 @@ import java.util.HashSet;
  */
 public class Client {
     
-    private int DNI;
+    private final int DNI;
     private String name;
     private String surName1;
     private String surName2;

@@ -12,6 +12,7 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,6 +33,16 @@ public class DateGeneral {
     public DateGeneral (String dayString, String timeString){
         this.day = this.dayFormat(dayString);
         this.time = this.timeFormat(timeString);
+    }
+
+    /**
+     * Create a general date with day and default time (0:00).
+     * Is used to create client's birthday
+     * @param dayString string day style "dd/mm/yyyy"
+     */
+    public DateGeneral(String dayString) {
+        this.day = dayFormat(dayString);
+        this.time = timeFormat("0:00");
     }
     
     /**
@@ -81,6 +92,14 @@ public class DateGeneral {
     }
     
     /**
+     * Checks if the client is adult (+18)
+     * @return tru if and only if the birthday is more than 18 years
+     */
+    public boolean checkBirthday(){
+       return (((new Date()).getYear() + 1900) - (day.getYear() + 1900) >= 18 );              
+    }
+    
+    /**
      * Rewriting the toString() method
      * @return other style to show the information
      */
@@ -91,11 +110,21 @@ public class DateGeneral {
         return "Day: " + dayFormat.format(day) + " - " + timeFormat.format(time);
     }
     
-    /**
-     * Checks if the client is adult (+18)
-     * @return tru if and only if the birthday is more than 18 years
-     */
-    public boolean checkBirthday(){
-       return (((new Date()).getYear() + 1900) - (day.getYear() + 1900) >= 18 );              
+    @Override
+    public boolean equals(Object o) {
+        
+        if(o instanceof DateGeneral) {
+            DateGeneral date = (DateGeneral) o;
+            //comprobar que no es after ni before
+            return (!day.after(date.day) && !day.before(date.day));
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.day);
+        return hash;
     }
 }
