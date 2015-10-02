@@ -19,6 +19,7 @@ import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -33,7 +34,7 @@ public class BusinessSystem implements TicketOffice{
     private TicketSystem ticketSystem;
     private PerformerSystem performerSystem;
     private final AtomicInteger atomicInteger;
-    
+
     public BusinessSystem (){
         clientSystem = new ClientSystem();
         eventSystem = new EventSystem();
@@ -433,5 +434,14 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public Performer retrievePerformer(String performerName) {
        return performerSystem.retrievePerformer(performerName);
+    }
+    
+    /**
+     * Checks whether there exist a performer with that name in the system
+     * @param collectiveName Name of interest
+     * @return True if and only if it exists
+     */
+    public Collective retrieveCollective(String collectiveName) {
+       return performerSystem.retrieveCollective(collectiveName);
     }
 }
