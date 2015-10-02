@@ -204,17 +204,15 @@ public class P01Tester {
     static void test5() {
         System.out.println("\nS5) No se pueden añadir dos eventos diferentes del mismo artista el mismo día");
         System.out.println("Probamos a añadir dos eventos de Flitter el mismo dia");
-        Collective collective = businessSystem.retrievePerformer("Flitter");
+        Collective collective = businessSystem.retrieveCollective("Flitter");
         Location madrid = businessSystem.getLocation("Madrid");
         Location bilbao = businessSystem.getLocation("Bilbao");
         DateConcert date = new DateConcert("12/7/2015", "21:30");
         Concert flitterMadrid = new Concert("Flitter-Madrid", collective, madrid, date);
         Concert flitterBilbao = new Concert("Flitter-Bilbao", collective, bilbao, date);
-        System.out.println(flitterBilbao);
-        System.out.println(businessSystem.addNewConcert(flitterBilbao));
-        System.out.println(flitterMadrid);
-        System.out.println(businessSystem.addNewConcert(flitterMadrid));
-        
+        System.out.println(flitterBilbao);      
+        businessSystem.addNewConcert(flitterBilbao);    
+        businessSystem.addNewConcert(flitterMadrid);
     }
     
     static void test6() {
