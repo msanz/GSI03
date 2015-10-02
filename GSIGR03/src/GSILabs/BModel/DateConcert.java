@@ -9,6 +9,7 @@
 package GSILabs.BModel;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * This class managed the date of the events. This class controls the date general (day and time) that a event start and finish. 
@@ -45,5 +46,23 @@ public class DateConcert extends DateEvent {
      */
     public Date getTimeOpenDoors(){
         return timeOpenDoors;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        
+        if(o instanceof DateConcert) {
+            DateConcert date = (DateConcert) o;
+            //comprobar que no es after ni before
+            return (super.equals(date));
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 23 * hash + Objects.hashCode(this.timeOpenDoors);
+        return hash;
     }
 }

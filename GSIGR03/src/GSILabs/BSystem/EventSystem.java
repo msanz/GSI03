@@ -42,8 +42,8 @@ public class EventSystem {
      *  not clash with the information already in the system. False otherwise.
      */
     public boolean addNewConcert(Concert c) {
-        return events.add(c);
-        /*if (c.getPerformers().length == 1){
+//        return events.add(c);
+        if (c.getPerformers().length == 1){
             for (Event e: events){
                if (e.involvesPerformer(c.getPerformers()[0])){
                    if (!c.collisionDay(e.getDates()[0])){
@@ -52,7 +52,7 @@ public class EventSystem {
                }    
             }
         }
-        return false;*/
+        return false;
     }
 
     /**

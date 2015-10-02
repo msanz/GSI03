@@ -47,8 +47,7 @@ public class Collective extends Artist implements Performer {
     public String toString() {
         return "Name: "+ super.getName() +
                 " ArtWork: " + super.getWorkDescription() +
-                " Web: " + super.getWeb() +
-                "\n";
+                " Web: " + super.getWeb();
     }
     
     /**

@@ -180,8 +180,8 @@ public class Client {
     @Override
     public String toString(){
         return "DNI: " + getDNI() +
-                " Name: " + getName() +
-                " Surnames: " + getSurName1() + " " + getSurName2() +
-                " Birth date: " + getBirthday();
+                "; Name: " + getName() +
+                ", " + getSurName1() + " " + getSurName2() +
+                "; Birth date: " + getBirthday();
     }
 }

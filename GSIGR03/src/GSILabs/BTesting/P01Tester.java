@@ -6,7 +6,7 @@
  * during the first semester of the Academic Year 2015-2016
  */
 
-package BTesting;
+package GSILabs.BTesting;
 
 import GSILabs.BModel.*;
 import GSILabs.BSystem.BusinessSystem;
@@ -40,19 +40,19 @@ public class P01Tester {
     private static Ticket ticket1;
     private static Ticket ticket2;
     private static Ticket ticket3;
-    private static Concert concert1;
+    
     private static Location location1;
     private static Location location2;
     private static Location location3;
     private static Location location4;
+    
+    private static Concert concert1;
     private static Concert concert2;
     private static Concert concert3;
     private static Concert concert4;
     private static Concert concert5;
     
-    /**
-     * 
-     */
+    
     public static void main(String args[]){  
         
         businessSystem = generateData();
@@ -63,21 +63,22 @@ public class P01Tester {
      * Metodo que ejecuta los tests de la aplicación
      */    
     static void runTests() {
-        
-        test1();
-        test2();
-        test3();
-        test4();
+//        testCompareDate();
+//        test1();
+//        test2();
+//        test3();
+//        test4();
         test5();
-        test6();
-        test7();
-        test8();
-        test9();
-        test10();
+//        test6();
+//        test7();
+//        test8();
+//        test9();
+//        test10();
     }
     
     /**
-     * Metodo que crea los objetos necesarios para realizar las pruebas
+     * Metodo encargado de poblar nuestro businessSystem.
+     * Instancia los objetos necesarios para realizar las pruebas y los añade al sistema.
      */
     private static BusinessSystem generateData() {
         
@@ -104,17 +105,17 @@ public class P01Tester {
         businessSystem.addCollective(new Collective("Los Delinquentes", ""));
         businessSystem.addCollective(new Collective("Flitter", ""));
         
-        location1 = new Location("Madrid", 300, new Coordinates(123,287));
-        location2 = new Location("Barcelona", 250, new Coordinates(100,250));
-        location3 = new Location("Jerez de la Frontera", 190, new Coordinates(879,123));
-        location4 = new Location("Bilbao", 187, new Coordinates(10,20));
+        businessSystem.addLocation(new Location("Madrid", 300, new Coordinates(123,287)));
+        businessSystem.addLocation(new Location("Barcelona", 250, new Coordinates(100,250)));
+        businessSystem.addLocation(new Location("Jerez de la Frontera", 190, new Coordinates(879,123)));
+        businessSystem.addLocation(new Location("Bilbao", 187, new Coordinates(10,20)));
         
         
-        concert1 = new Concert("Concierto 1", artist1, location1, new DateConcert("14/2/1999","12:10"));
-        concert2 = new Concert("Concierto 2", artist1, location2, new DateConcert("14/2/1999","12:10"));
-        concert3 = new Concert("Concierto 3", artist1, location3, new DateConcert("14/2/1999","12:10"));
-        concert4 = new Concert("Concierto 4", artist1, location4, new DateConcert("14/2/1999","12:10"));
-        concert5 = new Concert("Concierto 5", artist1, location1, new DateConcert("14/2/1999","12:10"));
+        concert1 = new Concert("Concierto 1", artist1, businessSystem.getLocation("Madrid"), new DateConcert("14/2/1999","12:10"));
+        concert2 = new Concert("Concierto 2", artist1, businessSystem.getLocation("Barcelona"), new DateConcert("5/8/1999","12:10"));
+        concert3 = new Concert("Concierto 3", artist1, businessSystem.getLocation("Jerez de la Frontera"), new DateConcert("21/12/2015","12:10"));
+        concert4 = new Concert("Concierto 4", artist1, businessSystem.getLocation("Bilbao"), new DateConcert("30/5/2015","12:10"));
+        concert5 = new Concert("Concierto 5", artist1, businessSystem.getLocation("Madrid"), new DateConcert("28/11/2015","12:10"));
         
         
         ticket1 = new Ticket("Disturbed", businessSystem.getAtomicInteger());
@@ -137,66 +138,79 @@ public class P01Tester {
         businessSystem.addArtist(artist3);
         businessSystem.addArtist(artist4);
         
-        businessSystem.addCollective(collective1);
-        businessSystem.addCollective(collective2);
-        businessSystem.addCollective(collective3);
-        businessSystem.addCollective(collective4);
-        
         
         return businessSystem;
+    }
+    static void testCompareDate() {
+        DateGeneral dg = new DateGeneral("12/12/12");
+        DateGeneral dg1 = new DateGeneral("12/12/12");
+        DateGeneral dg2 = new DateGeneral("12/2/12");
+        DateConcert dc = new DateConcert("12/12/12", "21:30");
+        DateConcert dc1 = new DateConcert("12/12/12", "21:30");
+        DateConcert dc2 = new DateConcert("12/12/12", "22:30");
+        DateConcert dc3 = new DateConcert("12/1/12", "22:30");
+        
+        System.out.println(dc.getDay());
+        System.out.println(dc1.getDay());
+        
+        System.out.println(dc.getDayStart());
+        System.out.println(dc1.getDayStart());
+        
+        System.out.println(dc.equals(dc1));
+        System.out.println(dc.equals(dc2));
+        System.out.println(dc.equals(dc3));
+        
+        
     }
     
     static void test1() {
     //S1
-        System.out.println("S1) Si introduce a un cliente, este puede ser luego localizado a partir de su ID");
-        
+        System.out.println("\nS1) Si introduce a un cliente, este puede ser luego localizado a partir de su ID");
+        System.out.println("Buscamos el cliente con DNI 15846815.");
         System.out.println(businessSystem.retrieveClient(client1.getDNI()));
     }
     
     static void test2() {
         //S2
-        System.out.println("S2) Si busca a un cliente que no existe con findClient, el resultado es null;");
-        Client client = businessSystem.retrieveClient(client1.getDNI());
-        
-        if (client != null) {
-            System.out.println("Cliente encontrado");
-            System.out.println(client);
-        }
-        else {
-            System.out.println("El cliente no ha sido encontrado");
-        }
+        System.out.println("\nS2) Si busca a un cliente que no existe con findClient(), el resultado es null;");
+        System.out.println("Buscamos en el sistema un cliente que no existe usando un identificador no válido");
+        System.out.println(businessSystem.retrieveClient(00000000));
     }
     
     static void test3() {
         //S3
-        System.out.println("S3) No se pueden introducir un artista y un colectivo con el mismo nombre;");
-        
-        System.out.println(artist1);
+        System.out.println("\nS3) No se pueden introducir un artista y un colectivo con el mismo nombre;");
+        System.out.println(businessSystem.retrievePerformer("Maria"));
+        System.out.println("\nInstanciamos un colectivo con el mismo nombre.");
+        collective1 = new Collective("Maria", "sculptor");
         System.out.println(collective1);
- 
-        System.out.println("Resultado de añadir el artista: " + businessSystem.addArtist(artist1));
-        System.out.println("Resultado de añadir el colectivo: " + businessSystem.addCollective(collective1));
+        System.out.println("Resultado de intentar añadir el colectivo creado: " + businessSystem.addCollective(collective1));
     }
     
     static void test4() {
         //S4
-        System.out.println("S4) Si se añade un artista, y se elimina posteriormente, se puede introducir un colectivo con el mismo nombre;");
+        System.out.println("\nS4) Si se añade un artista, y se elimina posteriormente, se puede introducir un colectivo con el mismo nombre;");
         
-        if (businessSystem.removePerformer("Maria")){
-            System.out.println("Performer eliminado correctamente");
-        }else{
-            System.out.println("Error al eliminar el performer");
-        }
+        System.out.println("Tenemos a Maria en el sistema");
+        System.out.println(businessSystem.retrievePerformer("Maria"));
+        System.out.println("La borramos del sistema: " + businessSystem.removePerformer("Maria"));
         
-        if (businessSystem.addCollective(collective1)){
-            System.out.println("Colectivo agregado correctamente");
-        }else{
-            System.out.println("Error al agregar el colectivo");
-        }
+        System.out.println("Añadimos un colectivo con el mismo nombre");
+        System.out.println(collective1);
+        System.out.println((businessSystem.addCollective(collective1)));
+        System.out.println("Comprobamos que el colectivo está en el sistema\n" + businessSystem.retrievePerformer("Maria"));
     }
     
     static void test5() {
-        System.out.println("S5) No se pueden añadir dos eventos diferentes del mismo artista el mismo día");
+        System.out.println("\nS5) No se pueden añadir dos eventos diferentes del mismo artista el mismo día");
+        System.out.println("Probamos a añadir dos eventos de Flitter el mismo dia");
+        Concert flitterMadrid = new Concert("Flitter-Madrid", (Artist) businessSystem.retrievePerformer("Flitter"), businessSystem.getLocation("Madrid"), new DateConcert("12/7/2015", "21:30"));
+        Concert flitterBilbao = new Concert("Flitter-Bilbao", (Artist) businessSystem.retrievePerformer("Flitter"), businessSystem.getLocation("Bilbao"), new DateConcert("12/7/2015", "21:30"));
+        System.out.println(flitterBilbao);
+        System.out.println(businessSystem.addNewConcert(flitterBilbao));
+        System.out.println(flitterMadrid);
+        System.out.println(businessSystem.addNewConcert(flitterMadrid));
+        
     }
     
     static void test6() {
