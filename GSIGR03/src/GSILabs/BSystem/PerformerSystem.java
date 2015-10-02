@@ -152,6 +152,20 @@ public class PerformerSystem {
         return false;
     }
 
+    /**
+     * Checks whether there exist a performer with that name in the system
+     * @param collectiveName Name of interest
+     * @return True if and only if it exists
+     */
+    public Collective retrieveCollective(String collectiveName) {
+        for (Performer p:performers){
+            if ((p.getName().toLowerCase().equals(collectiveName.toLowerCase())) && (p instanceof Collective)){
+                return (Collective) p;
+            }
+        }
+        return null;
+    }
+    
      /**
      * Retrieves the record of a performer from the system by its name.
      * @param performerName The name of the performer
