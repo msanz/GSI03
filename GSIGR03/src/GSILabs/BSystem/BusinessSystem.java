@@ -51,7 +51,7 @@ public class BusinessSystem implements TicketOffice{
     @Override
     public boolean addNewConcert(Concert c) {
        if (existPerformerInSystem(c)){
-           if ((c.getLocation()) != null && locationSystem.getLocation(c.getLocation().getName()) != null){
+           if ((c.getLocation()) != null){
                return eventSystem.addNewConcert(c);
            }
        }
