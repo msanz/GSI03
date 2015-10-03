@@ -128,7 +128,6 @@ public class Ticket {
         return "Event Name: " + eventName + "\n" +
                 " id: " + id + "\n" +
                 " numberOfPersons: " + numberOfPersons + "\n" +
-                "price :" + price + "\n" +
                 " numberOfUsed: " + numberOfUsed;
     }
     
