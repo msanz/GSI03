@@ -54,7 +54,6 @@ public class P01Tester {
     
     
     public static void main(String args[]){  
-        
         businessSystem = generateData();
         runTests();
     }
@@ -63,17 +62,17 @@ public class P01Tester {
      * Metodo que ejecuta los tests de la aplicación
      */    
     static void runTests() {
-//        testCompareDate();
-//        test1();
-//        test2();
-//        test3();
-//        test4();
+        testCompareDate();
+        test1();
+        test2();
+        test3();
+        test4();
         test5();
-//        test6();
-//        test7();
-//        test8();
-//        test9();
-//        test10();
+        test6();
+        test7();
+        test8();
+        test9();
+        test10();
     }
     
     /**
@@ -95,8 +94,8 @@ public class P01Tester {
         client3.addCreditCard("5263214589758963");
         
         clientWithoutTickets = new Client(12345690, "Perico", "El de Los", "Palotes", new DateGeneral("5/2/1980"));
-        
-        artist1 = new Artist("Maria", "Cantante de opera");
+        clientWithoutTickets.addCreditCard("5263214589758936");
+        artist1 = new Artist("Maria", "Cantante de opera", "maria.com");
         artist2 = new Artist("Rihana", "Rihana");
         artist3 = new Artist("adsf", "Cantante de opera");
         artist4 = new Artist("", "");
@@ -104,8 +103,8 @@ public class P01Tester {
         businessSystem.addCollective(new Collective("Barricada", ""));
         businessSystem.addCollective(new Collective("Los Delinquentes", ""));
         businessSystem.addCollective(new Collective("Flitter", ""));
-        
-        businessSystem.addLocation(new Location("Madrid", 300, new Coordinates(123,287)));
+        Location location1 = new Location("Madrid", 300, new Coordinates(123,287));
+        businessSystem.addLocation(location1);
         businessSystem.addLocation(new Location("Barcelona", 250, new Coordinates(100,250)));
         businessSystem.addLocation(new Location("Jerez de la Frontera", 190, new Coordinates(879,123)));
         businessSystem.addLocation(new Location("Bilbao", 187, new Coordinates(10,20)));
@@ -149,18 +148,6 @@ public class P01Tester {
         DateConcert dc1 = new DateConcert("12/12/12", "21:30");
         DateConcert dc2 = new DateConcert("12/12/12", "22:30");
         DateConcert dc3 = new DateConcert("12/1/12", "22:30");
-        
-        System.out.println(dc.getDay());
-        System.out.println(dc1.getDay());
-        
-        System.out.println(dc.getDayStart());
-        System.out.println(dc1.getDayStart());
-        
-        System.out.println(dc.equals(dc1));
-        System.out.println(dc.equals(dc2));
-        System.out.println(dc.equals(dc3));
-        
-        
     }
     
     static void test1() {
@@ -174,7 +161,10 @@ public class P01Tester {
         //S2
         System.out.println("\nS2) Si busca a un cliente que no existe con findClient(), el resultado es null;");
         System.out.println("Buscamos en el sistema un cliente que no existe usando un identificador no válido");
-        System.out.println(businessSystem.retrieveClient(00000000));
+        if (businessSystem.retrieveClient(00000000) == null)
+            System.out.println("El cliente 00000000 no existe");
+        if (businessSystem.retrieveClient(client1.getDNI()) != null)
+            System.out.println("El cliente" + client1.getDNI() + " existe");
     }
     
     static void test3() {
@@ -196,8 +186,8 @@ public class P01Tester {
         System.out.println("La borramos del sistema: " + businessSystem.removePerformer("Maria"));
         
         System.out.println("Añadimos un colectivo con el mismo nombre");
-        System.out.println(collective1);
-        System.out.println((businessSystem.addCollective(collective1)));
+        if (businessSystem.addCollective(collective1))
+            System.out.println("Colectivo agregado correctamente");
         System.out.println("Comprobamos que el colectivo está en el sistema\n" + businessSystem.retrievePerformer("Maria"));
     }
     
@@ -219,7 +209,7 @@ public class P01Tester {
         //S6
         System.out.println("S6) El sistema calcula de manera adecuada el gasto de cada cliente en entradas");
         //introducir un nuevo cliente sin tickets
-        System.out.println(clientWithoutTickets);
+        
         //agregar varios tickets al cliente y mostrar cada ticket por pantalla
         //mostrar la suma por pantalla
         
@@ -228,10 +218,7 @@ public class P01Tester {
         businessSystem.addSale(ticket1, clientWithoutTickets,(float)1.2, clientWithoutTickets.getCreditCard().toArray()[0].toString());
         businessSystem.addSale(ticket2, clientWithoutTickets,(float)5.2, clientWithoutTickets.getCreditCard().toArray()[0].toString());
         System.out.println("Total gastado por el cliente: " + businessSystem.getTotalSpending(clientWithoutTickets));
-        
-        businessSystem.addSale(ticket3, client3,(float)55.2222, client3.getCreditCard().toArray()[0].toString());
-        System.out.println("Total gastado por clients7 " +businessSystem.getTotalSpending(client3));
-        
+               
     }
     
     static void test7() {
@@ -249,14 +236,13 @@ public class P01Tester {
         }else{
             System.out.println("Error al agregar la localizacion");
         }
-       
+        
         if (businessSystem.addNewConcert(concert1)){
             System.out.println("Concierto agregado correctamente");
         }else{
             System.out.println("Error al agregar el concierto");
         }
         
-        Concert concert3 = new Concert("Concierto 3", artist1, location1, new DateConcert("14/2/2000","12:10")); 
         
     }
     
@@ -271,13 +257,6 @@ public class P01Tester {
             System.out.println("Error al agregar el festvial");
         }
         
-//        if(businessSystem.addConcertToFestival(festival, concert1)){
-//            System.out.println("Concierto agregado a festvial correctamente");
-//        }else{
-//            System.out.println("Error al agregar el concierto al festival");
-//        }
-        
-
         if(businessSystem.addConcertToFestival(festival, concert1)){
             System.out.println("Concierto agregado a festvial correctamente");
         }else{
