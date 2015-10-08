@@ -68,6 +68,21 @@ public class Exhibition implements LastingEvent {
     }
     
     /**
+     * Return the links of the exhibition.
+     * @return links The links of the exhibition
+     */
+    public String[] getLinks(){
+        return links;
+    }
+    
+    /**
+     * Set the links of the exhibition.
+     */
+    public void setLinks(String[] links){
+        this.links = links;
+    }
+    
+    /**
      * Returns the day that the exhibition starts
      * @return date The day that the exhibition start
      */

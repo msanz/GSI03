@@ -8,7 +8,7 @@
 
 package GSILabs.BModel;
 
-import java.util.SortedSet;
+import java.util.HashSet;
 
 /**
  * A collective is a collection of artist that take part of concert or exhibition.
@@ -17,7 +17,7 @@ import java.util.SortedSet;
  */
 public class Collective extends Artist implements Performer {
     
-    private SortedSet<Artist> members;
+    private HashSet<Artist> members;
     
     /**
      * Create a new collective 
@@ -62,5 +62,23 @@ public class Collective extends Artist implements Performer {
             return this.getName().toLowerCase().equals(a.getName().toLowerCase());
         }
         return false;
+    }
+    
+    /**
+     * Add an artist into collective
+     * @param artist An artist
+     * @return true if the artist has been add correctly
+     */
+    public boolean add(Artist artist){
+        return members.add(artist);        
+    }
+    
+    /**
+     * Remove an artist of the collective
+     * @param artist An artist
+     * @return true if the artist has been add correctly
+     */
+    public boolean remove(Artist artist){
+        return members.remove(artist);        
     }
 }
