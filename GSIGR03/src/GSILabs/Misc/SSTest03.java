@@ -29,14 +29,12 @@ public class SSTest03 {
     public static void main(String args[]){  
         try {
             System.out.println("SSTest03");
-            final File file = new File("test01.ods");
+            final File file = new File("test02.ods");
             final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
-            Cell cell;
 
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 6; j++) {
-                    cell = sheet.getCellAt(j,i);
-                    System.out.print(cell.getValue()+ " ");
+            for (int i = 4; i < 7; i++) {
+                for (int j = 2; j < 11; j++) {
+                    System.out.print(sheet.getCellAt(j,i).getValue()+ " ");
                 }
                  System.out.print("\n");
             }
