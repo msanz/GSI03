@@ -19,7 +19,6 @@ import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -240,7 +239,6 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public Client retrieveClient(int identifier) {
-        
         return clientSystem.retrieveClient(identifier);
     }
 
@@ -285,10 +283,9 @@ public class BusinessSystem implements TicketOffice{
 
     @Override
     public boolean addSale(Ticket t, Client c, Float price, String cCard) {
-        if (checkClientExist(c)) {
+        if (clientSystem.containsClient(c)) {
             return ticketSystem.addSale(t, c, price, cCard);
-        }
-        else {
+        }else {
             return false;
         }
     }

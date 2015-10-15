@@ -106,7 +106,7 @@ public class ClientSystem {
      * @return True if an only if c is not null, well formed and exists in the system.
      */
     public boolean containsClient(Client c) {
-        
+        //return clients.contains(c);
         Iterator clientsIterator = clients.iterator();
         boolean clientFound = false;
         Client client;

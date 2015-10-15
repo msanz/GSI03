@@ -109,7 +109,6 @@ public class P01Tester {
         businessSystem.addLocation(new Location("Jerez de la Frontera", 190, new Coordinates(879,123)));
         businessSystem.addLocation(new Location("Bilbao", 187, new Coordinates(10,20)));
         
-        
         concert1 = new Concert("Concierto 1", artist1, businessSystem.getLocation("Madrid"), new DateConcert("14/2/1999","12:10"));
         concert2 = new Concert("Concierto 2", artist1, businessSystem.getLocation("Barcelona"), new DateConcert("5/8/1999","12:10"));
         concert3 = new Concert("Concierto 3", artist1, businessSystem.getLocation("Jerez de la Frontera"), new DateConcert("21/12/2015","12:10"));
