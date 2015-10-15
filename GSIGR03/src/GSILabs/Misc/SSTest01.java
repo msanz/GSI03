@@ -8,13 +8,11 @@
 
 package GSILabs.Misc;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import org.jopendocument.dom.OOUtils;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
@@ -25,7 +23,6 @@ import org.jopendocument.dom.spreadsheet.SpreadSheet;
  * @author GR03
  */
 public class SSTest01 {
-    
     /**
      * Create an integer array(4x6)
      * @param args 
@@ -33,11 +30,13 @@ public class SSTest01 {
     public static void main(String args[]){  
         try {
             System.out.println("SSTest01");
+            
             // Create the data to save.
             final int[][] data = {{7,4,6,1,7,9},{4,7,1,2,1,6},{7,4,6,1,7,9},{4,7,1,2,1,6}};
             
-            // Save the data to an ODS file and open it.
+            // Create the file.
             final File file = new File("test01.ods");
+            
             DefaultTableModel model = new DefaultTableModel(4,6);
             SpreadSheet.createEmpty(model).saveAs(file);
             Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
