@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import org.jopendocument.dom.OOUtils;
+import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 
@@ -33,21 +34,21 @@ public class SSTest01 {
         try {
             System.out.println("SSTest01");
             // Create the data to save.
-            final Object[][] data = new Object[4][6];
-            data[0] = new Object[] { "January", 1 };
-            data[1] = new Object[] { "February", 3 };
-            data[2] = new Object[] { "March", 8 };
-            data[3] = new Object[] { "April", 10 };
-            
-            String[] columns = new String[] { "Month", "Temp" };
-            
-            TableModel model = new DefaultTableModel(data, columns);
+            final int[][] data = {{7,4,6,1,7,9},{4,7,1,2,1,6},{7,4,6,1,7,9},{4,7,1,2,1,6}};
             
             // Save the data to an ODS file and open it.
-            final File file = new File("temperature.ods");
+            final File file = new File("test01.ods");
+            DefaultTableModel model = new DefaultTableModel(4,6);
             SpreadSheet.createEmpty(model).saveAs(file);
+            Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
             
-            OOUtils.open(file);
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 6; j++) {
+                    sheet.getCellAt(j,i).setValue(data[i][j]);
+                }
+            }
+            
+            OOUtils.open(sheet.getSpreadSheet().saveAs(file));
         } catch (IOException ex) {
             Logger.getLogger(SSTest01.class.getName()).log(Level.SEVERE, null, ex);
         }
