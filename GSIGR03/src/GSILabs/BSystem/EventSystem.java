@@ -13,6 +13,7 @@ import GSILabs.BModel.Event;
 import GSILabs.BModel.Exhibition;
 import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
+import GSILabs.BModel.Performer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -26,6 +27,9 @@ public class EventSystem {
 
     private final HashSet<Event> events;
     
+    public int sizeEvents(){
+        return events.size();
+    }
     /**
     * Create a new Event System with a hashset of events.
     */
@@ -49,10 +53,10 @@ public class EventSystem {
                    }
                }    
             }
+            return events.add(c);
         }else{
-            events.add(c);
+           return false;
         }
-        return false;
     }
 
     /**
@@ -187,6 +191,26 @@ public class EventSystem {
             }
         }    
         return false;
+    }
+    
+    /**
+     * Retrieves all the events that the performer has been involved.
+     * @param performer a performer 
+     * @return A list of events, potentially being empty
+     */
+    public ArrayList<Event> retrieveEventsInvolvePerformer(Performer performer) {
+        ArrayList<Event> list = new ArrayList();
+        for (Event e:events){
+             if (e.involvesPerformer(performer)){
+                list.add(e);
+            }
+        }
+        
+        if (list.isEmpty()){
+            return null;
+        }else{
+            return list;
+        }
     }
     
     /**

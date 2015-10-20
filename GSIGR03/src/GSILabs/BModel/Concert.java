@@ -105,7 +105,7 @@ public class Concert implements ImpermanentEvent {
     }
 
     /**
-     * Returns the day that the concert starts and finishs.
+     * Returns the day that the concert starts and finish.
      * Because the both are the same day.
      * @return the days that the concert start and finish
      */

@@ -18,11 +18,12 @@ import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * The business system is the main system. It has diferents kinds of subsystems.
+ * The business system is the main system.
  * @author GR03
  * @version 1.0
  */
@@ -45,6 +46,10 @@ public class BusinessSystem implements TicketOffice{
 
     public AtomicInteger getAtomicInteger() {
         return atomicInteger;
+    }
+    
+    public int sizeEvents(){
+        return eventSystem.sizeEvents();
     }
     
     @Override
@@ -79,14 +84,15 @@ public class BusinessSystem implements TicketOffice{
     }
     
     private boolean existPerformerInSystem(Concert concert){
-        if (concert == null || concert.getPerformers() == null){
+        Performer[] performers = concert.getPerformers();
+        if (concert == null || performers == null){
             return false;
-        }else if (concert.getPerformers().length == 1){
-           if(performerSystem.existsPerformer(concert.getPerformers()[0].getName())){
+        }else if (performers.length == 1){
+           if(performerSystem.existsPerformer(performers[0].getName())){
                return true;
            }           
         }else{
-            for (Performer p:concert.getPerformers()){
+            for (Performer p:performers){
                 if(!performerSystem.existsPerformer(p.getName())){
                     return false;
                 }
@@ -115,15 +121,16 @@ public class BusinessSystem implements TicketOffice{
     }
     
     private boolean existPerformerInSystem(Exhibition exhibition){
-        if (exhibition == null || exhibition.getPerformers() == null){
+        Performer[] performers = exhibition.getPerformers();
+        if (exhibition == null || performers == null){
             return false;
         }else{
-            if (exhibition.getPerformers().length == 1){
-                if(performerSystem.existsPerformer(exhibition.getPerformers()[0].getName())){
+            if (performers.length == 1){
+                if(performerSystem.existsPerformer(performers[0].getName())){
                     return true;
                 }           
             }else{
-                for (Performer p:exhibition.getPerformers()){
+                for (Performer p:performers){
                     if(!performerSystem.existsPerformer(p.getName())){
                         return false;
                     }
@@ -174,15 +181,16 @@ public class BusinessSystem implements TicketOffice{
     }
     
     private boolean existPerformerInSystem(Festival festival){
-        if (festival == null || festival.getPerformers() == null){
+         Performer[] performers = festival.getPerformers();
+        if (festival == null || performers == null){
             return false;
         }else
-            if (festival.getPerformers().length == 1){
-                if(performerSystem.existsPerformer(festival.getPerformers()[0].getName())){
+            if (performers.length == 1){
+                if(performerSystem.existsPerformer(performers[0].getName())){
                     return true;
                 }           
             }else{
-                for (Performer p:festival.getPerformers()){
+                for (Performer p:performers){
                     if(!performerSystem.existsPerformer(p.getName())){
                         return false;
                     }
@@ -196,7 +204,11 @@ public class BusinessSystem implements TicketOffice{
     public boolean existsEvent(Event e) {
         return eventSystem.existsEvent(e);
     }
-
+    
+    public ArrayList<Event> retrieveEventsInvolvePerformer (Performer performer){
+        return eventSystem.retrieveEventsInvolvePerformer(performer);
+    }
+    
     @Override
     public Event[] retrieveEvents(String name) {
         return eventSystem.retrieveEvents(name);
@@ -252,15 +264,6 @@ public class BusinessSystem implements TicketOffice{
         return clientSystem.getTotalSpending(c);
     }
     
-    //check if one client through DNI as id, exist. Return false if retrieve client returns null or return true if retrieveclient return DNI.
-    public boolean checkClientExist(Client c) {
-        if (retrieveClient(c.getDNI()) == null ) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
     @Override
     public boolean addNewTicket(Ticket t) {
             return ticketSystem.addNewTicket(t);
@@ -292,43 +295,24 @@ public class BusinessSystem implements TicketOffice{
     
     // Locations management
     
-    /**
-     * Adds a new location to the system
-     * @param loc   The location
-     * @return  True if and only if the location is not null, is well formed and 
-     *  could be added to the system.
-     */
     @Override
     public boolean addLocation(Location loc) {
         return locationSystem.addLocation(loc);
     }
 
-     /**
-     * Retrieves a location by its exact name
-     * @param name  The name of the location
-     * @return  The location with that name, or null if it does not exist.
-     */
+    
     @Override
     public Location getLocation(String name) {
         return locationSystem.getLocation(name);
     }
 
-     /**
-     * Deletes a location from the system. This can only be done if there is no events
-     *  associated with that location.
-     * @param loc   The location to be removed
-     * @return  True if an only if the location loc existed and could be removed.
-     */
+    
     @Override
     public boolean deleteLocation(Location loc) {
         return locationSystem.deleteLocation(loc);
     }
     
-    /**
-     * Retrieve the locations in the system with, at least, minCapacity attendance limit.
-     * @param minCapacity   Attendance threshold
-     * @return A list of 0+ locations
-     */
+    
     @Override
     public Location[] getLocations(int minCapacity) {
         return locationSystem.getLocations(minCapacity);
@@ -336,108 +320,51 @@ public class BusinessSystem implements TicketOffice{
     
     // Performer management
     
-    /**
-     * Adds a new artist to the system
-     * @param a The new artist
-     * @return True if the artist a is not null, is well formed and could be added to the
-     *  system
-     */
     @Override
     public boolean addArtist(Artist a) {
         return performerSystem.addArtist(a);
     }
 
-    /**
-     * Adds a new collective of artists to the system
-     * @param c The new collective
-     * @return True if the collective c is not null, is well formed and could be added to the
-     *  system
-     */
     @Override
     public boolean addCollective(Collective c) {
         return performerSystem.addCollective(c);
     }
     
-    /**
-     * Replaces the information in the system related to the artist e.
-     * @param a The new version of the artist
-     * @return True if an only if a previous version of the artist existed,
-     *  e is well formed, and it does not produce clashes with the information already
-     *  in the system.
-     */
     @Override
     public boolean modifyArtist(Artist a) {
        return performerSystem.modifyArtist(a);
     }
     
-    /**
-     * Replaces the information in the system related to the collective e.
-     * @param c The new version of the collective
-     * @return True if an only if a previous version of the collective existed,
-     *  e is well formed, and it does not produce clashes with the information already
-     *  in the system.
-     */
     @Override
     public boolean modifyCollective(Collective c) {
         return performerSystem.modifyCollective(c);
     }
     
-    /**
-     * Deletes the record of a performer from the system, provided it has no
-     *  events to which it is associated
-     * @param performerName The name of the performer
-     * @return True if and only if the performer with that name existed and could be removed.
-     */
     @Override
     public boolean removePerformer(String performerName) {
         return performerSystem.removePerformer(performerName);
     }
     
-    /**
-     * Checks whether there exist a performer with that name in the system
-     * @param performerName Name of interest
-     * @return True if and only if it exists
-     */
     @Override
     public boolean existsPerformer(String performerName) {
        return performerSystem.existsPerformer(performerName);
     }
 
-    /**
-     * Checks whether there exist a performer with that name in the system
-     * @param artistName Name of interest
-     * @return True if and only if it exists
-     */
     @Override
     public boolean existsArtist(String artistName) {
         return performerSystem.existsArtist(artistName);
     }
 
-    /**
-     * Checks whether there exist a performer with that name in the system
-     * @param artistName Name of interest
-     * @return True if and only if it exists
-     */
     @Override
     public boolean existsCollective(String artistName) {
        return performerSystem.existsCollective(artistName);
     }
 
-     /**
-     * Retrieves the record of a performer from the system by its name.
-     * @param performerName The name of the performer
-     * @return The performer, if existing. Null otherwise.
-     */
     @Override
     public Performer retrievePerformer(String performerName) {
        return performerSystem.retrievePerformer(performerName);
     }
     
-    /**
-     * Checks whether there exist a performer with that name in the system
-     * @param collectiveName Name of interest
-     * @return True if and only if it exists
-     */
     public Collective retrieveCollective(String collectiveName) {
        return performerSystem.retrieveCollective(collectiveName);
     }
