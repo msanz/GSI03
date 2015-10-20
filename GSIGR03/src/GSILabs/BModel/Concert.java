@@ -160,9 +160,12 @@ public class Concert implements ImpermanentEvent {
                "\n" + date;
     }
     
-    //TO-DO
+    /**
+     * Check if the day has been a collision with other day.
+     * @param day is Date
+     * @return true if and only is the same day.
+     */
     public boolean collisionDay(Date day){
-        System.out.println("Date.Daystart: " + date.getDay() + " Date day: " + day);
         if (!day.before(date.getDay())){
             if (!day.after(date.getDayFinish())){
                 return true;

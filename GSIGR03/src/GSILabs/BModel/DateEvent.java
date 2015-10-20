@@ -17,9 +17,9 @@ import java.util.Objects;
  * @version 1.0
  */
 public class DateEvent extends DateGeneral{
-    private Date dayStart;
+    private final Date dayStart;
     private Date dayFinish;
-    private Date timeStart;
+    private final Date timeStart;
     private Date timeFinish;
    
     /** 
@@ -45,8 +45,8 @@ public class DateEvent extends DateGeneral{
      * Set the time when finish the event.
      * @param string string time style "H:mm"
      */
-    public void setTimeStart(String string){
-        this.timeStart = super.timeFormat(string);
+    public void setTimeFinish(String string){
+        this.timeFinish = super.timeFormat(string);
     }
     
     /**

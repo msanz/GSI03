@@ -89,12 +89,23 @@ public class EventSystem {
     
     /**
      * Adds an exhibition to the system.
-     * @param e The exhibition to be added.
+     * @param ex The exhibition to be added.
      * @return True if e is not null, well formed and does not produce a clash with 
      *  the information already in the system.
      */   
-    public boolean addNewExhibition(Exhibition e) {
-        return events.add(e);
+    public boolean addNewExhibition(Exhibition ex) {
+        if (ex.getPerformers().length == 1){
+            for (Event e: events){
+               if (e.involvesPerformer(ex.getPerformers()[0])){
+                   if (!ex.collisionDay(e.getDates()[0])){
+                       return events.add(ex);
+                   }
+               }    
+            }
+            return events.add(ex);
+        }else{
+           return false;
+        }
     }
 
     /**

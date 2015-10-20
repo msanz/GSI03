@@ -154,8 +154,9 @@ public class BusinessSystem implements TicketOffice{
     public boolean addNewFestival(Festival f) {
         if (!existsEvent(f)){
             return eventSystem.addNewFestival(f);
+        }else{
+            return false;
         }
-        return false;
     }
      
     @Override
@@ -184,7 +185,7 @@ public class BusinessSystem implements TicketOffice{
          Performer[] performers = festival.getPerformers();
         if (festival == null || performers == null){
             return false;
-        }else
+        }else{
             if (performers.length == 1){
                 if(performerSystem.existsPerformer(performers[0].getName())){
                     return true;
@@ -197,7 +198,8 @@ public class BusinessSystem implements TicketOffice{
                 }
                 return true;
             }
-        return false;
+            return false;
+        }
     }
     
     @Override

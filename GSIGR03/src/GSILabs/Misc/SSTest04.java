@@ -12,8 +12,11 @@ import GSILabs.BModel.Artist;
 import GSILabs.BModel.Concert;
 import GSILabs.BModel.Coordinates;
 import GSILabs.BModel.DateConcert;
+import GSILabs.BModel.DateEvent;
 import GSILabs.BModel.Event;
+import GSILabs.BModel.Exhibition;
 import GSILabs.BModel.Location;
+import GSILabs.BModel.Performer;
 import GSILabs.BSystem.BusinessSystem;
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +39,12 @@ public class SSTest04 {
     private static Artist artist2;
     
     private static Concert concert1;
-    private static Concert concert2;
+    
+    private static DateConcert dateConcert1;
+    
+    private static Exhibition exhibition1;
+    
+    private static DateEvent dateEvent1;
     
     private static Location location1;
     private static Location location2;
@@ -46,8 +54,8 @@ public class SSTest04 {
        
        businessSystem = generateData();
        
-       concertSheet();
-       
+       //concertSheet();
+       exhibitionSheet();
     }
     
     private static BusinessSystem generateData() {
@@ -58,9 +66,23 @@ public class SSTest04 {
        
        location1 = new Location("Madrid", 300, new Coordinates(123,287));
        businessSystem.addLocation(location1);
-       DateConcert dateConcert1 = new DateConcert("14/2/1999","12:10");
+       
+       dateConcert1 = new DateConcert("14/2/1999","12:10"); 
+       
        concert1 = new Concert("Bob Dylan Madrid", artist1, businessSystem.getLocation("Madrid"), dateConcert1);
        businessSystem.addNewConcert(concert1);
+       
+       dateEvent1 = new DateEvent("15/12/2000", "20:00");
+       dateEvent1.setDayFinish("20/12/2000");
+       dateEvent1.setTimeFinish("17:00");
+       
+       location2 = new Location("Barcelona", 300, new Coordinates(456,787));
+       businessSystem.addLocation(location2);
+       
+       String[] links = {"http://www.elpais.com"};
+       
+       exhibition1 = new Exhibition("Bod Dylan Expo", "Bob Dylan Foundation", dateEvent1, artist1, location2, links);
+       businessSystem.addNewExhibition(exhibition1);
        
        return businessSystem;
     }
@@ -72,11 +94,9 @@ public class SSTest04 {
        //Add events to concert ArrayList
        //This actions is because event interface has not getLocation()
        for (Event e:events){
-           concerts.add(businessSystem.retrieveConcert(e));
-       }
-       
-       for (Concert c:concerts){
-            System.out.println(c.getName() + " " + c.getPerformers()[0].getName() + " " + c.getStartDate() + " " + c.getLocation().getName());
+           if (businessSystem.retrieveConcert(e) != null){
+               concerts.add((Concert) e);
+           }
        }
        
        // Create the file.
@@ -99,6 +119,42 @@ public class SSTest04 {
        }catch (IOException ex) {
            Logger.getLogger(SSTest04.class.getName()).log(Level.SEVERE, null, ex);
        }
+    }
+    
+    private static void exhibitionSheet(){
+       ArrayList<Event> events = businessSystem.retrieveEventsInvolvePerformer(artist1);
+       ArrayList<Exhibition> exhibitions = new ArrayList();
        
+       //Add events to concert ArrayList
+       //This actions is because event interface has not getLocation()
+       for (Event e:events){
+           if (businessSystem.retrieveExhibition(e) != null){
+               exhibitions.add((Exhibition) e);
+           }
+       }
+       
+       // Create the file.
+       final File file = new File("exhibitions.ods");
+
+       int row = exhibitions.size();
+     
+       DefaultTableModel model = new DefaultTableModel(row,4);
+       
+       try {
+           SpreadSheet.createEmpty(model).saveAs(file);
+           Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
+           
+           for (int i = 0; i < row; i++) {
+               sheet.getCellAt(0,i).setValue(exhibitions.get(i).getName());
+               sheet.getCellAt(1,i).setValue(exhibitions.get(i).getOrganization());
+               sheet.getCellAt(2,i).setValue(exhibitions.get(i).getPerformers()[0].getName());
+               sheet.getCellAt(3,i).setValue(exhibitions.get(i).getStartDate());
+               //sheet.getCellAt(4,i).setValue(exhibitions.get(i).getEndingDate());
+               //sheet.getCellAt(5,i).setValue(exhibitions.get(i).getLocation().getName());
+           }
+           OOUtils.open(sheet.getSpreadSheet().saveAs(file));
+       }catch (IOException ex) {
+           Logger.getLogger(SSTest04.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
 }

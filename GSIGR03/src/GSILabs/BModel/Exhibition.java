@@ -68,6 +68,14 @@ public class Exhibition implements LastingEvent {
     }
     
     /**
+     * Returns the organization of the exhibition
+     * @return location The ORG that organized the exhibition.
+     */
+    public String getOrganization(){
+        return org;
+    }
+    
+    /**
      * Return the links of the exhibition.
      * @return links The links of the exhibition
      */
@@ -77,6 +85,7 @@ public class Exhibition implements LastingEvent {
     
     /**
      * Set the links of the exhibition.
+     * @param links Array with links about exhibition
      */
     public void setLinks(String[] links){
         this.links = links;
@@ -106,11 +115,11 @@ public class Exhibition implements LastingEvent {
      */
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
     
     /**
-     * Returns the day that the concert starts and finishs.
+     * Returns the day that the concert starts and finish.
      * Because the both are the same day.
      * @return the days that the concert start and finish
      */
@@ -127,14 +136,16 @@ public class Exhibition implements LastingEvent {
      */
     @Override
     public boolean involvesPerformer(Performer p) {
-        if (p.getName().toLowerCase().equals(performer.getName().toLowerCase()))
+        if (p.getName().toLowerCase().equals(performer.getName().toLowerCase())){
             return true;
-        else
+        }else{
             for(Performer performer: performers){
-                if(performer.getName().toLowerCase().equals(p.getName().toLowerCase()))
-                        return true;
+                if(performer.getName().toLowerCase().equals(p.getName().toLowerCase())){
+                    return true;
+                }
             }
-        return false;
+            return false;
+        }
     }
     
     /**
@@ -143,9 +154,6 @@ public class Exhibition implements LastingEvent {
      */
     @Override
     public Performer[] getPerformers() {
-        if (performers == null){
-            return null;
-        }    
         if (performers != null){
             return performers;
         }else{
@@ -178,6 +186,20 @@ public class Exhibition implements LastingEvent {
             Exhibition c = (Exhibition)o;
             return (this.getName().toLowerCase().equals(c.getName().toLowerCase()) 
                     && this.getLocation().equals(c.getLocation()));
+        }
+        return false;
+    }
+    
+    /**
+     * Check if the day has been a collision with other day.
+     * @param day is Date
+     * @return true if and only is the same day.
+     */
+    public boolean collisionDay(Date day){
+        if (!day.before(date.getDay())){
+            if (!day.after(date.getDayFinish())){
+                return true;
+            }
         }
         return false;
     }
