@@ -27,9 +27,6 @@ public class EventSystem {
 
     private final HashSet<Event> events;
     
-    public int sizeEvents(){
-        return events.size();
-    }
     /**
     * Create a new Event System with a hashset of events.
     */
@@ -154,8 +151,7 @@ public class EventSystem {
     public boolean addConcertToFestival(Festival f, Concert c) {
         if(events.contains(c)) {
             return f.addConcert(c);
-        }
-        else {
+        }else {
             return false;
         }
     }

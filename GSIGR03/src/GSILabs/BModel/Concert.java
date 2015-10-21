@@ -61,8 +61,9 @@ public class Concert implements ImpermanentEvent {
             Concert c = (Concert)o;
             return (this.getName().toLowerCase().equals(c.getName().toLowerCase()) 
                     && this.getLocation().equals(c.getLocation()));
+        }else{
+            return false;
         }
-        return false;
     }
 
     /**
@@ -130,8 +131,8 @@ public class Concert implements ImpermanentEvent {
                     return true;
                 }
             }
+            return false;
         }    
-        return false;
     }
     
     /**
@@ -163,14 +164,9 @@ public class Concert implements ImpermanentEvent {
     /**
      * Check if the day has been a collision with other day.
      * @param day is Date
-     * @return true if and only is the same day.
+     * @return True if and only is the same day. False otherwise.
      */
     public boolean collisionDay(Date day){
-        if (!day.before(date.getDay())){
-            if (!day.after(date.getDayFinish())){
-                return true;
-            }
-        }
-        return false;
+        return !day.before(date.getDay()) && !day.after(date.getDayFinish());
     }
 }

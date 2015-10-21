@@ -18,21 +18,24 @@ import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
+import persistence.ODSPersistent;
 
 /**
  * The business system is the main system.
  * @author GR03
  * @version 1.0
  */
-public class BusinessSystem implements TicketOffice{
+public class BusinessSystem implements TicketOffice, ODSPersistent{
     private ClientSystem clientSystem;
     private EventSystem eventSystem;
     private LocationSystem locationSystem;
     private TicketSystem ticketSystem;
     private PerformerSystem performerSystem;
+    private FileSystem fileSystem;
     private final AtomicInteger atomicInteger;
 
     public BusinessSystem (){
@@ -41,15 +44,12 @@ public class BusinessSystem implements TicketOffice{
         locationSystem = new LocationSystem();
         performerSystem = new PerformerSystem();
         ticketSystem = new TicketSystem();
+        fileSystem = new FileSystem();
         atomicInteger = new AtomicInteger();
     }
 
     public AtomicInteger getAtomicInteger() {
         return atomicInteger;
-    }
-    
-    public int sizeEvents(){
-        return eventSystem.sizeEvents();
     }
     
     @Override
@@ -58,7 +58,7 @@ public class BusinessSystem implements TicketOffice{
            if ((c.getLocation()) != null){
                return eventSystem.addNewConcert(c);
            }
-       }
+        }
        return false;
     }
 
@@ -302,19 +302,16 @@ public class BusinessSystem implements TicketOffice{
         return locationSystem.addLocation(loc);
     }
 
-    
     @Override
     public Location getLocation(String name) {
         return locationSystem.getLocation(name);
     }
 
-    
     @Override
     public boolean deleteLocation(Location loc) {
         return locationSystem.deleteLocation(loc);
     }
-    
-    
+
     @Override
     public Location[] getLocations(int minCapacity) {
         return locationSystem.getLocations(minCapacity);
@@ -369,5 +366,22 @@ public class BusinessSystem implements TicketOffice{
     
     public Collective retrieveCollective(String collectiveName) {
        return performerSystem.retrieveCollective(collectiveName);
+    }
+
+    // File management
+    
+    @Override
+    public boolean loadFromFile(File f) {
+        return fileSystem.loadFromFile(f);
+    }
+
+    @Override
+    public boolean saveToFile(File f) {
+        return fileSystem.saveToFile(f);
+    }
+    
+    public int importTickets (File f){
+        return 0;
+        //return fileSystem.parseTickets(f);
     }
 }

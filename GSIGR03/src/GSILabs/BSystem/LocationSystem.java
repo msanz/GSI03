@@ -68,10 +68,15 @@ public class LocationSystem {
      */
     public Location[] getLocations(int minCapacity) {
         ArrayList<Location> list = new ArrayList();
-        for (Location l:locations)
-            if (l.getCapacity()>=minCapacity)
+        for (Location l:locations){
+            if (l.getCapacity()>=minCapacity){
                 list.add(l);
-        
-        return (Location[]) list.toArray();
+            }
+        }
+        if (list.isEmpty()){
+            return null;
+        }else{
+            return (Location[]) list.toArray();
+        }
     }
 }

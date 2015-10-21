@@ -61,12 +61,12 @@ public class Ticket {
      * is 0. If not 0, decrement it one unit
      */
     public void useTicket() {
-        
         if (checkTicketUsed())
         {
             numberOfUsed--;
-            if (numberOfUsed == 0)
+            if (numberOfUsed == 0){
                 this.setUsed();
+            }
         }
     }
     
@@ -104,8 +104,9 @@ public class Ticket {
         if(o instanceof Ticket){
             Ticket ticket = (Ticket) o;
             return (eventName.equals(ticket.eventName)) && (id == ticket.id);
+        }else{
+            return false;
         }
-        return false;
     }
 
     /** 
@@ -138,6 +139,4 @@ public class Ticket {
     public String getEventNameInTicket() {
         return this.eventName;
     }
-    
-    
 }

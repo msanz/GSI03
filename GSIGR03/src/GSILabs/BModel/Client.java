@@ -60,8 +60,9 @@ public class Client {
         if(validateCreditCard(cCard))
         {
             return this.creditCard.add(cCard);
+        }else{
+            return false;
         }
-        return false;
     }
     
     /**
@@ -158,8 +159,9 @@ public class Client {
         if(o instanceof Client){
             Client client = (Client) o;
             return this.getDNI() == client.getDNI();
+        }else{
+            return false;
         }
-        return false;
     }
 
     /** 

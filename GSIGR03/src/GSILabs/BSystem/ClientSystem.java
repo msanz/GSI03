@@ -37,8 +37,9 @@ public class ClientSystem {
     public boolean addClient(Client c) {
         if (c.getBirthday().checkBirthday()){
             return clients.add(c);
+        }else{
+            return false;
         }
-        return false;
     }
 
     /**
@@ -92,12 +93,13 @@ public class ClientSystem {
      *      the card did not exist already for that client.
      */
     public boolean addCardToClient(Client c, String cCard) {
-        
+
         if(containsClient(c) && !cCard.isEmpty())
         {
             return c.addCreditCard(cCard);
+        }else{
+            return false;
         }
-        return false;
     }
    
     /**

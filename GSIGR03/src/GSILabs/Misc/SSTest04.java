@@ -16,7 +16,6 @@ import GSILabs.BModel.DateEvent;
 import GSILabs.BModel.Event;
 import GSILabs.BModel.Exhibition;
 import GSILabs.BModel.Location;
-import GSILabs.BModel.Performer;
 import GSILabs.BSystem.BusinessSystem;
 import java.io.File;
 import java.io.IOException;
@@ -36,8 +35,7 @@ public class SSTest04 {
     private static BusinessSystem businessSystem;
     
     private static Artist artist1;
-    private static Artist artist2;
-    
+ 
     private static Concert concert1;
     
     private static DateConcert dateConcert1;
@@ -103,7 +101,9 @@ public class SSTest04 {
        final File file = new File("concerts.ods");
 
        int row = concerts.size();
-       DefaultTableModel model = new DefaultTableModel(row,4);
+       int col = 4;
+       
+       DefaultTableModel model = new DefaultTableModel(row,col);
        
        try {
            SpreadSheet.createEmpty(model).saveAs(file);
@@ -137,8 +137,9 @@ public class SSTest04 {
        final File file = new File("exhibitions.ods");
 
        int row = exhibitions.size();
-     
-       DefaultTableModel model = new DefaultTableModel(row,4);
+       int col = 7;
+       
+       DefaultTableModel model = new DefaultTableModel(row,col);
        
        try {
            SpreadSheet.createEmpty(model).saveAs(file);
@@ -149,8 +150,9 @@ public class SSTest04 {
                sheet.getCellAt(1,i).setValue(exhibitions.get(i).getOrganization());
                sheet.getCellAt(2,i).setValue(exhibitions.get(i).getPerformers()[0].getName());
                sheet.getCellAt(3,i).setValue(exhibitions.get(i).getStartDate());
-               //sheet.getCellAt(4,i).setValue(exhibitions.get(i).getEndingDate());
-               //sheet.getCellAt(5,i).setValue(exhibitions.get(i).getLocation().getName());
+               sheet.getCellAt(4,i).setValue(exhibitions.get(i).getEndingDate());
+               sheet.getCellAt(5,i).setValue(exhibitions.get(i).getLocation().getName());
+               sheet.getCellAt(6,i).setValue(exhibitions.get(i).getLinks()[0]);
            }
            OOUtils.open(sheet.getSpreadSheet().saveAs(file));
        }catch (IOException ex) {

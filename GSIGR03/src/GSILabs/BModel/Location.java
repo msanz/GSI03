@@ -86,8 +86,9 @@ public class Location {
         if (o instanceof Location){ 
             Location l = (Location)o;
             return this.getName().toLowerCase().equals(l.getName().toLowerCase());
+        }else{
+            return false;
         }
-        return false;
     }
 
     /** 

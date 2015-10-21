@@ -186,8 +186,9 @@ public class Exhibition implements LastingEvent {
             Exhibition c = (Exhibition)o;
             return (this.getName().toLowerCase().equals(c.getName().toLowerCase()) 
                     && this.getLocation().equals(c.getLocation()));
+        }else{
+            return false;
         }
-        return false;
     }
     
     /**
@@ -196,11 +197,6 @@ public class Exhibition implements LastingEvent {
      * @return true if and only is the same day.
      */
     public boolean collisionDay(Date day){
-        if (!day.before(date.getDay())){
-            if (!day.after(date.getDayFinish())){
-                return true;
-            }
-        }
-        return false;
+        return !day.before(date.getDay()) && !day.after(date.getDayFinish());
     }
 }

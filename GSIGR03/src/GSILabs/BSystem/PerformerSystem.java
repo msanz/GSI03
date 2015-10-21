@@ -38,8 +38,9 @@ public class PerformerSystem {
     public boolean addArtist(Artist a) {
         if (!this.existsPerformer(a.getName())) {
             return performers.add(a);       
+        }else{
+            return false;
         }
-        return false;
     }
 
     /**
@@ -51,8 +52,9 @@ public class PerformerSystem {
     public boolean addCollective(Collective c) {
         if (!this.existsPerformer(c.getName())) {
             return performers.add(c);
+        }else{
+            return false;
         }
-        return false;
     }
     
     /**
@@ -63,16 +65,17 @@ public class PerformerSystem {
      *  in the system.
      */
     public boolean modifyArtist(Artist a) {
-       if (a == null || (this.existsPerformer(a.getName()))){ 
-           return false;
-       }
-       for (Performer p:performers){
-            if (p.equals(a)){
-                performers.remove(p);
-                return this.addArtist(a);
+        if (a == null || (this.existsPerformer(a.getName()))){ 
+            return false;
+        }else{
+            for (Performer p:performers){
+                if (p.equals(a)){
+                    performers.remove(p);
+                    return this.addArtist(a);
+                }
             }
-        }
-        return false;
+            return false;
+         }
     }
     
     /**
@@ -85,14 +88,15 @@ public class PerformerSystem {
     public boolean modifyCollective(Collective c) {
         if (c == null || (this.existsPerformer(c.getName()))){ 
            return false;
-       }
-        for (Performer p:performers){
-            if (p.getName().toLowerCase().equals(c.getName().toLowerCase())){
-                performers.remove(p);
-                this.addCollective(c);
+        }else{
+            for (Performer p:performers){
+                if (p.getName().toLowerCase().equals(c.getName().toLowerCase())){
+                    performers.remove(p);
+                    this.addCollective(c);
+                }
             }
+            return false;
         }
-        return false;
     }
     
     /**
@@ -116,7 +120,7 @@ public class PerformerSystem {
      * @return True if and only if it exists
      */
     public boolean existsPerformer(String performerName) {
-       for (Performer p:performers){
+        for (Performer p:performers){
             if (p.getName().toLowerCase().equals(performerName.toLowerCase())){
                 return true;
             }

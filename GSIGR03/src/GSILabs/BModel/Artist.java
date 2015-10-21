@@ -107,8 +107,9 @@ public class Artist implements Performer {
         if (o instanceof Artist){ 
             Artist a = (Artist)o;
             return this.getName().toLowerCase().equals(a.getName().toLowerCase());
+        }else{
+            return false;
         }
-        return false;
     }
 
     /**

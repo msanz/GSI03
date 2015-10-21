@@ -60,8 +60,9 @@ public class Collective extends Artist implements Performer {
         if (o instanceof Artist){ 
             Collective a = (Collective)o;
             return this.getName().toLowerCase().equals(a.getName().toLowerCase());
+        }else{
+            return false;
         }
-        return false;
     }
     
     /**

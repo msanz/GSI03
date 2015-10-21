@@ -115,9 +115,10 @@ public class Festival implements LastingEvent {
      */
     @Override
     public Performer[] getPerformers() {
-       ArrayList<Performer> performers = new ArrayList();
-        for (Concert c:concerts)
+        ArrayList<Performer> performers = new ArrayList();
+        for (Concert c:concerts){
             performers.addAll(Arrays.asList(c.getPerformers()));
+        }
         
         return (Performer[]) performers.toArray();
     }
@@ -137,6 +138,4 @@ public class Festival implements LastingEvent {
     public HashSet<Location> getLocation(){
         return locations;
     }
-
-
 }
