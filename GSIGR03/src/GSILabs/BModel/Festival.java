@@ -9,8 +9,14 @@ package GSILabs.BModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.NavigableSet;
+import java.util.Set;
+import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -22,17 +28,15 @@ import java.util.TreeSet;
 public class Festival implements LastingEvent {
     
     private SortedSet<Concert> concerts;
-    private HashSet<Location> locations;
     private String name;
     
     /** 
-     * Create a new Festival.In locations there are all concert's locations.
+     * Create a new Festival.In locations there are all concerts locations.
      * @param name name of the festival. this name should be unique
      */
     public Festival (String name){
         this.name = name;        
-        this.locations = new HashSet<>();
-        this.concerts = new TreeSet<>();
+        this.concerts = new TreeSet<Concert>(new ConcertCompareDate());
     }
     
     /**
@@ -41,7 +45,7 @@ public class Festival implements LastingEvent {
      * @return true if and only if the concert is add to the festival
      */
     public boolean addConcert(Concert concert){
-        return (locations.add(concert.getLocation()) && concerts.add(concert));
+        return (concerts.add(concert));
     }
     
     /**
@@ -50,7 +54,7 @@ public class Festival implements LastingEvent {
      * @return true if and only if the concert is remove from the festival
      */
     public boolean deleteConcert(Concert concert){
-        return (locations.remove(concert.getLocation()) && concerts.remove(concert));
+        return (concerts.remove(concert));
     }
     
     /**
@@ -96,7 +100,7 @@ public class Festival implements LastingEvent {
 
     /**
      * Check if a performer is involved in the festival.
-     * @param p performer to lookfor
+     * @param p performer to look for
      * @return true if and only if a performer is involved in a festival
      */
     @Override
@@ -135,7 +139,28 @@ public class Festival implements LastingEvent {
      * Get the locations of the festival.
      * @return locations for the festival's concerts.
      */
-    public HashSet<Location> getLocation(){
-        return locations;
+    public ArrayList<Location> getLocation(){
+        ArrayList<Location> list = new ArrayList();
+        for (Concert c:concerts){
+            list.add(c.getLocation());
+        }
+        if (list.isEmpty()){
+            return null;
+        }else{
+            return list;
+        }
+    }
+
+    private class ConcertCompareDate implements Comparator<Concert> {
+        @Override
+        public int compare(Concert c1, Concert c2) {
+            if (c1.getStartDate().before(c2.getStartDate())) {
+                return -1;
+            } else if (c1.getStartDate().after(c2.getStartDate())) {
+                return 1;
+            } else {
+                return 0;
+            }     
+        }
     }
 }

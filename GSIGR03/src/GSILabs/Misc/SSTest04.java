@@ -15,6 +15,7 @@ import GSILabs.BModel.DateConcert;
 import GSILabs.BModel.DateEvent;
 import GSILabs.BModel.Event;
 import GSILabs.BModel.Exhibition;
+import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
 import GSILabs.BSystem.BusinessSystem;
 import java.io.File;
@@ -44,6 +45,8 @@ public class SSTest04 {
     
     private static DateEvent dateEvent1;
     
+    private static Festival festival1;
+    
     private static Location location1;
     private static Location location2;
     
@@ -51,11 +54,12 @@ public class SSTest04 {
        System.out.println("SSTest04");
        
        businessSystem = generateData();
-       
+
        //concertSheet();
-       exhibitionSheet();
+       //exhibitionSheet();
+       festivalSheet();
     }
-    
+
     private static BusinessSystem generateData() {
        businessSystem = new BusinessSystem();
         
@@ -81,6 +85,11 @@ public class SSTest04 {
        
        exhibition1 = new Exhibition("Bod Dylan Expo", "Bob Dylan Foundation", dateEvent1, artist1, location2, links);
        businessSystem.addNewExhibition(exhibition1);
+       
+       festival1 = new Festival("Ragge 2015");
+       businessSystem.addNewFestival(festival1);
+       
+       businessSystem.addConcertToFestival(festival1, concert1);
        
        return businessSystem;
     }
@@ -125,7 +134,7 @@ public class SSTest04 {
        ArrayList<Event> events = businessSystem.retrieveEventsInvolvePerformer(artist1);
        ArrayList<Exhibition> exhibitions = new ArrayList();
        
-       //Add events to concert ArrayList
+       //Add events to exhibition ArrayList
        //This actions is because event interface has not getLocation()
        for (Event e:events){
            if (businessSystem.retrieveExhibition(e) != null){
@@ -158,5 +167,22 @@ public class SSTest04 {
        }catch (IOException ex) {
            Logger.getLogger(SSTest04.class.getName()).log(Level.SEVERE, null, ex);
        }
+    }
+    
+    public static void festivalSheet(){
+       ArrayList<Event> events = businessSystem.retrieveEventsInvolvePerformer(artist1);
+       ArrayList<Festival> festivals = new ArrayList();
+       
+       //Add events to exhibition ArrayList
+       //This actions is because event interface has not getLocation()
+       for (Event e:events){
+           if (businessSystem.retrieveFestival(e) != null){
+               festivals.add((Festival) e);
+           }
+       }
+       
+       // Create the file.
+       final File file = new File("estivals.ods");
+    
     }
 }
