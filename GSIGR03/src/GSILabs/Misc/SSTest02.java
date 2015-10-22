@@ -27,6 +27,7 @@ import org.jopendocument.dom.spreadsheet.SpreadSheet;
 public class SSTest02 {
     /**
      * Main class of SSTest02.
+     * @param args
      */
     public static void main(String args[]){ 
         try {
@@ -38,19 +39,19 @@ public class SSTest02 {
             // Create the file.
             final File file = new File("test02.ods");
             
-            DefaultTableModel model = new DefaultTableModel(7,11);
+            DefaultTableModel model = new DefaultTableModel(8,11);
             SpreadSheet.createEmpty(model).saveAs(file);
             Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
             
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 6; j++) {
                     if (data[i][j] >= 10){
-                        sheet.getCellAt(j+2,i+4).setValue(data[i][j]);
-                        sheet.getCellAt(j+2,i+4).setBackgroundColor(Color.cyan);
+                        sheet.getCellAt(j+3,i+5).setValue(data[i][j]);
+                        sheet.getCellAt(j+3,i+5).setBackgroundColor(Color.cyan);
                     }
                     else {
-                        sheet.getCellAt(j+2,i+4).setValue(data[i][j]);
-                        sheet.getCellAt(j+2,i+4).setBackgroundColor(Color.red);
+                        sheet.getCellAt(j+3,i+5).setValue(data[i][j]);
+                        sheet.getCellAt(j+3,i+5).setBackgroundColor(Color.red);
                     }
                 }
             }

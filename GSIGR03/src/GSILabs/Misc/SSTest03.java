@@ -33,8 +33,8 @@ public class SSTest03 {
             final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
             
             // Show the info 
-            for (int i = 4; i < 7; i++) {
-                for (int j = 2; j < 11; j++) {
+            for (int i = 5; i <= 8; i++) {
+                for (int j = 3; j < 11; j++) {
                     System.out.print(sheet.getCellAt(j,i).getValue()+ " ");
                 }
                 System.out.print("\n");
