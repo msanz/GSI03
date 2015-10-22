@@ -9,14 +9,8 @@ package GSILabs.BModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Map;
-import java.util.NavigableMap;
-import java.util.NavigableSet;
-import java.util.Set;
-import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -27,8 +21,8 @@ import java.util.TreeSet;
  */
 public class Festival implements LastingEvent {
     
-    private SortedSet<Concert> concerts;
-    private String name;
+    private final SortedSet<Concert> concerts;
+    private final String name;
     
     /** 
      * Create a new Festival.In locations there are all concerts locations.
@@ -36,7 +30,7 @@ public class Festival implements LastingEvent {
      */
     public Festival (String name){
         this.name = name;        
-        this.concerts = new TreeSet<Concert>(new ConcertCompareDate());
+        this.concerts = new TreeSet<>(new ConcertCompareDate());
     }
     
     /**
@@ -131,8 +125,8 @@ public class Festival implements LastingEvent {
      * Get concerts sorted by date
      * @return concerts in the festival sorted by date
      */
-    public SortedSet<Concert> getConcerts(){
-        return concerts;
+    public Concert[] getConcerts(){
+        return concerts.toArray(new Concert[concerts.size()]);
     }
     
     /**

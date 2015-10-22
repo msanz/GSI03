@@ -64,6 +64,14 @@ public class Artist implements Performer {
     }
     
     /**
+     * Set the name of the artist.
+     * @param name the name of the artist.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    /**
      * Returns the work description of the artist.
      * @return the artwork description
      */

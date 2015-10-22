@@ -21,6 +21,8 @@ import GSILabs.BSystem.BusinessSystem;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -57,7 +59,7 @@ public class SSTest04 {
 
        //concertSheet();
        //exhibitionSheet();
-       festivalSheet();
+       //festivalSheet();
     }
 
     private static BusinessSystem generateData() {
@@ -172,8 +174,9 @@ public class SSTest04 {
     public static void festivalSheet(){
        ArrayList<Event> events = businessSystem.retrieveEventsInvolvePerformer(artist1);
        ArrayList<Festival> festivals = new ArrayList();
+       Concert[] concerts;
        
-       //Add events to exhibition ArrayList
+       //Add events to festival ArrayList
        //This actions is because event interface has not getLocation()
        for (Event e:events){
            if (businessSystem.retrieveFestival(e) != null){
@@ -182,7 +185,29 @@ public class SSTest04 {
        }
        
        // Create the file.
-       final File file = new File("estivals.ods");
-    
+       final File file = new File("festivals.ods");
+       int row = festivals.size();
+       int col = 5;
+       
+       DefaultTableModel model = new DefaultTableModel(row,col);
+       
+       try {
+           SpreadSheet.createEmpty(model).saveAs(file);
+           Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
+           
+           for (int i = 0; i < row; i++) {
+               concerts = festivals.get(i).getConcerts();
+               sheet.getCellAt(0,i).setValue(festivals.get(i).getName());
+               for (Concert concert : concerts) {
+                   sheet.getCellAt(1,i).setValue(concert.getName());
+                   sheet.getCellAt(2,i).setValue(concert.getPerformers()[0].getName());
+                   sheet.getCellAt(3,i).setValue(concert.getStartDate());
+                   sheet.getCellAt(4,i).setValue(concert.getLocation().getName());
+               }
+           }
+           OOUtils.open(sheet.getSpreadSheet().saveAs(file));
+       }catch (IOException ex) {
+           Logger.getLogger(SSTest04.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
 }
