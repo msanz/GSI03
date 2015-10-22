@@ -28,7 +28,7 @@ public class SSTest02 {
     /**
      * Main class of SSTest02.
      */
-    public static void main(){ 
+    public static void main(String args[]){ 
         try {
             System.out.println("SSTest02");
             

@@ -54,7 +54,7 @@ public class SSTest04 {
     /**
      * Main class of SSTest04.
      */
-    public static void main(){  
+    public static void main(String args[]){  
        System.out.println("SSTest04");
        
        businessSystem = generateData();
