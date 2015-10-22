@@ -9,6 +9,7 @@
 package GSILabs.BModel;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * An exhibition is lasting event
@@ -189,6 +190,14 @@ public class Exhibition implements LastingEvent {
         }else{
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.name);
+        hash = 79 * hash + Objects.hashCode(this.date);
+        return hash;
     }
     
     /**

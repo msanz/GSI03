@@ -18,7 +18,7 @@ import java.util.Iterator;
  */
 public class ClientSystem {
     
-    private HashSet<Client> clients;
+    private final HashSet<Client> clients;
     
     /** 
      * Create a new Client System.

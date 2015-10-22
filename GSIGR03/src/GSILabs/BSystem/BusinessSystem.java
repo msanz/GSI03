@@ -12,6 +12,7 @@ import GSILabs.BModel.Artist;
 import GSILabs.BModel.Client;
 import GSILabs.BModel.Collective;
 import GSILabs.BModel.Concert;
+import GSILabs.BModel.DateConcert;
 import GSILabs.BModel.Event;
 import GSILabs.BModel.Exhibition;
 import GSILabs.BModel.Festival;
@@ -30,12 +31,12 @@ import persistence.ODSPersistent;
  * @version 1.0
  */
 public class BusinessSystem implements TicketOffice, ODSPersistent{
-    private ClientSystem clientSystem;
-    private EventSystem eventSystem;
-    private LocationSystem locationSystem;
-    private TicketSystem ticketSystem;
-    private PerformerSystem performerSystem;
-    private FileSystem fileSystem;
+    private final ClientSystem clientSystem;
+    private final EventSystem eventSystem;
+    private final LocationSystem locationSystem;
+    private final TicketSystem ticketSystem;
+    private final PerformerSystem performerSystem;
+    private final FileSystem fileSystem;
     private final AtomicInteger atomicInteger;
 
     public BusinessSystem (){
@@ -85,7 +86,7 @@ public class BusinessSystem implements TicketOffice, ODSPersistent{
     
     private boolean existPerformerInSystem(Concert concert){
         Performer[] performers = concert.getPerformers();
-        if (concert == null || performers == null){
+        if (!(concert instanceof Concert) || performers == null){
             return false;
         }else if (performers.length == 1){
            if(performerSystem.existsPerformer(performers[0].getName())){
@@ -122,7 +123,7 @@ public class BusinessSystem implements TicketOffice, ODSPersistent{
     
     private boolean existPerformerInSystem(Exhibition exhibition){
         Performer[] performers = exhibition.getPerformers();
-        if (exhibition == null || performers == null){
+        if (!(exhibition instanceof Exhibition) || performers == null){
             return false;
         }else{
             if (performers.length == 1){
@@ -182,8 +183,8 @@ public class BusinessSystem implements TicketOffice, ODSPersistent{
     }
     
     private boolean existPerformerInSystem(Festival festival){
-         Performer[] performers = festival.getPerformers();
-        if (festival == null || performers == null){
+        Performer[] performers = festival.getPerformers();
+        if (!(festival instanceof Festival) || performers == null){
             return false;
         }else{
             if (performers.length == 1){
@@ -383,5 +384,24 @@ public class BusinessSystem implements TicketOffice, ODSPersistent{
     public int importTickets (File f){
         return 0;
         //return fileSystem.parseTickets(f);
+    }
+    
+    public boolean importConcerts(File f){
+        String[] concerts = fileSystem.importConcerts(f);
+        String name;
+        Performer performer;
+        Location location;
+        Concert concert;
+        System.out.println("Size:" + concerts.length);
+
+        for (int i = 0; i < (concerts.length) ; i = i + 4) {
+            name = concerts[i];
+            performer = this.retrievePerformer(concerts[i + 1]);
+            location = this.getLocation(concerts[i + 2]);
+            concert = new Concert(name, (Artist) performer, location, new DateConcert("14/02/1999", "12:10"));
+            //this.addNewConcert(concert);
+        }
+        
+        return true;
     }
 }

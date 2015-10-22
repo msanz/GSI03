@@ -17,11 +17,11 @@ import java.util.HashSet;
 public class Client {
     
     private final int DNI;
-    private String name;
-    private String surName1;
-    private String surName2;
-    private DateGeneral birthday;
-    private HashSet<String> creditCard;
+    private final String name;
+    private final String surName1;
+    private final String surName2;
+    private final DateGeneral birthday;
+    private final HashSet<String> creditCard;
     private HashSet<Ticket> sales;
     
      /**
