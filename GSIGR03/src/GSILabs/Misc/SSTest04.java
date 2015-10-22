@@ -21,8 +21,6 @@ import GSILabs.BSystem.BusinessSystem;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -31,8 +29,9 @@ import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 /**
- * Ejercicio 5
+ * Save on diferents files the information of concerts, exhibtions and festivals.
  * @author GR03
+ * @version 1.0
  */
 public class SSTest04 {
     private static BusinessSystem businessSystem;
@@ -52,7 +51,10 @@ public class SSTest04 {
     private static Location location1;
     private static Location location2;
     
-    public static void main(String args[]){  
+    /**
+     * Main class of SSTest04.
+     */
+    public static void main(){  
        System.out.println("SSTest04");
        
        businessSystem = generateData();
@@ -177,7 +179,6 @@ public class SSTest04 {
        Concert[] concerts;
        
        //Add events to festival ArrayList
-       //This actions is because event interface has not getLocation()
        for (Event e:events){
            if (businessSystem.retrieveFestival(e) != null){
                festivals.add((Festival) e);

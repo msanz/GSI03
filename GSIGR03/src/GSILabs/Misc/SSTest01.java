@@ -17,17 +17,16 @@ import org.jopendocument.dom.OOUtils;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
-
 /**
- * Ejercicio 2
+ * Create a bidimensional array 4x6 and save the date on test01.ods
  * @author GR03
+ * @version 1.0
  */
 public class SSTest01 {
     /**
-     * Create an integer array(4x6)
-     * @param args 
+     * Main class of SSTest01.
      */
-    public static void main(String args[]){  
+    public static void main(){  
         try {
             System.out.println("SSTest01");
             
@@ -47,6 +46,7 @@ public class SSTest01 {
                 }
             }
             
+            // Save and open the file
             OOUtils.open(sheet.getSpreadSheet().saveAs(file));
         } catch (IOException ex) {
             Logger.getLogger(SSTest01.class.getName()).log(Level.SEVERE, null, ex);
