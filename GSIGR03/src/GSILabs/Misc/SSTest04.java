@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import org.jopendocument.dom.OOUtils;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
@@ -55,13 +56,33 @@ public class SSTest04 {
      * Main class of SSTest04.
      */
     public static void main(String args[]){  
-       System.out.println("SSTest04");
-       
-       businessSystem = generateData();
-
-       concertSheet();
-       //exhibitionSheet();
-       //festivalSheet();
+        try {
+            System.out.println("SSTest04");
+            
+            businessSystem = generateData();
+            
+//             Create the file.
+            final File file = new File("data.ods");
+            
+            SpreadSheet.createEmpty(new DefaultTableModel()).saveAs(file);
+            Sheet s1 = SpreadSheet.createFromFile(file).getSheet(0);
+            
+            SpreadSheet spreadsheet = SpreadSheet.createFromFile(file);
+            if(spreadsheet.getSheetCount() < 3)
+            {
+                Sheet exhibitionsSheet = spreadsheet.addSheet(0, "Exhibitions");
+                Sheet concertsSheet = spreadsheet.addSheet(0, "Concerts");
+                Sheet FestivalsSheet = spreadsheet.addSheet(0, "Festivals");
+            }
+            
+            OOUtils.open(spreadsheet.saveAs(file));
+            
+//            concertSheet();
+            //exhibitionSheet();
+            //festivalSheet();
+        } catch (IOException ex) {
+            Logger.getLogger(SSTest04.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private static BusinessSystem generateData() {
