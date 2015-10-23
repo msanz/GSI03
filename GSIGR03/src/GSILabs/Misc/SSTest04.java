@@ -24,13 +24,12 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import org.jopendocument.dom.OOUtils;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 /**
- * Save on diferents files the information of concerts, exhibtions and festivals.
+ * Save on sheets the information of concerts, exhibitions and festivals.
  * @author GR03
  * @version 1.0
  */
@@ -61,25 +60,15 @@ public class SSTest04 {
             
             businessSystem = generateData();
             
-//             Create the file.
+            //Create the file.
             final File file = new File("data.ods");
             
-            SpreadSheet.createEmpty(new DefaultTableModel()).saveAs(file);
-            Sheet s1 = SpreadSheet.createFromFile(file).getSheet(0);
-            
-            SpreadSheet spreadsheet = SpreadSheet.createFromFile(file);
-            if(spreadsheet.getSheetCount() < 3)
-            {
-                Sheet exhibitionsSheet = spreadsheet.addSheet(0, "Exhibitions");
-                Sheet concertsSheet = spreadsheet.addSheet(0, "Concerts");
-                Sheet FestivalsSheet = spreadsheet.addSheet(0, "Festivals");
-            }
-            
-            OOUtils.open(spreadsheet.saveAs(file));
-            
-//            concertSheet();
-            //exhibitionSheet();
-            //festivalSheet();
+            SpreadSheet spreadSheet = SpreadSheet.createEmpty(new DefaultTableModel());
+            spreadSheet = concertSheet(spreadSheet);
+            spreadSheet = exhibitionSheet(spreadSheet);
+            spreadSheet = festivalSheet(spreadSheet);
+
+            OOUtils.open(spreadSheet.saveAs(file));
         } catch (IOException ex) {
             Logger.getLogger(SSTest04.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,117 +108,103 @@ public class SSTest04 {
        return businessSystem;
     }
     
-    private static void concertSheet(){
-       ArrayList<Event> events = businessSystem.retrieveEventsInvolvePerformer(artist1);
-       ArrayList<Concert> concerts = new ArrayList();
-       
-       //Add events to concert ArrayList
-       //This actions is because event interface has not getLocation()
-       for (Event e:events){
-           if (businessSystem.retrieveConcert(e) != null){
-               concerts.add((Concert) e);
-           }
-       }
-       
-       // Create the file.
-       final File file = new File("concerts.ods");
+    private static SpreadSheet concertSheet(SpreadSheet spreadSheet){
+        ArrayList<Event> events = businessSystem.retrieveEventsInvolvePerformer(artist1);
+        ArrayList<Concert> concerts = new ArrayList();
 
-       int row = concerts.size();
-       int col = 4;
-       
-       DefaultTableModel model = new DefaultTableModel(row,col);
-       
-       try {
-           SpreadSheet.createEmpty(model).saveAs(file);
-           Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
-           
-           for (int i = 0; i < row; i++) {
-               sheet.getCellAt(0,i).setValue(concerts.get(i).getName());
-               sheet.getCellAt(1,i).setValue(concerts.get(i).getPerformers()[0].getName());
-               sheet.getCellAt(2,i).setValue(concerts.get(i).getStartDate());
-               sheet.getCellAt(3,i).setValue(concerts.get(i).getLocation().getName());
-           }
-           OOUtils.open(sheet.getSpreadSheet().saveAs(file));
-       }catch (IOException ex) {
-           Logger.getLogger(SSTest04.class.getName()).log(Level.SEVERE, null, ex);
-       }
+        //Add events to concert ArrayList
+        //This actions is because event interface has not getLocation()
+        for (Event e:events){
+            if (businessSystem.retrieveConcert(e) != null){
+                concerts.add((Concert) e);
+            }
+        }
+
+        int row = concerts.size();
+        int col = 4;
+        
+        //Create the sheet
+        Sheet sheet = spreadSheet.getSheet(0);
+        sheet.setName("Concerts");
+        
+        //Merge the default table mode with new col and row
+        sheet.merge(new DefaultTableModel(), col, row);
+        
+        for (int i = 0; i < row; i++) {
+            sheet.getCellAt(0,i).setValue(concerts.get(i).getName());
+            sheet.getCellAt(1,i).setValue(concerts.get(i).getPerformers()[0].getName());
+            sheet.getCellAt(2,i).setValue(concerts.get(i).getStartDate());
+            sheet.getCellAt(3,i).setValue(concerts.get(i).getLocation().getName());
+        }
+        
+        return spreadSheet;
     }
     
-    private static void exhibitionSheet(){
-       ArrayList<Event> events = businessSystem.retrieveEventsInvolvePerformer(artist1);
-       ArrayList<Exhibition> exhibitions = new ArrayList();
-       
-       //Add events to exhibition ArrayList
-       //This actions is because event interface has not getLocation()
-       for (Event e:events){
-           if (businessSystem.retrieveExhibition(e) != null){
-               exhibitions.add((Exhibition) e);
-           }
-       }
-       
-       // Create the file.
-       final File file = new File("exhibitions.ods");
+    private static SpreadSheet exhibitionSheet(SpreadSheet spreadSheet){
+        ArrayList<Event> events = businessSystem.retrieveEventsInvolvePerformer(artist1);
+        ArrayList<Exhibition> exhibitions = new ArrayList();
 
-       int row = exhibitions.size();
-       int col = 7;
+        //Add events to concert ArrayList
+        //This actions is because event interface has not getLocation()
+        for (Event e:events){
+            if (businessSystem.retrieveExhibition(e) != null){
+                exhibitions.add((Exhibition) e);
+            }
+        }
+
+        int row = exhibitions.size();
+        int col = 7;
+        
+        //Create the sheet
+        Sheet sheet = spreadSheet.addSheet("Exhibition");
+        
+        //Merge the default table mode with new col and row
+        sheet.merge(new DefaultTableModel(), col, row);
+        
+        for (int i = 0; i < row; i++) {
+            sheet.getCellAt(0,i).setValue(exhibitions.get(i).getName());
+            sheet.getCellAt(1,i).setValue(exhibitions.get(i).getOrganization());
+            sheet.getCellAt(2,i).setValue(exhibitions.get(i).getPerformers()[0].getName());
+            sheet.getCellAt(3,i).setValue(exhibitions.get(i).getStartDate());
+            sheet.getCellAt(4,i).setValue(exhibitions.get(i).getEndingDate());
+            sheet.getCellAt(5,i).setValue(exhibitions.get(i).getLocation().getName());
+            sheet.getCellAt(6,i).setValue(exhibitions.get(i).getLinks()[0]);
+        }
+        return spreadSheet;
        
-       DefaultTableModel model = new DefaultTableModel(row,col);
-       
-       try {
-           SpreadSheet.createEmpty(model).saveAs(file);
-           Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
-           
-           for (int i = 0; i < row; i++) {
-               sheet.getCellAt(0,i).setValue(exhibitions.get(i).getName());
-               sheet.getCellAt(1,i).setValue(exhibitions.get(i).getOrganization());
-               sheet.getCellAt(2,i).setValue(exhibitions.get(i).getPerformers()[0].getName());
-               sheet.getCellAt(3,i).setValue(exhibitions.get(i).getStartDate());
-               sheet.getCellAt(4,i).setValue(exhibitions.get(i).getEndingDate());
-               sheet.getCellAt(5,i).setValue(exhibitions.get(i).getLocation().getName());
-               sheet.getCellAt(6,i).setValue(exhibitions.get(i).getLinks()[0]);
-           }
-           OOUtils.open(sheet.getSpreadSheet().saveAs(file));
-       }catch (IOException ex) {
-           Logger.getLogger(SSTest04.class.getName()).log(Level.SEVERE, null, ex);
-       }
     }
     
-    public static void festivalSheet(){
-       ArrayList<Event> events = businessSystem.retrieveEventsInvolvePerformer(artist1);
-       ArrayList<Festival> festivals = new ArrayList();
-       Concert[] concerts;
-       
-       //Add events to festival ArrayList
-       for (Event e:events){
-           if (businessSystem.retrieveFestival(e) != null){
-               festivals.add((Festival) e);
-           }
-       }
-       
-       // Create the file.
-       final File file = new File("festivals.ods");
-       int row = festivals.size();
-       int col = 5;
-       
-       DefaultTableModel model = new DefaultTableModel(row,col);
-       
-       try {
-           SpreadSheet.createEmpty(model).saveAs(file);
-           Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
-           
-           for (int i = 0; i < row; i++) {
-               concerts = festivals.get(i).getConcerts();
-               sheet.getCellAt(0,i).setValue(festivals.get(i).getName());
-               for (Concert concert : concerts) {
-                   sheet.getCellAt(1,i).setValue(concert.getName());
-                   sheet.getCellAt(2,i).setValue(concert.getPerformers()[0].getName());
-                   sheet.getCellAt(3,i).setValue(concert.getStartDate());
-                   sheet.getCellAt(4,i).setValue(concert.getLocation().getName());
-               }
-           }
-           OOUtils.open(sheet.getSpreadSheet().saveAs(file));
-       }catch (IOException ex) {
-           Logger.getLogger(SSTest04.class.getName()).log(Level.SEVERE, null, ex);
-       }
+    public static SpreadSheet festivalSheet(SpreadSheet spreadSheet){
+        ArrayList<Event> events = businessSystem.retrieveEventsInvolvePerformer(artist1);
+        ArrayList<Festival> festivals = new ArrayList();
+        Concert[] concerts;
+
+        //Add events to festival ArrayList
+        for (Event e:events){
+            if (businessSystem.retrieveFestival(e) != null){
+                festivals.add((Festival) e);
+            }
+        }
+
+        int row = festivals.size();
+        int col = 5;
+        
+        //Create the sheet
+        Sheet sheet = spreadSheet.addSheet("Festivals");
+
+        //Merge the default table mode with new col and row
+        sheet.merge(new DefaultTableModel(), col, row);
+
+        for (int i = 0; i < row; i++) {
+            concerts = festivals.get(i).getConcerts();
+            sheet.getCellAt(0,i).setValue(festivals.get(i).getName());
+            for (Concert concert : concerts) {
+                sheet.getCellAt(1,i).setValue(concert.getName());
+                sheet.getCellAt(2,i).setValue(concert.getPerformers()[0].getName());
+                sheet.getCellAt(3,i).setValue(concert.getStartDate());
+                sheet.getCellAt(4,i).setValue(concert.getLocation().getName());
+            }
+        }
+        return spreadSheet;
     }
 }
