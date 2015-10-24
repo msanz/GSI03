@@ -17,6 +17,7 @@ import GSILabs.BModel.Event;
 import GSILabs.BModel.Exhibition;
 import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
+import GSILabs.BModel.Performer;
 import GSILabs.BSystem.BusinessSystem;
 import java.io.File;
 import java.io.IOException;
@@ -95,7 +96,7 @@ public class SSTest04 {
        location2 = new Location("Barcelona", 300, new Coordinates(456,787));
        businessSystem.addLocation(location2);
        
-       String[] links = {"http://www.elpais.com"};
+       String[] links = {"http://www.elpais.com", "http://www.noticiasdenavarra.com"};
        
        exhibition1 = new Exhibition("Bod Dylan Expo", "Bob Dylan Foundation", dateEvent1, artist1, location2, links);
        businessSystem.addNewExhibition(exhibition1);
@@ -132,7 +133,9 @@ public class SSTest04 {
         
         for (int i = 0; i < row; i++) {
             sheet.getCellAt(0,i).setValue(concerts.get(i).getName());
-            sheet.getCellAt(1,i).setValue(concerts.get(i).getPerformers()[0].getName());
+            for (Performer performer : concerts.get(i).getPerformers()) {
+                sheet.getCellAt(1,i).setValue(sheet.getCellAt(1,i).getValue() + performer.getName() + ", ");
+            }
             sheet.getCellAt(2,i).setValue(concerts.get(i).getStartDate());
             sheet.getCellAt(3,i).setValue(concerts.get(i).getLocation().getName());
         }
@@ -144,7 +147,7 @@ public class SSTest04 {
         ArrayList<Event> events = businessSystem.retrieveEventsInvolvePerformer(artist1);
         ArrayList<Exhibition> exhibitions = new ArrayList();
 
-        //Add events to concert ArrayList
+        //Add events to exhibition ArrayList
         //This actions is because event interface has not getLocation()
         for (Event e:events){
             if (businessSystem.retrieveExhibition(e) != null){
@@ -164,14 +167,21 @@ public class SSTest04 {
         for (int i = 0; i < row; i++) {
             sheet.getCellAt(0,i).setValue(exhibitions.get(i).getName());
             sheet.getCellAt(1,i).setValue(exhibitions.get(i).getOrganization());
-            sheet.getCellAt(2,i).setValue(exhibitions.get(i).getPerformers()[0].getName());
+            
+            for (Performer performer : exhibitions.get(i).getPerformers()) {
+                sheet.getCellAt(2,i).setValue(sheet.getCellAt(2,i).getValue() + performer.getName() + ", ");
+            }
+
             sheet.getCellAt(3,i).setValue(exhibitions.get(i).getStartDate());
             sheet.getCellAt(4,i).setValue(exhibitions.get(i).getEndingDate());
             sheet.getCellAt(5,i).setValue(exhibitions.get(i).getLocation().getName());
-            sheet.getCellAt(6,i).setValue(exhibitions.get(i).getLinks()[0]);
+            
+            for (String link : exhibitions.get(i).getLinks()) {
+                sheet.getCellAt(6,i).setValue(sheet.getCellAt(6,i).getValue() + link + ", ");
+            }
         }
+        
         return spreadSheet;
-       
     }
     
     public static SpreadSheet festivalSheet(SpreadSheet spreadSheet){
@@ -198,13 +208,20 @@ public class SSTest04 {
         for (int i = 0; i < row; i++) {
             concerts = festivals.get(i).getConcerts();
             sheet.getCellAt(0,i).setValue(festivals.get(i).getName());
+
             for (Concert concert : concerts) {
                 sheet.getCellAt(1,i).setValue(concert.getName());
-                sheet.getCellAt(2,i).setValue(concert.getPerformers()[0].getName());
+                for (Performer performer : concert.getPerformers()) {
+                    sheet.getCellAt(2,i).setValue(sheet.getCellAt(2,i).getValue() + performer.getName() + ", ");
+                }
                 sheet.getCellAt(3,i).setValue(concert.getStartDate());
-                sheet.getCellAt(4,i).setValue(concert.getLocation().getName());
             }
+            
+            for (Location location : festivals.get(i).getLocation()) {
+                sheet.getCellAt(4,i).setValue(sheet.getCellAt(4,i).getValue() + location.getName() + ", ");
+            }   
         }
+        
         return spreadSheet;
     }
 }

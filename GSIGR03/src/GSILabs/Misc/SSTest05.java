@@ -1,8 +1,3 @@
-package GSILabs.Misc;
-
-import GSILabs.BSystem.BusinessSystem;
-import java.io.File;
-
 /*
  * This document is part of the lab material for the subject:
  * Gestion de Sistemas de Informacion
@@ -11,8 +6,13 @@ import java.io.File;
  * during the first semester of the Academic Year 2015-2016
  */
 
+package GSILabs.Misc;
+
+import GSILabs.BSystem.BusinessSystem;
+import java.io.File;
+
 /**
- * Load a file to concerts and import to system.
+ * Load a file with festivals and import to system.
  * @author GR03
  * @version 1.0
  */
@@ -25,6 +25,6 @@ public class SSTest05 {
         System.out.println("SSTest05");
         businessSystem = new BusinessSystem();
         
-        businessSystem.importConcerts(new File("concerts.ods"));
+        businessSystem.importFestivals(new File("festivals.ods"));
     }
 }

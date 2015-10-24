@@ -12,7 +12,6 @@ import GSILabs.BModel.Artist;
 import GSILabs.BModel.Client;
 import GSILabs.BModel.Collective;
 import GSILabs.BModel.Concert;
-import GSILabs.BModel.DateConcert;
 import GSILabs.BModel.Event;
 import GSILabs.BModel.Exhibition;
 import GSILabs.BModel.Festival;
@@ -386,20 +385,20 @@ public class BusinessSystem implements TicketOffice, ODSPersistent{
         //return fileSystem.parseTickets(f);
     }
     
-    public boolean importConcerts(File f){
-        String[] concerts = fileSystem.importConcerts(f);
+    public boolean importFestivals(File f){
+        String[] festivals = fileSystem.importFestivals(f);
         String name;
         Performer performer;
         Location location;
-        Concert concert;
-        System.out.println("Size:" + concerts.length);
+        Festival festival;
+        System.out.println("Size:" + festivals.length);
 
-        for (int i = 0; i < (concerts.length) ; i = i + 4) {
-            name = concerts[i];
-            performer = this.retrievePerformer(concerts[i + 1]);
-            location = this.getLocation(concerts[i + 2]);
-            concert = new Concert(name, (Artist) performer, location, new DateConcert("14/02/1999", "12:10"));
-            //this.addNewConcert(concert);
+        for (int i = 0; i < (festivals.length) ; i = i + 4) {
+            name = festivals[i];
+            performer = this.retrievePerformer(festivals[i + 1]);
+            location = this.getLocation(festivals[i + 2]);
+            //festival = new Festival(name, (Artist) performer, location, new DateConcert("14/02/1999", "12:10"));
+            
         }
         
         return true;
