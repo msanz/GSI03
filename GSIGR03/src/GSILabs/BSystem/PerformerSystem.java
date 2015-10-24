@@ -20,13 +20,13 @@ import java.util.HashSet;
  */
 public class PerformerSystem {
     
-    private HashSet<Performer> performers;
+    private final HashSet<Performer> performers;
 
     /**
     * Create a new Performer System with a hashset of performers.
     */
     public PerformerSystem(){
-        performers = new HashSet<Performer>();
+        performers = new HashSet<>();
     }
     
     /**

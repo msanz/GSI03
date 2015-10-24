@@ -23,6 +23,11 @@ public class Concert implements ImpermanentEvent {
     private Performer[] performers;
     
     /**
+     * Create a new concert void.
+     */
+    public Concert(){}
+    
+    /**
      * Create a new concert
      * @param name The name of the concert
      * @param performer The performer who takes in the concert (only one performer)
@@ -49,7 +54,7 @@ public class Concert implements ImpermanentEvent {
         this.performers = performers;
         this.location = location;
     }
-    
+
     /**
      * Compare two objects by name and location
      * @param o Object
@@ -103,6 +108,33 @@ public class Concert implements ImpermanentEvent {
     @Override
     public String getName() {
         return name;
+    }
+    
+    /**
+     * Set performers to concert
+     * @param performers array with one or more performers
+     */
+    public void setPerformers(Performer[] performers){
+        if (performers.length == 1){
+            this.performer = (Artist) performers[0];
+        }else{
+            this.performers = performers;
+        }
+    }
+    
+    /**
+     * Set location to concert.
+     * @þaram location the location to add at concert
+     */
+    public void setLocation(Location location){
+        this.location = location;
+    }
+    
+    /**
+     * Set the name of the concert
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

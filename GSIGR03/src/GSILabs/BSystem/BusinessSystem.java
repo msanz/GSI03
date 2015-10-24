@@ -387,18 +387,51 @@ public class BusinessSystem implements TicketOffice, ODSPersistent{
     
     public boolean importFestivals(File f){
         String[] festivals = fileSystem.importFestivals(f);
-        String name;
-        Performer performer;
-        Location location;
         Festival festival;
-        System.out.println("Size:" + festivals.length);
-
-        for (int i = 0; i < (festivals.length) ; i = i + 4) {
-            name = festivals[i];
-            performer = this.retrievePerformer(festivals[i + 1]);
-            location = this.getLocation(festivals[i + 2]);
-            //festival = new Festival(name, (Artist) performer, location, new DateConcert("14/02/1999", "12:10"));
+        Location location;
+        ArrayList<Performer> performersList = new ArrayList();
+        Performer[] performers;
+        String[] namesPerformers;
+        Concert concert;
+        Artist artist;
+        
+        for (int i = 0; i < (festivals.length) ; i = i + 5) {
+            System.out.println(festivals[i]);
             
+            if (this.retrieveEvents(festivals[i]) != null){
+                festival = (Festival) this.retrieveEvents(festivals[i])[0];
+            }else{
+                festival = new Festival(festivals[i]);
+            }
+            
+            System.out.println(festivals[i + 1]);
+            concert = new Concert();
+            concert.setName(festivals[i + 1]);
+            
+            System.out.println(festivals[i + 2]);
+            namesPerformers = festivals[i + 2].split(",");
+            
+            for (int j = 0; j < namesPerformers.length; j++) {
+                artist = new Artist();
+                artist.setName(namesPerformers[j]);
+                performersList.add(artist);
+            }
+            
+            performers = new Performer[performersList.size()];
+            performers = performersList.toArray(performers);
+            
+            concert.setPerformers(performers);
+            
+            System.out.println(festivals[i + 3]);
+            System.out.println(festivals[i + 4]);
+            
+            location = new Location();
+            location.setName(festivals[i + 4]);
+            concert.setLocation(location);
+            this.addNewConcert(concert);
+            festival.addConcert(concert);
+            
+            this.addNewFestival(festival);
         }
         
         return true;

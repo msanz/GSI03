@@ -21,6 +21,11 @@ public class Artist implements Performer {
     private String web;
     
     /**
+     * Create a new artist void.
+     */
+    public Artist(){}
+    
+    /**
      * Create a new Artist with name and work description.
      * @param name The name of the artist.
      * @param workDescription  A little description about the artwork.

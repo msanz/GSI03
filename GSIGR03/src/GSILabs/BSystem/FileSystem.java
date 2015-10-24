@@ -35,22 +35,23 @@ public class FileSystem implements ODSPersistent{
         return false;
     }
     
-    public String[] importConcerts(File file){
-        ArrayList<String> concerts = new ArrayList<>();
+    public String[] importFestivals(File file){
+        ArrayList<String> festivals = new ArrayList<>();
         try {
             final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
-            //int col = sheet.getColumnCount();
+
             int row = sheet.getRowCount();
             
             // Show the info 
             for (int i = 0; i < row; i++) {
-                concerts.add(sheet.getCellAt(0,i).getValue().toString()); // Name
-                concerts.add(sheet.getCellAt(1,i).getValue().toString()); // Performer
-                concerts.add(sheet.getCellAt(2,i).getValue().toString()); // Location
-                concerts.add(sheet.getCellAt(3,i).getValue().toString()); // Date
+                festivals.add(sheet.getCellAt(0,i).getValue().toString()); // Name festival
+                festivals.add(sheet.getCellAt(1,i).getValue().toString()); // Name concert
+                festivals.add(sheet.getCellAt(2,i).getValue().toString()); // Performer
+                festivals.add(sheet.getCellAt(3,i).getValue().toString()); // Date
+                festivals.add(sheet.getCellAt(4,i).getValue().toString()); // Location
             }
   
-            return concerts.toArray(new String[concerts.size()]);
+            return festivals.toArray(new String[festivals.size()]);
         } catch (IOException ex) {
             Logger.getLogger(SSTest01.class.getName()).log(Level.SEVERE, null, ex);
             return null;

@@ -22,6 +22,11 @@ public class Location {
     private String web;
     
     /**
+     * Create a new location void.
+     */
+    public Location(){}
+    
+    /**
      * This sets a new location
      * @param name the name of the place
      * @param capacity max number of people in this place
@@ -54,6 +59,13 @@ public class Location {
      */
     public String getName(){
         return name;
+    }
+    
+    /**
+     * Gets the name of the place
+     */
+    public void setName(String name){
+        this.name = name;
     }
     
     /**

@@ -215,11 +215,8 @@ public class SSTest04 {
                     sheet.getCellAt(2,i).setValue(sheet.getCellAt(2,i).getValue() + performer.getName() + ", ");
                 }
                 sheet.getCellAt(3,i).setValue(concert.getStartDate());
+                sheet.getCellAt(4,i).setValue(concert.getLocation().getName());
             }
-            
-            for (Location location : festivals.get(i).getLocation()) {
-                sheet.getCellAt(4,i).setValue(sheet.getCellAt(4,i).getValue() + location.getName() + ", ");
-            }   
         }
         
         return spreadSheet;
