@@ -16,7 +16,7 @@ import java.util.Objects;
  * @version 1.0
  */
 public class Concert implements ImpermanentEvent {
-    private DateConcert date;
+    private DateEvent date;
     private String name;
     private Artist performer;
     private Location location;
@@ -34,7 +34,7 @@ public class Concert implements ImpermanentEvent {
      * @param location The location where of the concert
      * @param date The date of the concert (day and time)
      */
-    public Concert(String name, Artist performer, Location location, DateConcert date){
+    public Concert(String name, Artist performer, Location location, DateEvent date){
         this.date = date;
         this.name = name;
         this.performer = performer;
@@ -48,13 +48,21 @@ public class Concert implements ImpermanentEvent {
      * @param location The location where of the concert
      * @param date The date of the concert (day and time)
      */
-    public Concert(String name, Performer[] performers, Location location, DateConcert date){
+    public Concert(String name, Performer[] performers, Location location, DateEvent date){
         this.date = date;
         this.name = name;
         this.performers = performers;
         this.location = location;
     }
-
+    
+    /**
+     * Set date concert.
+     * @param date date of the concert 
+     */
+    public void setDateEvent(DateEvent date){
+        this.date = date;
+    }
+    
     /**
      * Compare two objects by name and location
      * @param o Object
@@ -83,13 +91,17 @@ public class Concert implements ImpermanentEvent {
         return hash;
     }
     
-    /**
-     * Returns the day that the concert starts
-     * @return date The day that the concert start
-     */
     @Override
     public Date getStartDate() {
-        return date.getDay();
+        return date.getDayStart();
+    }
+    
+    /**
+     * Returns the day that the concert finish
+     * @return date The day that the concert finish
+     */
+    public Date getFinishDate(){
+        return date.getDayFinish();
     }
     
     /**

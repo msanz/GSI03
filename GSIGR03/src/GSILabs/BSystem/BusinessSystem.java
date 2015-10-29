@@ -12,6 +12,7 @@ import GSILabs.BModel.Artist;
 import GSILabs.BModel.Client;
 import GSILabs.BModel.Collective;
 import GSILabs.BModel.Concert;
+import GSILabs.BModel.DateEvent;
 import GSILabs.BModel.Event;
 import GSILabs.BModel.Exhibition;
 import GSILabs.BModel.Festival;
@@ -19,23 +20,24 @@ import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
-import persistence.ODSPersistent;
+import org.jopendocument.dom.spreadsheet.Sheet;
+import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 /**
  * The business system is the main system.
  * @author GR03
  * @version 1.0
  */
-public class BusinessSystem implements TicketOffice, ODSPersistent{
+public class BusinessSystem implements TicketOffice{
     private final ClientSystem clientSystem;
     private final EventSystem eventSystem;
     private final LocationSystem locationSystem;
     private final TicketSystem ticketSystem;
     private final PerformerSystem performerSystem;
-    private final FileSystem fileSystem;
     private final AtomicInteger atomicInteger;
 
     public BusinessSystem (){
@@ -44,7 +46,6 @@ public class BusinessSystem implements TicketOffice, ODSPersistent{
         locationSystem = new LocationSystem();
         performerSystem = new PerformerSystem();
         ticketSystem = new TicketSystem();
-        fileSystem = new FileSystem();
         atomicInteger = new AtomicInteger();
     }
 
@@ -369,24 +370,35 @@ public class BusinessSystem implements TicketOffice, ODSPersistent{
     }
 
     // File management
-    
-    @Override
-    public boolean loadFromFile(File f) {
-        return fileSystem.loadFromFile(f);
-    }
-
-    @Override
-    public boolean saveToFile(File f) {
-        return fileSystem.saveToFile(f);
-    }
-    
     public int importTickets (File f){
         return 0;
         //return fileSystem.parseTickets(f);
     }
     
-    public boolean importFestivals(File f){
-        String[] festivals = fileSystem.importFestivals(f);
+    private String[] ODSFestival(File file){
+        ArrayList<String> festivals = new ArrayList<>();
+        try {
+            final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(2);
+           
+            int row = sheet.getRowCount();
+            
+            // Show the info 
+            for (int i = 0; i < row; i++) {
+                festivals.add(sheet.getCellAt(0,i).getValue().toString()); // Name festival
+                festivals.add(sheet.getCellAt(1,i).getValue().toString()); // Name concert
+                festivals.add(sheet.getCellAt(2,i).getValue().toString()); // Performer
+                festivals.add(sheet.getCellAt(3,i).getValue().toString()); // Date
+                festivals.add(sheet.getCellAt(4,i).getValue().toString()); // Location
+            }
+  
+            return festivals.toArray(new String[festivals.size()]);
+        } catch (IOException ex) {
+            return null;
+        }   
+    }
+    
+    public boolean importFestivals(File f){    
+        String[] festivals = this.ODSFestival(f);
         Festival festival;
         Location location;
         ArrayList<Performer> performersList = new ArrayList();
@@ -395,7 +407,7 @@ public class BusinessSystem implements TicketOffice, ODSPersistent{
         Concert concert;
         Artist artist;
         
-        for (int i = 0; i < (festivals.length) ; i = i + 5) {
+        for (int i = 0; i < (festivals.length) ; i = i + 6) {
             System.out.println(festivals[i]);
             
             if (this.retrieveEvents(festivals[i]) != null){
@@ -424,14 +436,15 @@ public class BusinessSystem implements TicketOffice, ODSPersistent{
             
             System.out.println(festivals[i + 3]);
             System.out.println(festivals[i + 4]);
-            
+            System.out.println(festivals[i + 5]);
+            System.out.println(festivals[i + 6]);
             location = new Location();
             location.setName(festivals[i + 4]);
             concert.setLocation(location);
-            this.addNewConcert(concert);
+            concert.setDateEvent(new DateEvent(festivals[i + 4],festivals[i + 5]));
+            /*this.addNewConcert(concert);
             festival.addConcert(concert);
-            
-            this.addNewFestival(festival);
+            this.addNewFestival(festival);*/
         }
         
         return true;

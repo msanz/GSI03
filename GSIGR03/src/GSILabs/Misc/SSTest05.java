@@ -25,6 +25,6 @@ public class SSTest05 {
         System.out.println("SSTest05");
         businessSystem = new BusinessSystem();
         
-        businessSystem.importFestivals(new File("festivals.ods"));
+        businessSystem.importFestivals(new File("data.ods"));
     }
 }

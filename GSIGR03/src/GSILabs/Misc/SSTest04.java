@@ -11,7 +11,6 @@ package GSILabs.Misc;
 import GSILabs.BModel.Artist;
 import GSILabs.BModel.Concert;
 import GSILabs.BModel.Coordinates;
-import GSILabs.BModel.DateConcert;
 import GSILabs.BModel.DateEvent;
 import GSILabs.BModel.Event;
 import GSILabs.BModel.Exhibition;
@@ -41,11 +40,11 @@ public class SSTest04 {
  
     private static Concert concert1;
     
-    private static DateConcert dateConcert1;
+    private static DateEvent dateEvent1;
     
     private static Exhibition exhibition1;
     
-    private static DateEvent dateEvent1;
+    private static DateEvent dateEvent2;
     
     private static Festival festival1;
     
@@ -84,21 +83,19 @@ public class SSTest04 {
        location1 = new Location("Madrid", 300, new Coordinates(123,287));
        businessSystem.addLocation(location1);
        
-       dateConcert1 = new DateConcert("14/2/1999","12:10"); 
+       dateEvent1 = new DateEvent("15/2/1999 11:00","15/2/1999 15:00"); 
        
-       concert1 = new Concert("Bob Dylan Madrid", artist1, businessSystem.getLocation("Madrid"), dateConcert1);
+       concert1 = new Concert("Bob Dylan Madrid", artist1, businessSystem.getLocation("Madrid"), dateEvent1);
        businessSystem.addNewConcert(concert1);
        
-       dateEvent1 = new DateEvent("15/12/2000", "20:00");
-       dateEvent1.setDayFinish("20/12/2000");
-       dateEvent1.setTimeFinish("17:00");
-       
+       dateEvent2 = new DateEvent("15/12/2000 20:00", "15/12/2000 22:00");
+
        location2 = new Location("Barcelona", 300, new Coordinates(456,787));
        businessSystem.addLocation(location2);
        
        String[] links = {"http://www.elpais.com", "http://www.noticiasdenavarra.com"};
        
-       exhibition1 = new Exhibition("Bod Dylan Expo", "Bob Dylan Foundation", dateEvent1, artist1, location2, links);
+       exhibition1 = new Exhibition("Bod Dylan Expo", "Bob Dylan Foundation", dateEvent2, artist1, location2, links);
        businessSystem.addNewExhibition(exhibition1);
        
        festival1 = new Festival("Ragge 2015");
@@ -197,7 +194,7 @@ public class SSTest04 {
         }
 
         int row = festivals.size();
-        int col = 5;
+        int col = 6;
         
         //Create the sheet
         Sheet sheet = spreadSheet.addSheet("Festivals");
@@ -211,11 +208,14 @@ public class SSTest04 {
 
             for (Concert concert : concerts) {
                 sheet.getCellAt(1,i).setValue(concert.getName());
+                
                 for (Performer performer : concert.getPerformers()) {
                     sheet.getCellAt(2,i).setValue(sheet.getCellAt(2,i).getValue() + performer.getName() + ", ");
                 }
+                
                 sheet.getCellAt(3,i).setValue(concert.getStartDate());
-                sheet.getCellAt(4,i).setValue(concert.getLocation().getName());
+                sheet.getCellAt(4,i).setValue(concert.getFinishDate());
+                sheet.getCellAt(5,i).setValue(concert.getLocation().getName());
             }
         }
         

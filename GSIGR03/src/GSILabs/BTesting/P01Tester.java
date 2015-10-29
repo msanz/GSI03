@@ -83,17 +83,17 @@ public class P01Tester {
         
         businessSystem = new BusinessSystem();
         
-        client1 = new Client(15846815, "pepe", "Randez", "Perez", new DateGeneral("14/2/1956"));
-        invalidClient = new Client(11224569, "Lucas", "Martinez", "Otxandorena", new DateGeneral("2/1/2004"));
+        client1 = new Client(15846815, "pepe", "Randez", "Perez", new DateGeneral("14/2/1956 15:00"));
+        invalidClient = new Client(11224569, "Lucas", "Martinez", "Otxandorena", new DateGeneral("2/1/2004 10:00"));
         
-        client2 = new Client(12345678, "Juan", "Sanchez", "Rodriguez", new DateGeneral("20/09/1987"));
+        client2 = new Client(12345678, "Juan", "Sanchez", "Rodriguez", new DateGeneral("20/09/1987 11:00"));
         client2.addCreditCard("5263214589758963");
         client2.addCreditCard("4587125963458710");
         
-        client3 = new Client(44687509, "María", "Sanchez", "Juaniz", new DateGeneral("4/5/1990"));
+        client3 = new Client(44687509, "María", "Sanchez", "Juaniz", new DateGeneral("4/5/1990 12:00"));
         client3.addCreditCard("5263214589758963");
         
-        clientWithoutTickets = new Client(12345690, "Perico", "El de Los", "Palotes", new DateGeneral("5/2/1980"));
+        clientWithoutTickets = new Client(12345690, "Perico", "El de Los", "Palotes", new DateGeneral("5/2/1980 15:00"));
         clientWithoutTickets.addCreditCard("5263214589758936");
         artist1 = new Artist("Maria", "Cantante de opera", "maria.com");
         artist2 = new Artist("Rihana", "Rihana");
@@ -109,11 +109,11 @@ public class P01Tester {
         businessSystem.addLocation(new Location("Jerez de la Frontera", 190, new Coordinates(879,123)));
         businessSystem.addLocation(new Location("Bilbao", 187, new Coordinates(10,20)));
         
-        concert1 = new Concert("Concierto 1", artist1, businessSystem.getLocation("Madrid"), new DateConcert("14/2/1999","12:10"));
-        concert2 = new Concert("Concierto 2", artist1, businessSystem.getLocation("Barcelona"), new DateConcert("5/8/1999","12:10"));
-        concert3 = new Concert("Concierto 3", artist1, businessSystem.getLocation("Jerez de la Frontera"), new DateConcert("21/12/2015","12:10"));
-        concert4 = new Concert("Concierto 4", artist1, businessSystem.getLocation("Bilbao"), new DateConcert("30/5/2015","12:10"));
-        concert5 = new Concert("Concierto 5", artist1, businessSystem.getLocation("Madrid"), new DateConcert("28/11/2015","12:10"));
+        concert1 = new Concert("Concierto 1", artist1, businessSystem.getLocation("Madrid"), new DateEvent("14/2/1999","12:10"));
+        concert2 = new Concert("Concierto 2", artist1, businessSystem.getLocation("Barcelona"), new DateEvent("5/8/1999","12:10"));
+        concert3 = new Concert("Concierto 3", artist1, businessSystem.getLocation("Jerez de la Frontera"), new DateEvent("21/12/2015","12:10"));
+        concert4 = new Concert("Concierto 4", artist1, businessSystem.getLocation("Bilbao"), new DateEvent("30/5/2015","12:10"));
+        concert5 = new Concert("Concierto 5", artist1, businessSystem.getLocation("Madrid"), new DateEvent("28/11/2015","12:10"));
         
         
         ticket1 = new Ticket("Disturbed", businessSystem.getAtomicInteger());
@@ -143,10 +143,10 @@ public class P01Tester {
         DateGeneral dg = new DateGeneral("12/12/12");
         DateGeneral dg1 = new DateGeneral("12/12/12");
         DateGeneral dg2 = new DateGeneral("12/2/12");
-        DateConcert dc = new DateConcert("12/12/12", "21:30");
-        DateConcert dc1 = new DateConcert("12/12/12", "21:30");
-        DateConcert dc2 = new DateConcert("12/12/12", "22:30");
-        DateConcert dc3 = new DateConcert("12/1/12", "22:30");
+        DateEvent dc = new DateEvent("12/12/12", "21:30");
+        DateEvent dc1 = new DateEvent("12/12/12", "21:30");
+        DateEvent dc2 = new DateEvent("12/12/12", "22:30");
+        DateEvent dc3 = new DateEvent("12/1/12", "22:30");
     }
     
     static void test1() {
@@ -196,7 +196,7 @@ public class P01Tester {
         Collective collective = businessSystem.retrieveCollective("Flitter");
         Location madrid = businessSystem.getLocation("Madrid");
         Location bilbao = businessSystem.getLocation("Bilbao");
-        DateConcert date = new DateConcert("12/7/2015", "21:30");
+        DateEvent date = new DateEvent("12/7/2015", "21:30");
         Concert flitterMadrid = new Concert("Flitter-Madrid", collective, madrid, date);
         Concert flitterBilbao = new Concert("Flitter-Bilbao", collective, bilbao, date);
         System.out.println(flitterBilbao);      
@@ -280,7 +280,7 @@ public class P01Tester {
         
         ticket = new Ticket("EventoRaruno", businessSystem.getAtomicInteger());
         businessSystem.addNewTicket(ticket);
-        Client client2 = new Client(15846813, "pepe", "Randez", "Perez", new DateGeneral("14/2/1990","12:10"));
+        Client client2 = new Client(15846813, "pepe", "Randez", "Perez", new DateEvent("14/2/1990 12:10","14/2/1990 16:10"));
         client2.addCreditCard("5263214589758963");
         if (businessSystem.addClient(client2)){
             System.out.println("Cliente agregado correctamente");
@@ -296,7 +296,7 @@ public class P01Tester {
         
         ticket = new Ticket("EventoRaruno", businessSystem.getAtomicInteger());
         businessSystem.addNewTicket(ticket);
-        Client client5 = new Client(15846815, "Rogelio", "Benedicto", "Pascasio", new DateGeneral("11/5/2015","14:12"));
+        Client client5 = new Client(15846815, "Rogelio", "Benedicto", "Pascasio", new DateEvent("11/5/2015 14:12","11/5/2015 15:12"));
         if ( businessSystem.addSale(ticket, client5,(float)2.2222, "creditcard")) {
             System.out.println("Venta realizada correctamente" );    
         }else{

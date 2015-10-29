@@ -21,28 +21,14 @@ import java.util.logging.Logger;
  * @author GR03
  */
 public class DateGeneral {
-    
     private final Date day;
-    private final Date time;    
     
     /** 
      * Create a date general with day and time
      * @param dayString string day style "dd/mm/yyyy"
-     * @param timeString string time style "H:mm"
      */
-    public DateGeneral (String dayString, String timeString){
+    public DateGeneral (String dayString){
         this.day = this.dayFormat(dayString);
-        this.time = this.timeFormat(timeString);
-    }
-
-    /**
-     * Create a general date with day and default time (0:00).
-     * Is used to create client's birthday
-     * @param dayString string day style "dd/mm/yyyy"
-     */
-    public DateGeneral(String dayString) {
-        this.day = dayFormat(dayString);
-        this.time = timeFormat("0:00");
     }
     
     /**
@@ -52,45 +38,22 @@ public class DateGeneral {
     public Date getDay() {
         return day;
     }
-
-    /**
-     * Returns the time of the date
-     * @return the time of the date 
-     */
-    public Date getTime() {
-        return time;
-    }
     
     /**
-     * Convert string (dd/mm/yyyy) to date format
-     * @param string day style "dd/mm/yyyy"
+     * Convert string (dd/mm/yyyy HH:mm) to date format
+     * @param string day style "dd/mm/yyyy HH:mm"
      * @return return the date object
      */
     Date dayFormat(String string){
         try{
-            DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+            DateFormat format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
             return format.parse(string);
         }catch (ParseException ex){
             Logger.getLogger(DateGeneral.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
-    /**
-     * Convert string (H:mm) to date format
-     * @param string day style "H:mm"
-     * @return return the date object
-     */
-    Date timeFormat(String string){
-        try{
-            DateFormat format = new SimpleDateFormat("H:mm");
-            return format.parse(string);
-        }catch (ParseException ex){
-            Logger.getLogger(DateGeneral.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
+   
     /**
      * Checks if the client is adult (+18)
      * @return tru if and only if the birthday is more than 18 years
@@ -99,20 +62,13 @@ public class DateGeneral {
        return (((new Date()).getYear() + 1900) - (day.getYear() + 1900) >= 18 );              
     }
     
-    /**
-     * Rewriting the toString() method
-     * @return other style to show the information
-     */
     @Override
     public String toString(){
-        DateFormat dayFormat = new SimpleDateFormat("dd/mm/yyyy");
-        DateFormat timeFormat = new SimpleDateFormat("H:mm");
-        return "Day: " + dayFormat.format(day) + " - " + timeFormat.format(time);
+        return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(day);
     }
     
     @Override
-    public boolean equals(Object o) {
-        
+    public boolean equals(Object o) {       
         if(o instanceof DateGeneral) {
             DateGeneral date = (DateGeneral) o;
             //comprobar que no es after ni before
