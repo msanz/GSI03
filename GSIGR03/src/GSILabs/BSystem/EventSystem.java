@@ -17,6 +17,7 @@ import GSILabs.BModel.Performer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * EventSystem is a subsystem for manage a hashset of events
@@ -226,6 +227,7 @@ public class EventSystem {
      * @return A list of events, potentially being empty
      */
     public Event[] retrieveEvents(String name) {
+        Event ev[] = null;
         ArrayList<Event> list = new ArrayList();
         for (Event e:events){
             if (e.getName().contains(name)){
@@ -235,8 +237,25 @@ public class EventSystem {
         if (list.isEmpty()){
             return null;
         }else{
-            return (Event[]) list.toArray();
+            return list.toArray(ev);
         }
+    }
+    
+    /**
+     * Retrieves the event that matches with the name
+     * @param name Full name of the event
+     * @return the event with the given name. return null if the event doesn't exist.
+     */
+    public Event retrieveEvent (String name) {
+        
+        Event event;
+        Iterator eventsIterator = events.iterator();
+        while (eventsIterator.hasNext()) {
+            event = (Event) eventsIterator.next();
+            if(event.getName().equals(name))
+                return event;
+        }
+        return null;
     }
 
     /**

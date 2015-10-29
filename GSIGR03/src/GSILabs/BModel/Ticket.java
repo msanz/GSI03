@@ -8,23 +8,27 @@
 
 package GSILabs.BModel;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * A ticket is a object that allows to enter to a event.
  * Is associated with event name.
- * All the tickets are diferent
+ * All the tickets are different
  * @author GR03
  * @version 1.0
  */
 public class Ticket {
     
+    ArrayList<Integer> passes;
+    ArrayList<Integer> usedPasses;
     String eventName;
     int id;
     int numberOfPersons;
-    int numberOfUsed;
+    int numberOfUses;
     float price;
+    AtomicInteger ai;
     boolean used;
     
     /**
@@ -33,19 +37,32 @@ public class Ticket {
      * @param atomicInteger The atomic integer object, for creating ticket's ids
      */
     public Ticket (String eventName, AtomicInteger atomicInteger){
+        this.passes = new ArrayList();
         this.eventName = eventName;
         this.id = (int)atomicInteger.getAndIncrement();
+        this.ai = new AtomicInteger();
         this.used = false;
     }
     
     /**
-     * Set the number of persons that this ticket is going to authorice 
+     * Set the number of persons that this ticket is going to authorize 
      * @param numberOfPersons number of persons for this ticket
      * 
      */
     public void setNumberOfPersons(int numberOfPersons){
+        
         this.numberOfPersons = numberOfPersons;
-        this.numberOfUsed = numberOfPersons;
+        this.numberOfUses = numberOfPersons;
+    }
+    
+    public void createPasses (int numberOfPasses) {
+        for (int i = 0; i < numberOfPasses; i++) {
+            passes.add(ai.getAndIncrement());
+        }
+    }
+    
+    public ArrayList<Integer> getPasses() {
+        return this.passes;
     }
     
     /**
@@ -59,14 +76,19 @@ public class Ticket {
     /**
      * This method checks how many times a ticket was used, and mark it as used if number of used
      * is 0. If not 0, decrement it one unit
+     * @param passId pass id to be used
      */
-    public void useTicket() {
+    public void useTicket(int passId) {
         if (checkTicketUsed())
         {
-            numberOfUsed--;
-            if (numberOfUsed == 0){
-                this.setUsed();
+            if(passes.contains(passId)) {
+                passes.remove(passId);
+                usedPasses.add(passId);
             }
+//            numberOfUses--;
+//            if (numberOfUses == 0){
+//                this.setUsed();
+//            }
         }
     }
     
@@ -127,9 +149,9 @@ public class Ticket {
     @Override
     public String toString(){
         return "Event Name: " + eventName + "\n" +
-                " id: " + id + "\n" +
-                " numberOfPersons: " + numberOfPersons + "\n" +
-                " numberOfUsed: " + numberOfUsed;
+//                " id: " + id + "\n" +
+                " numberOfPersons: " + passes.size() + "\n" +
+                " numberOfUsed: " + numberOfUses;
     }
     
     /**

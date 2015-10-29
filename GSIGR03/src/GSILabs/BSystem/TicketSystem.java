@@ -118,13 +118,13 @@ public class TicketSystem {
             ticket1 = (Ticket)ticketsIterator.next();
             if ( t.hashCode() == ticket1.hashCode() ) {
                 if (ticket1.getEventNameInTicket().equals(e.getName())) {
-                    ticket1.useTicket();
+                    ticket1.useTicket(ticket1.getPasses().get(0));
                 }
             }
             ticket2 = (Ticket)salesIterator.next();
             if ( t.hashCode() == ticket2.hashCode() ) {
                 if (ticket2.getEventNameInTicket().equals(e.getName())) {
-                    ticket2.useTicket();
+                    ticket2.useTicket(ticket2.getPasses().get(0));
                 }
             }
         }

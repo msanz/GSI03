@@ -22,7 +22,7 @@ public class ClientSystem {
     
     /** 
      * Create a new Client System.
-     * Initialicing hashset of clients
+     * initializing hashset of clients
      */
     public ClientSystem() {
         clients = new HashSet<>();  
@@ -52,8 +52,8 @@ public class ClientSystem {
     public boolean modifyClient(Client c) {
         
         boolean clientFound = false;
-        HashSet<Ticket> sales = new HashSet<>();
-        HashSet<String> cCards = new HashSet<>();
+        HashSet<Ticket> sales;
+        HashSet<String> cCards;
 
         if (    (c != null) &&
                 (!"".equals(c.getName())) &&

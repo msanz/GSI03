@@ -216,7 +216,11 @@ public class BusinessSystem implements TicketOffice{
     public Event[] retrieveEvents(String name) {
         return eventSystem.retrieveEvents(name);
     }
-
+    
+    public Event retrieveEvent(String name) {
+        return eventSystem.retrieveEvent(name);
+    }
+    
     @Override
     public Event[] retrieveEvents(Location loc) {
         return eventSystem.retrieveEvents(loc);
@@ -372,7 +376,7 @@ public class BusinessSystem implements TicketOffice{
     public int importTickets (File file){
         
         Ticket t;
-        AtomicInteger ticketId = null;
+        AtomicInteger aiTicketId = this.getAtomicInteger();
         
         try {
             final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
@@ -384,16 +388,18 @@ public class BusinessSystem implements TicketOffice{
                 String eventName = sheet.getCellAt(0, i).getValue().toString();
                 
                 //si ese evento no existe en el sistema, ignoramos la fila
-                if(this.retrieveEvents(eventName) == null) {
+                if(this.retrieveEvent(eventName) == null) {
                     System.out.println("fila ignorada para el evento: " + eventName);
                 }
                 else {
+                    System.out.println(eventName);
                     //recorremos las columnas hasta encontrar una vacia
                     int j = 1;
                     while( (j < sheet.getColumnCount()) && (!sheet.getCellAt(j, i ).isEmpty()) ) {
                         
-                        ticketId.set(Integer.parseInt(sheet.getCellAt(j, i).getValue().toString()));
-                        System.out.println(ticketId);
+                        
+                        aiTicketId.set(Integer.parseInt(sheet.getCellAt(j, i).getValue().toString()));
+                        System.out.println(aiTicketId);
                         sheet.getCellAt(j+1, i).getValue().toString();  
 //                        t = new Ticket(eventName, atomicInteger);
 //                        
