@@ -369,10 +369,54 @@ public class BusinessSystem implements TicketOffice{
        return performerSystem.retrieveCollective(collectiveName);
     }
 
-    // File management
-    public int importTickets (File f){
+    public int importTickets (File file){
+        
+        Ticket t;
+        AtomicInteger ticketId = null;
+        
+        try {
+            final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
+
+            for (int i = 0; i < sheet.getRowCount(); i++) {
+                //read line and form the object Ticket
+                //add the ticket t to the system if and only if the event exists in the system
+                //para cada fila, leemos primero el nombre del evento
+                String eventName = sheet.getCellAt(0, i).getValue().toString();
+                
+                //si ese evento no existe en el sistema, ignoramos la fila
+                if(this.retrieveEvents(eventName) == null) {
+                    System.out.println("fila ignorada para el evento: " + eventName);
+                }
+                else {
+                    //recorremos las columnas hasta encontrar una vacia
+                    int j = 1;
+                    while( (j < sheet.getColumnCount()) && (!sheet.getCellAt(j, i ).isEmpty()) ) {
+                        
+                        ticketId.set(Integer.parseInt(sheet.getCellAt(j, i).getValue().toString()));
+                        System.out.println(ticketId);
+                        sheet.getCellAt(j+1, i).getValue().toString();  
+//                        t = new Ticket(eventName, atomicInteger);
+//                        
+//                        this.ticketSystem.addNewTicket(t);
+                        
+                        System.out.println(sheet.getCellAt(j, i).getValue().toString());
+                        System.out.println(sheet.getCellAt(j+1, i).getValue().toString());
+                        
+                        //this.ticketSystem.addNewTicket(t);
+                        j = j + 2;
+                    }
+                }
+                
+                
+                
+            }
+            
+        }
+        catch(IOException exception) {
+            System.out.println(exception.getMessage());
+        }
         return 0;
-        //return fileSystem.parseTickets(f);
+        
     }
     
     private String[] ODSFestival(File file){
