@@ -199,7 +199,7 @@ public class P01Tester {
         DateEvent date = new DateEvent("12/7/2015", "21:30");
         Concert flitterMadrid = new Concert("Flitter-Madrid", collective, madrid, date);
         Concert flitterBilbao = new Concert("Flitter-Bilbao", collective, bilbao, date);
-        System.out.println(flitterBilbao);      
+       
         businessSystem.addNewConcert(flitterBilbao);    
         businessSystem.addNewConcert(flitterMadrid);
     }

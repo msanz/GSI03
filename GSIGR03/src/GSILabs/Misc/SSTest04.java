@@ -77,13 +77,13 @@ public class SSTest04 {
     private static BusinessSystem generateData() {
        businessSystem = new BusinessSystem();
         
-       artist1 = new Artist("Bob Dylan", "The boss", "bobdylan.com");
+       artist1 = new Artist("Bob Dylan", "The boss", "www.bobdylan.com");
        businessSystem.addArtist(artist1);
        
        location1 = new Location("Madrid", 300, new Coordinates(123,287));
        businessSystem.addLocation(location1);
        
-       dateEvent1 = new DateEvent("15/2/1999 11:00","15/2/1999 15:00"); 
+       dateEvent1 = new DateEvent("15/02/1999 11:00","15/02/1999 15:00"); 
        
        concert1 = new Concert("Bob Dylan Madrid", artist1, businessSystem.getLocation("Madrid"), dateEvent1);
        businessSystem.addNewConcert(concert1);

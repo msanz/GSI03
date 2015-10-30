@@ -432,17 +432,18 @@ public class BusinessSystem implements TicketOffice{
            
             int row = sheet.getRowCount();
             
-            // Show the info 
+            // Take the info
             for (int i = 0; i < row; i++) {
                 festivals.add(sheet.getCellAt(0,i).getValue().toString()); // Name festival
                 festivals.add(sheet.getCellAt(1,i).getValue().toString()); // Name concert
                 festivals.add(sheet.getCellAt(2,i).getValue().toString()); // Performer
-                festivals.add(sheet.getCellAt(3,i).getValue().toString()); // Date
-                festivals.add(sheet.getCellAt(4,i).getValue().toString()); // Location
+                festivals.add(sheet.getCellAt(3,i).getValue().toString()); // Date Start
+                festivals.add(sheet.getCellAt(4,i).getValue().toString()); // Date Finish
+                festivals.add(sheet.getCellAt(5,i).getValue().toString()); // Location
             }
   
             return festivals.toArray(new String[festivals.size()]);
-        } catch (IOException ex) {
+        } catch (IOException e) {
             return null;
         }   
     }
@@ -457,46 +458,45 @@ public class BusinessSystem implements TicketOffice{
         Concert concert;
         Artist artist;
         
-        for (int i = 0; i < (festivals.length) ; i = i + 6) {
-            System.out.println(festivals[i]);
-            
-            if (this.retrieveEvents(festivals[i]) != null){
-                festival = (Festival) this.retrieveEvents(festivals[i])[0];
-            }else{
-                festival = new Festival(festivals[i]);
+        //Check if the ODSFestival is well formed
+        if ((festivals.length / 6) != 0){
+            return false;
+        }else{
+            for (int i = 0; i < (festivals.length) ; i = i + 6) {
+                //Check if the festival exist
+                if (this.retrieveEvents(festivals[i]) != null){
+                    festival = (Festival) this.retrieveEvents(festivals[i])[0];
+                }else{
+                    festival = new Festival(festivals[i]);
+                }
+                
+                concert = new Concert();
+                concert.setName(festivals[i + 1]);
+
+                namesPerformers = festivals[i + 2].split(",");
+
+                // Delete the last split ',' with -1
+                for (int j = 0; j < namesPerformers.length - 1; j++) {
+                    artist = new Artist();
+                    artist.setName(namesPerformers[j]);
+                    performersList.add(artist);
+                }
+
+                performers = new Performer[performersList.size()];
+                performers = performersList.toArray(performers);
+
+                concert.setPerformers(performers);
+
+                location = new Location();
+                location.setName(festivals[i + 5]);
+                concert.setLocation(location);
+                concert.setDateEvent(new DateEvent(festivals[i + 3],festivals[i + 4]));
+
+                this.addNewConcert(concert);
+                festival.addConcert(concert);
+                this.addNewFestival(festival);
             }
-            
-            System.out.println(festivals[i + 1]);
-            concert = new Concert();
-            concert.setName(festivals[i + 1]);
-            
-            System.out.println(festivals[i + 2]);
-            namesPerformers = festivals[i + 2].split(",");
-            
-            for (int j = 0; j < namesPerformers.length; j++) {
-                artist = new Artist();
-                artist.setName(namesPerformers[j]);
-                performersList.add(artist);
-            }
-            
-            performers = new Performer[performersList.size()];
-            performers = performersList.toArray(performers);
-            
-            concert.setPerformers(performers);
-            
-            System.out.println(festivals[i + 3]);
-            System.out.println(festivals[i + 4]);
-            System.out.println(festivals[i + 5]);
-            System.out.println(festivals[i + 6]);
-            location = new Location();
-            location.setName(festivals[i + 4]);
-            concert.setLocation(location);
-            concert.setDateEvent(new DateEvent(festivals[i + 4],festivals[i + 5]));
-            /*this.addNewConcert(concert);
-            festival.addConcert(concert);
-            this.addNewFestival(festival);*/
+            return true;
         }
-        
-        return true;
     }
 }

@@ -136,7 +136,7 @@ public class Concert implements ImpermanentEvent {
     
     /**
      * Set location to concert.
-     * @þaram location the location to add at concert
+     * @param location the location to add at concert
      */
     public void setLocation(Location location){
         this.location = location;
@@ -144,6 +144,7 @@ public class Concert implements ImpermanentEvent {
     
     /**
      * Set the name of the concert
+     * @param name The name of the concert
      */
     public void setName(String name) {
         this.name = name;
@@ -211,6 +212,6 @@ public class Concert implements ImpermanentEvent {
      * @return True if and only is the same day. False otherwise.
      */
     public boolean collisionDay(Date day){
-        return !day.before(date.getDay()) && !day.after(date.getDayFinish());
+        return !day.before(this.getStartDate()) && !day.after(this.getFinishDate());
     }
 }

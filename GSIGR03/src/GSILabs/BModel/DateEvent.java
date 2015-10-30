@@ -8,6 +8,7 @@
 
 package GSILabs.BModel;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -19,14 +20,15 @@ import java.util.Objects;
 public class DateEvent extends DateGeneral{
     private final Date dayStart;
     private final Date dayFinish;
-   
+    private final SimpleDateFormat simpleDateFormat;
     /** 
      * Create a date event with day and time
      * @param dayStart the day that the concert start
-     * @param dayFinish the day thtat the concer finish
+     * @param dayFinish the day that the concert finish
      */
     public DateEvent(String dayStart, String dayFinish) {
         super(dayStart);
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         this.dayStart = super.dayFormat(dayStart);
         this.dayFinish = super.dayFormat(dayFinish);
     }
@@ -53,10 +55,16 @@ public class DateEvent extends DateGeneral{
             DateEvent date = (DateEvent) o;
             //comprobar que no es after ni before
             return (super.equals(date));
+        }else{
+            return false;
         }
-        return false;
     }
 
+    @Override
+    public String toString(){
+        return simpleDateFormat.format(dayStart);
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

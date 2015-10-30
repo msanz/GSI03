@@ -9,12 +9,9 @@
 package GSILabs.BModel;
 
 import java.util.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This class managed the date in general style
@@ -22,12 +19,14 @@ import java.util.logging.Logger;
  */
 public class DateGeneral {
     private final Date day;
+    private final SimpleDateFormat simpleDateFormat;
     
     /** 
      * Create a date general with day and time
      * @param dayString string day style "dd/mm/yyyy"
      */
     public DateGeneral (String dayString){
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         this.day = this.dayFormat(dayString);
     }
     
@@ -40,23 +39,21 @@ public class DateGeneral {
     }
     
     /**
-     * Convert string (dd/mm/yyyy HH:mm) to date format
-     * @param string day style "dd/mm/yyyy HH:mm"
+     * Convert string (dd/MM/yyyy hh:mm) to date format
+     * @param string day style "dd/MM/yyyy HH:mm"
      * @return return the date object
      */
     Date dayFormat(String string){
         try{
-            DateFormat format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
-            return format.parse(string);
+            return simpleDateFormat.parse(string);
         }catch (ParseException ex){
-            Logger.getLogger(DateGeneral.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+            return null;
+        }        
     }
    
     /**
      * Checks if the client is adult (+18)
-     * @return tru if and only if the birthday is more than 18 years
+     * @return true if and only if the birthday is more than 18 years
      */
     public boolean checkBirthday(){
        return (((new Date()).getYear() + 1900) - (day.getYear() + 1900) >= 18 );              
@@ -64,7 +61,7 @@ public class DateGeneral {
     
     @Override
     public String toString(){
-        return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(day);
+        return simpleDateFormat.format(day);
     }
     
     @Override
@@ -73,8 +70,9 @@ public class DateGeneral {
             DateGeneral date = (DateGeneral) o;
             //comprobar que no es after ni before
             return (!day.after(date.day) && !day.before(date.day));
+        }else{
+            return false;
         }
-        return false;
     }
 
     @Override

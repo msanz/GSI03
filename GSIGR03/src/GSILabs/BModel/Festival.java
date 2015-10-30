@@ -79,7 +79,6 @@ public class Festival implements LastingEvent {
     }
 
     /**
-     * TO-DO : quitar duplicados AND comprobar que están ordenadas
      * Get all the dates of the festival's concerts
      * @return array that contains all the dates of the concerts in the festival
      */
@@ -148,7 +147,9 @@ public class Festival implements LastingEvent {
     private class ConcertCompareDate implements Comparator<Concert> {
         @Override
         public int compare(Concert c1, Concert c2) {
-            if (c1.getStartDate().before(c2.getStartDate())) {
+            if (concerts.isEmpty()){
+                return 1;
+            } else if (c1.getStartDate().before(c2.getStartDate())) {
                 return -1;
             } else if (c1.getStartDate().after(c2.getStartDate())) {
                 return 1;
