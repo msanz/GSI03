@@ -53,7 +53,7 @@ public class EventSystem {
             }
             return events.add(c);
         }else{
-           return false;
+            return false;
         }
     }
 
@@ -227,17 +227,18 @@ public class EventSystem {
      * @return A list of events, potentially being empty
      */
     public Event[] retrieveEvents(String name) {
-        Event ev[] = null;
         ArrayList<Event> list = new ArrayList();
+        System.out.println();
         for (Event e:events){
             if (e.getName().contains(name)){
                 list.add(e);
+                System.out.println(e.getName());
             }
         }
         if (list.isEmpty()){
             return null;
         }else{
-            return list.toArray(ev);
+            return (Event[]) list.toArray();
         }
     }
     
@@ -247,13 +248,13 @@ public class EventSystem {
      * @return the event with the given name. return null if the event doesn't exist.
      */
     public Event retrieveEvent (String name) {
-        
-        Event event;
+        Event event = null;
         Iterator eventsIterator = events.iterator();
         while (eventsIterator.hasNext()) {
             event = (Event) eventsIterator.next();
-            if(event.getName().equals(name))
+            if(event.getName().equals(name)){
                 return event;
+            }
         }
         return null;
     }

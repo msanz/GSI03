@@ -21,6 +21,7 @@ import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -60,7 +61,7 @@ public class BusinessSystem implements TicketOffice{
                return eventSystem.addNewConcert(c);
            }
         }
-       return false;
+        return false;
     }
 
     @Override
@@ -434,12 +435,12 @@ public class BusinessSystem implements TicketOffice{
             
             // Take the info
             for (int i = 0; i < row; i++) {
-                festivals.add(sheet.getCellAt(0,i).getValue().toString()); // Name festival
-                festivals.add(sheet.getCellAt(1,i).getValue().toString()); // Name concert
-                festivals.add(sheet.getCellAt(2,i).getValue().toString()); // Performer
-                festivals.add(sheet.getCellAt(3,i).getValue().toString()); // Date Start
-                festivals.add(sheet.getCellAt(4,i).getValue().toString()); // Date Finish
-                festivals.add(sheet.getCellAt(5,i).getValue().toString()); // Location
+                festivals.add(sheet.getCellAt(0,i).getTextValue()); // Name festival
+                festivals.add(sheet.getCellAt(1,i).getTextValue()); // Name concert
+                festivals.add(sheet.getCellAt(2,i).getTextValue()); // Performer
+                festivals.add(sheet.getCellAt(3,i).getTextValue()); // Date Start
+                festivals.add(sheet.getCellAt(4,i).getTextValue()); // Date Finish
+                festivals.add(sheet.getCellAt(5,i).getTextValue()); // Location
             }
   
             return festivals.toArray(new String[festivals.size()]);
@@ -456,47 +457,60 @@ public class BusinessSystem implements TicketOffice{
         Performer[] performers;
         String[] namesPerformers;
         Concert concert;
-        Artist artist;
-        
-        //Check if the ODSFestival is well formed
-        if ((festivals.length / 6) != 0){
-            return false;
-        }else{
-            for (int i = 0; i < (festivals.length) ; i = i + 6) {
-                //Check if the festival exist
-                if (this.retrieveEvents(festivals[i]) != null){
-                    festival = (Festival) this.retrieveEvents(festivals[i])[0];
-                }else{
-                    festival = new Festival(festivals[i]);
+        Performer performer;
+
+        for (int i = 0; i < (festivals.length) ; i = i + 6) {
+            //Check if the festival exist
+            if (this.retrieveEvent(festivals[i]) != null){
+                festival = (Festival) this.retrieveEvent(festivals[i]);
+            }else{
+                festival = new Festival(festivals[i]);
+            }
+
+            //Check if the concert exist
+            if (this.retrieveEvent(festivals[i + 1]) != null){
+                 concert = (Concert) this.retrieveEvent(festivals[i + 1]);
+            }else{
+                System.out.println("Error: Concierto no existe en el sistema");
+                return false;
+            }
+
+            namesPerformers = festivals[i + 2].split(",");
+
+            // Delete the last split ',' with -1
+            // Check if the performer exist
+            for (int j = 0; j < namesPerformers.length - 1; j++) {
+                if (this.retrievePerformer(namesPerformers[j]) != null){
+                    performer = this.retrievePerformer(namesPerformers[j]);
+                    performersList.add(performer);
                 }
-                
-                concert = new Concert();
-                concert.setName(festivals[i + 1]);
+            }
 
-                namesPerformers = festivals[i + 2].split(",");
-
-                // Delete the last split ',' with -1
-                for (int j = 0; j < namesPerformers.length - 1; j++) {
-                    artist = new Artist();
-                    artist.setName(namesPerformers[j]);
-                    performersList.add(artist);
-                }
-
+            if (!performersList.isEmpty()){
                 performers = new Performer[performersList.size()];
                 performers = performersList.toArray(performers);
-
-                concert.setPerformers(performers);
-
-                location = new Location();
-                location.setName(festivals[i + 5]);
-                concert.setLocation(location);
-                concert.setDateEvent(new DateEvent(festivals[i + 3],festivals[i + 4]));
-
-                this.addNewConcert(concert);
-                festival.addConcert(concert);
-                this.addNewFestival(festival);
+            }else{
+                System.out.println("Error: Performers no existen en el sistema");
+                return false;
             }
-            return true;
+
+            concert.setPerformers(performers);
+
+            // Check if the location exist
+            if (this.getLocation(festivals[i + 5]) != null){
+                location = this.getLocation(festivals[i + 5]);
+                concert.setLocation(location);
+            }else{
+                System.out.println("Error: Localizacion no existe en el sistema");
+                return false;
+            }
+
+            concert.setDateEvent(new DateEvent(festivals[i + 3],festivals[i + 4]));
+
+            addNewFestival(festival);
+            festival.addConcert(concert);
+            System.out.println("Concierto (" + i + ") importado correctamente");
         }
+        return true;
     }
 }
