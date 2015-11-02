@@ -13,6 +13,8 @@
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>hashset</word>
+            <word>ids</word>
+            <word>var</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

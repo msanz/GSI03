@@ -21,7 +21,6 @@ import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -301,6 +300,10 @@ public class BusinessSystem implements TicketOffice{
         }
     }
     
+    public Ticket[] getTicketsForEvent(String eventName) {
+        return ticketSystem.getTicketsForEvent(eventName);
+    }
+    
     // Locations management
     
     @Override
@@ -377,52 +380,48 @@ public class BusinessSystem implements TicketOffice{
     public int importTickets (File file){
         
         Ticket t;
-        AtomicInteger aiTicketId = this.getAtomicInteger();
-        
+        int importedTickets = 0;
         try {
+            String eventName;
+            int passes;
+            int passesConsumed;
             final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
 
             for (int i = 0; i < sheet.getRowCount(); i++) {
-                //read line and form the object Ticket
+                eventName = sheet.getCellAt(0, i).getValue().toString();
                 //add the ticket t to the system if and only if the event exists in the system
-                //para cada fila, leemos primero el nombre del evento
-                String eventName = sheet.getCellAt(0, i).getValue().toString();
-                
-                //si ese evento no existe en el sistema, ignoramos la fila
                 if(this.retrieveEvent(eventName) == null) {
-                    System.out.println("fila ignorada para el evento: " + eventName);
+                    System.out.println("El evento " +  eventName +" no existe en el sistema. Tickets ignorados");
                 }
+                //read line and form the object Ticket
                 else {
-                    System.out.println(eventName);
+                    t = new Ticket(eventName, atomicInteger);
                     //recorremos las columnas hasta encontrar una vacia
                     int j = 1;
+                    passes = 0;
+                    passesConsumed = 0;
                     while( (j < sheet.getColumnCount()) && (!sheet.getCellAt(j, i ).isEmpty()) ) {
-                        
-                        
-                        aiTicketId.set(Integer.parseInt(sheet.getCellAt(j, i).getValue().toString()));
-                        System.out.println(aiTicketId);
-                        sheet.getCellAt(j+1, i).getValue().toString();  
-//                        t = new Ticket(eventName, atomicInteger);
-//                        
-//                        this.ticketSystem.addNewTicket(t);
-                        
-                        System.out.println(sheet.getCellAt(j, i).getValue().toString());
-                        System.out.println(sheet.getCellAt(j+1, i).getValue().toString());
-                        
-                        //this.ticketSystem.addNewTicket(t);
+                        sheet.getCellAt(j+1, i).getValue().toString();
+                        if(sheet.getCellAt(j+1, i).getValue().toString().equals(" Used ")) {
+                            passesConsumed++;
+                        }
                         j = j + 2;
+                        passes ++;
                     }
+                    t.setNumberOfPersons(passes);
+                    for (int k = 0; k < passesConsumed; k++) {
+                        t.useTicket();
+                    }
+//                    System.out.println(t);
+                    this.addNewTicket(t);
+                    importedTickets++;
                 }
-                
-                
-                
             }
-            
         }
         catch(IOException exception) {
             System.out.println(exception.getMessage());
         }
-        return 0;
+        return importedTickets;
         
     }
     

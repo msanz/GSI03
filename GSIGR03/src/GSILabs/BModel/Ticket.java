@@ -8,7 +8,6 @@
 
 package GSILabs.BModel;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -21,26 +20,21 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Ticket {
     
-    ArrayList<Integer> passes;
-    ArrayList<Integer> usedPasses;
     String eventName;
     int id;
     int numberOfPersons;
     int numberOfUses;
     float price;
-    AtomicInteger ai;
     boolean used;
     
     /**
-     * Create a new Ticket. Only needs a event name, and a atomic integer object initializated.
+     * Create a new Ticket. Only needs a event name, and a atomic integer object initialize.
      * @param eventName The name of the event
      * @param atomicInteger The atomic integer object, for creating ticket's ids
      */
     public Ticket (String eventName, AtomicInteger atomicInteger){
-        this.passes = new ArrayList();
         this.eventName = eventName;
-        this.id = (int)atomicInteger.getAndIncrement();
-        this.ai = new AtomicInteger();
+        this.id = atomicInteger.getAndIncrement();
         this.used = false;
     }
     
@@ -55,16 +49,6 @@ public class Ticket {
         this.numberOfUses = numberOfPersons;
     }
     
-    public void createPasses (int numberOfPasses) {
-        for (int i = 0; i < numberOfPasses; i++) {
-            passes.add(ai.getAndIncrement());
-        }
-    }
-    
-    public ArrayList<Integer> getPasses() {
-        return this.passes;
-    }
-    
     /**
      * A simply method for check ticket status
      * @return used var, that can be true if used or false if not
@@ -76,19 +60,14 @@ public class Ticket {
     /**
      * This method checks how many times a ticket was used, and mark it as used if number of used
      * is 0. If not 0, decrement it one unit
-     * @param passId pass id to be used
      */
-    public void useTicket(int passId) {
+    public void useTicket() {
+        
         if (checkTicketUsed())
         {
-            if(passes.contains(passId)) {
-                passes.remove(passId);
-                usedPasses.add(passId);
-            }
-//            numberOfUses--;
-//            if (numberOfUses == 0){
-//                this.setUsed();
-//            }
+            numberOfUses--;
+            if (numberOfUses == 0)
+                this.setUsed();
         }
     }
     
@@ -149,9 +128,9 @@ public class Ticket {
     @Override
     public String toString(){
         return "Event Name: " + eventName + "\n" +
-//                " id: " + id + "\n" +
-                " numberOfPersons: " + passes.size() + "\n" +
-                " numberOfUsed: " + numberOfUses;
+                " id: " + this.id + "\n" +
+                " numberOfPersons: " + numberOfPersons + "\n" +
+                " remaining: " + numberOfUses;
     }
     
     /**

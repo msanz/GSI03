@@ -33,6 +33,21 @@ public class TicketSystem {
         ticketSales = new HashSet<>();
     }
     
+    public Ticket[] getTicketsForEvent(String eventName) {
+        Iterator ticketsIterator = tickets.iterator();
+        Ticket ticket;
+        int cont = 0;
+        Ticket[] ticketsForEvent = new Ticket[tickets.size()];
+        while (ticketsIterator.hasNext()) {
+            ticket = (Ticket) ticketsIterator.next();
+            if(ticket.getEventNameInTicket().equals(eventName)) {
+                ticketsForEvent[cont] = ticket;
+                cont++;
+            }
+        }
+        return ticketsForEvent;
+    }
+    
     /**
      * Adds a new ticket to the pool
      * @param t The new ticket
@@ -118,13 +133,13 @@ public class TicketSystem {
             ticket1 = (Ticket)ticketsIterator.next();
             if ( t.hashCode() == ticket1.hashCode() ) {
                 if (ticket1.getEventNameInTicket().equals(e.getName())) {
-                    ticket1.useTicket(ticket1.getPasses().get(0));
+                    ticket1.useTicket();
                 }
             }
             ticket2 = (Ticket)salesIterator.next();
             if ( t.hashCode() == ticket2.hashCode() ) {
                 if (ticket2.getEventNameInTicket().equals(e.getName())) {
-                    ticket2.useTicket(ticket2.getPasses().get(0));
+                    ticket2.useTicket();
                 }
             }
         }

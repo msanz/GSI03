@@ -14,6 +14,7 @@ import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
 import GSILabs.BSystem.BusinessSystem;
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * Load a file with tickets and import them to the system
@@ -31,7 +32,10 @@ public class SSTest06 {
         businessSystem.addNewConcert(new Concert("ACDC en VAL 2015", new Artist("ACDC", "metal"), new Location("Valencia", 30000, new Coordinates(34, 543)), null));
         
         
-        businessSystem.importTickets(new File("P02Ej05.ods"));
+        int importedTickets = businessSystem.importTickets(new File("P02Ej05.ods"));
+        System.out.println("Se han importado " + importedTickets + " tickets: ");
+        
+        System.out.println("\n" + Arrays.toString(businessSystem.getTicketsForEvent("Festival flamenco de las minas 2016")));
     }
     
 }
