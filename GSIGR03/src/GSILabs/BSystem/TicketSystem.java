@@ -33,6 +33,11 @@ public class TicketSystem {
         ticketSales = new HashSet<>();
     }
     
+    /**
+     * Get all the tickets in the system for an event.
+     * @param eventName the event's name to look for in tickets
+     * @return all the tickets in the system for the event
+     */
     public Ticket[] getTicketsForEvent(String eventName) {
         Iterator ticketsIterator = tickets.iterator();
         Ticket ticket;

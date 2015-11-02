@@ -178,6 +178,11 @@ public class BusinessSystem implements TicketOffice{
         return eventSystem.deleteFestival(f);
     }
     
+    /**
+     * Look for a festival and returns it if exists.
+     * @param e event to look for
+     * @return the festival if and only if exists in the system
+     */
     public Festival retrieveFestival(Event e){
         return eventSystem.retrieveFestival(e);
     }
@@ -377,6 +382,11 @@ public class BusinessSystem implements TicketOffice{
        return performerSystem.retrieveCollective(collectiveName);
     }
 
+    /**
+     * Import tickets to the system
+     * @param file file with data to import
+     * @return the number of tickets that have been imported
+     */
     public int importTickets (File file){
         
         Ticket t;

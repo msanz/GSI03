@@ -17,7 +17,7 @@ import java.io.File;
 import java.util.Arrays;
 
 /**
- * Load a file with tickets and import them to the system
+ * Load a file with tickets and import them to the system. 
  * @author GR03
  * @version 1.0
  */
@@ -25,6 +25,10 @@ public class SSTest06 {
     
     private static BusinessSystem businessSystem;
     
+    /**
+     * Main class of SSTest06
+     * @param args no arguments needed
+     */
     public static void main(String args[]) {
         
         businessSystem = new BusinessSystem();
