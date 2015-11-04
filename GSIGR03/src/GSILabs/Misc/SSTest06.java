@@ -35,7 +35,6 @@ public class SSTest06 {
         businessSystem.addNewFestival(new Festival("Festival flamenco de las minas 2016"));
         businessSystem.addNewConcert(new Concert("ACDC en VAL 2015", new Artist("ACDC", "metal"), new Location("Valencia", 30000, new Coordinates(34, 543)), null));
         
-        
         int importedTickets = businessSystem.importTickets(new File("P02Ej05.ods"));
         System.out.println("Se han importado " + importedTickets + " tickets: ");
         

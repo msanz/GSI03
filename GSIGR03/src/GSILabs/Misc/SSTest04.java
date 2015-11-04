@@ -128,6 +128,7 @@ public class SSTest04 {
         //Merge the default table mode with new col and row
         sheet.merge(new DefaultTableModel(), col, row);
         
+        //Add the performers between ',' 
         for (int i = 0; i < row; i++) {
             sheet.getCellAt(0,i).setValue(concerts.get(i).getName());
             for (Performer performer : concerts.get(i).getPerformers()) {

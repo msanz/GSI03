@@ -458,7 +458,7 @@ public class BusinessSystem implements TicketOffice{
         }   
     }
     
-    public boolean importFestivals(File f){    
+    public int importFestivals(File f){    
         String[] festivals = this.ODSFestival(f);
         Festival festival;
         Location location;
@@ -467,7 +467,8 @@ public class BusinessSystem implements TicketOffice{
         String[] namesPerformers;
         Concert concert;
         Performer performer;
-
+        int n = 0;
+        
         for (int i = 0; i < (festivals.length) ; i = i + 6) {
             //Check if the festival exist
             if (this.retrieveEvent(festivals[i]) != null){
@@ -481,7 +482,7 @@ public class BusinessSystem implements TicketOffice{
                  concert = (Concert) this.retrieveEvent(festivals[i + 1]);
             }else{
                 System.out.println("Error: Concierto no existe en el sistema");
-                return false;
+                return 0;
             }
 
             namesPerformers = festivals[i + 2].split(",");
@@ -500,7 +501,7 @@ public class BusinessSystem implements TicketOffice{
                 performers = performersList.toArray(performers);
             }else{
                 System.out.println("Error: Performers no existen en el sistema");
-                return false;
+                return 0;
             }
 
             concert.setPerformers(performers);
@@ -511,7 +512,7 @@ public class BusinessSystem implements TicketOffice{
                 concert.setLocation(location);
             }else{
                 System.out.println("Error: Localizacion no existe en el sistema");
-                return false;
+                return 0;
             }
 
             concert.setDateEvent(new DateEvent(festivals[i + 3],festivals[i + 4]));
@@ -519,7 +520,8 @@ public class BusinessSystem implements TicketOffice{
             addNewFestival(festival);
             festival.addConcert(concert);
             System.out.println("Concierto (" + i + ") importado correctamente");
+            n++;
         }
-        return true;
+        return n;
     }
 }

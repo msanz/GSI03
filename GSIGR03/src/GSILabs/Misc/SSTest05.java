@@ -29,11 +29,8 @@ public class SSTest05 {
     public static void main(String args[]){ 
         System.out.println("SSTest05");
         businessSystem = generateData();
-        if (businessSystem.importFestivals(new File("data.ods"))){
-            System.out.println("Festivales importados correctamente");
-        }else{
-            System.out.println("Error al importar festivales");
-        }
+        int importFestivals = businessSystem.importFestivals(new File("data.ods"));
+        System.out.println("Se han importado " + importFestivals + " festivales: ");
     }
     
     private static BusinessSystem generateData(){
