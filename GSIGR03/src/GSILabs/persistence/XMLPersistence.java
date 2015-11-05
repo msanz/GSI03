@@ -30,7 +30,7 @@ import java.io.File;
  */
 public class XMLPersistence {
    
-    public static Artist parseArtist(String str) {
+     public static Artist parseArtist(String str) {
         return null;
     }
     
@@ -54,19 +54,19 @@ public class XMLPersistence {
         return null;
     }
     
-    public static Concert parseArtist(String str) {
+    public static Concert parseConcert(String str) {
         return null;
     }
     
-    public static Concert parseArtist(File f) {
+    public static Concert parseConcert(File f) {
         return null;
     }
     
-    public static Coordinates parseArtist(String str) {
+    public static Coordinates parseCoordinates(String str) {
         return null;
     }
     
-    public static Coordinates parseArtist(File f) {
+    public static Coordinates parseCoordinates(File f) {
         return null;
     }
     
