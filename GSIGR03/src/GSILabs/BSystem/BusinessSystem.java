@@ -19,6 +19,7 @@ import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
+import GSILabs.serializable.XMLRepresentable;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import org.jopendocument.dom.spreadsheet.SpreadSheet;
  * @author GR03
  * @version 1.0
  */
-public class BusinessSystem implements TicketOffice{
+public class BusinessSystem implements TicketOffice, XMLRepresentable{
     private final ClientSystem clientSystem;
     private final EventSystem eventSystem;
     private final LocationSystem locationSystem;
@@ -499,12 +500,11 @@ public class BusinessSystem implements TicketOffice{
             if (!performersList.isEmpty()){
                 performers = new Performer[performersList.size()];
                 performers = performersList.toArray(performers);
+                concert.setPerformers(performers);
             }else{
                 System.out.println("Error: Performers no existen en el sistema");
                 return 0;
             }
-
-            concert.setPerformers(performers);
 
             // Check if the location exist
             if (this.getLocation(festivals[i + 5]) != null){
@@ -523,5 +523,20 @@ public class BusinessSystem implements TicketOffice{
             n++;
         }
         return n;
+    }
+
+    @Override
+    public String toXML() {
+        return null;
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        return false;
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        return false;
     }
 }
