@@ -20,6 +20,6 @@ public class XMLParsingException extends Exception{
      * @return The message
      */
     public String errorParsingException(String string){
-        return "Error provocado.";
+        return "ErrorXML: " + string;
     }
 }

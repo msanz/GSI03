@@ -11,6 +11,16 @@ import GSILabs.BModel.Artist;
 import GSILabs.BModel.Client;
 import GSILabs.BModel.Collective;
 import GSILabs.BModel.Concert;
+import GSILabs.BModel.Coordinates;
+import GSILabs.BModel.DateEvent;
+import GSILabs.BModel.DateGeneral;
+import GSILabs.BModel.Event;
+import GSILabs.BModel.Exhibition;
+import GSILabs.BModel.Festival;
+import GSILabs.BModel.Location;
+import GSILabs.BModel.Performer;
+import GSILabs.BModel.Sale;
+import GSILabs.BModel.Ticket;
 import java.io.File;
 
 /**
@@ -60,67 +70,67 @@ public class XMLPersistence {
         return null;
     }
     
-    public static DateEvent parseArtist(String str) {
+    public static DateEvent parseDateEvent(String str) {
         return null;
     }
     
-    public static DateEvent parseArtist(File f) {
+    public static DateEvent parseDateEvent(File f) {
         return null;
     }
     
-    public static DateGeneral parseArtist(String str) {
+    public static DateGeneral parseDateGeneral(String str) {
         return null;
     }
     
-    public static DateGeneral parseArtist(File f) {
+    public static DateGeneral parseDateGeneral(File f) {
         return null;
     }
     
-    public static Event parseArtist(String str) {
+    public static Event parseEvent(String str) {
         return null;
     }
     
-    public static Event parseArtist(File f) {
+    public static Event parseEvent(File f) {
         return null;
     }
     
-    public static Exhibition parseArtist(String str) {
+    public static Exhibition parseExhibition(String str) {
         return null;
     }
     
-    public static Exhibition parseArtist(File f) {
+    public static Exhibition parseExhibition(File f) {
         return null;
     }
     
-    public static Festival parseArtist(String str) {
+    public static Festival parseFestival(String str) {
         return null;
     }
     
-    public static Festival parseArtist(File f) {
+    public static Festival parseFestival(File f) {
         return null;
     }
     
-    public static Location parseArtist(String str) {
+    public static Location parseLocation(String str) {
         return null;
     }
     
-    public static Location parseArtist(File f) {
+    public static Location parseLocation(File f) {
         return null;
     }
     
-    public static Performer parseArtist(String str) {
+    public static Performer parsePerformer(String str) {
         return null;
     }
     
-    public static Performer parseArtist(File f) {
+    public static Performer parsePerformer(File f) {
         return null;
     }
     
-    public static Sale parseArtist(String str) {
+    public static Sale parseSale(String str) {
         return null;
     }
     
-    public static Sale parseArtist(File f) {
+    public static Sale parseSale(File f) {
         return null;
     }
     
