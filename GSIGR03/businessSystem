@@ -1,0 +1,21 @@
+<businessSystem>
+  <clientSystem>
+    <clients/>
+  </clientSystem>
+  <eventSystem>
+    <events/>
+  </eventSystem>
+  <locationSystem>
+    <locations/>
+  </locationSystem>
+  <ticketSystem>
+    <tickets/>
+    <ticketSales/>
+  </ticketSystem>
+  <performerSystem>
+    <performers/>
+  </performerSystem>
+  <atomicInteger>
+    <value>0</value>
+  </atomicInteger>
+</businessSystem>

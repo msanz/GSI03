@@ -19,12 +19,17 @@ import GSILabs.BModel.Festival;
 import GSILabs.BModel.Location;
 import GSILabs.BModel.Performer;
 import GSILabs.BModel.Ticket;
+import GSILabs.persistence.XMLParsingException;
 import GSILabs.serializable.XMLRepresentable;
+import com.thoughtworks.xstream.XStream;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
@@ -527,16 +532,33 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
 
     @Override
     public String toXML() {
-        return null;
+        XStream xstream = new XStream();
+        xstream.alias("businessSystem", BusinessSystem.class);
+        return xstream.toXML(this);
     }
 
     @Override
     public boolean saveToXML(File f) {
-        return false;
+        String xml = this.toXML();
+        try (FileWriter writer = new FileWriter(f)) {
+            writer.write(xml);
+            return true;
+        } catch (IOException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     @Override
     public boolean saveToXML(String filePath) {
+        return saveToXML(new File(filePath));
+    }
+    
+    public BusinessSystem parseXMLFile(File f) throws XMLParsingException{
+        return this;
+    }
+    
+    public boolean loadXMLFile(File f){
         return false;
     }
 }
