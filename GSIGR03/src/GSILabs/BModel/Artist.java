@@ -144,8 +144,7 @@ public class Artist implements Performer,XMLRepresentable {
         XStream xstream = new XStream();
         xstream.alias("artist",Artist.class);
         String xml = xstream.toXML(this);
-        return xml;
-                    
+        return xml;  
     }
 
     @Override
@@ -158,8 +157,6 @@ public class Artist implements Performer,XMLRepresentable {
 
     @Override
     public boolean saveToXML(String filePath) {
-        File file = new File(filePath);
-        
-        return false;
+        return saveToXML(new File(filePath));
     }
 }
