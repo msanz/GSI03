@@ -8,6 +8,9 @@
 
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
 import java.util.HashSet;
 
 /**
@@ -15,7 +18,7 @@ import java.util.HashSet;
  * @author GR03
  * @version 1.0
  */
-public class Collective extends Artist implements Performer {
+public class Collective extends Artist implements Performer, XMLRepresentable {
     
     private HashSet<Artist> members;
     
@@ -81,5 +84,29 @@ public class Collective extends Artist implements Performer {
      */
     public boolean remove(Artist artist){
         return members.remove(artist);        
+    }
+    
+    @Override
+    public String toXML() {
+        XStream xstream = new XStream();
+        xstream.alias("collective",Collective.class);
+        String xml = xstream.toXML(this);
+        return xml;
+                    
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        
+        return false;
+
+        
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        File file = new File(filePath);
+        
+        return false;
     }
 }

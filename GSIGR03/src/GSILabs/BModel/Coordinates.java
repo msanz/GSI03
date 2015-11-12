@@ -8,11 +8,15 @@
 
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
+
 /**
  * The coordinates X and Y of the location festival, concert or exhibition
  * @author GR03
  */
-public class Coordinates {
+public class Coordinates implements XMLRepresentable{
     
     private int x;
     private int y;
@@ -55,5 +59,23 @@ public class Coordinates {
     {
         this.x = x;
         this.y = y;
+    }
+
+    @Override
+    public String toXML() {
+        XStream xstream = new XStream();
+        xstream.alias("coordinates",Coordinates.class);
+        String xml = xstream.toXML(this);
+        return xml;
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

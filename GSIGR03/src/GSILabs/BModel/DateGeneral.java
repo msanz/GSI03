@@ -8,6 +8,9 @@
 
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +20,7 @@ import java.util.Objects;
  * This class managed the date in general style
  * @author GR03
  */
-public class DateGeneral {
+public class DateGeneral implements XMLRepresentable{
     private final Date day;
     private final SimpleDateFormat simpleDateFormat;
     
@@ -80,5 +83,23 @@ public class DateGeneral {
         int hash = 3;
         hash = 37 * hash + Objects.hashCode(this.day);
         return hash;
+    }
+
+    @Override
+    public String toXML() {
+        XStream xstream = new XStream();
+        xstream.alias("dateGeneral",DateGeneral.class);
+        String xml = xstream.toXML(this);
+        return xml;
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

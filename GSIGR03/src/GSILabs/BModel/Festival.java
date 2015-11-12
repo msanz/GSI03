@@ -7,6 +7,9 @@
  */
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -19,7 +22,7 @@ import java.util.TreeSet;
  * @author GR03
  * @version 1.0
  */
-public class Festival implements LastingEvent {
+public class Festival implements LastingEvent, XMLRepresentable {
     
     private final SortedSet<Concert> concerts;
     private final String name;
@@ -142,6 +145,24 @@ public class Festival implements LastingEvent {
         }else{
             return list;
         }
+    }
+
+    @Override
+    public String toXML() {
+        XStream xstream = new XStream();
+        xstream.alias("festival",Festival.class);
+        String xml = xstream.toXML(this);
+        return xml;
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private class ConcertCompareDate implements Comparator<Concert> {

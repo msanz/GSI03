@@ -7,6 +7,9 @@
  */
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -15,7 +18,7 @@ import java.util.Date;
  * @version 1.0
  */
 
-public class Sale {
+public class Sale implements XMLRepresentable{
     Date date;
     int[] ticketID;
     
@@ -42,5 +45,23 @@ public class Sale {
         }
         
         return "Date: " + date + "\n" + "ticket ids: " + salesTickets;
+    }
+
+    @Override
+    public String toXML() {
+        XStream xstream = new XStream();
+        xstream.alias("sale",Sale.class);
+        String xml = xstream.toXML(this);
+        return xml;
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

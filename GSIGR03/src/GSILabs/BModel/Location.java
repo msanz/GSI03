@@ -8,13 +8,16 @@
 
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
 import java.util.Objects;
 
 /** 
  * A location is the site where a event can be placed
  * @author GR03
  */
-public class Location {
+public class Location implements XMLRepresentable{
     
     private String name;
     private int capacity;
@@ -112,5 +115,23 @@ public class Location {
         int hash = 7;
         hash = 71 * hash + Objects.hashCode(this.name);
         return hash;
+    }
+
+    @Override
+    public String toXML() {
+        XStream xstream = new XStream();
+        xstream.alias("location",Location.class);
+        String xml = xstream.toXML(this);
+        return xml;    
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

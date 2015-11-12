@@ -8,6 +8,9 @@
 
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,7 +18,7 @@ import java.util.Objects;
  * An exhibition is lasting event
  * @author GR03
  */
-public class Exhibition implements LastingEvent {
+public class Exhibition implements LastingEvent, XMLRepresentable {
     private String name;
     private String org;
     private DateEvent date;
@@ -207,5 +210,23 @@ public class Exhibition implements LastingEvent {
      */
     public boolean collisionDay(Date day){
         return !day.before(date.getDay()) && !day.after(date.getDayFinish());
+    }
+
+    @Override
+    public String toXML() {
+        XStream xstream = new XStream();
+        xstream.alias("exhibition",Exhibition.class);
+        String xml = xstream.toXML(this);
+        return xml;
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

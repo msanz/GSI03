@@ -8,6 +8,9 @@
 
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author GR03
  * @version 1.0
  */
-public class Ticket {
+public class Ticket implements XMLRepresentable {
     
     String eventName;
     int id;
@@ -139,5 +142,23 @@ public class Ticket {
      */
     public String getEventNameInTicket() {
         return this.eventName;
+    }
+
+    @Override
+    public String toXML() {
+        XStream xstream = new XStream();
+        xstream.alias("ticket",Ticket.class);
+        String xml = xstream.toXML(this);
+        return xml;
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

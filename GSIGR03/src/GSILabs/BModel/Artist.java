@@ -8,13 +8,16 @@
 
 package GSILabs.BModel;
 
+import GSILabs.serializable.XMLRepresentable;
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
 import java.util.Objects;
 /**
  * An artist is a person who takes part of concert or exhibition.
  * @author GR03
  * @version 1.0
  */
-public class Artist implements Performer {
+public class Artist implements Performer,XMLRepresentable {
     
     private String name;
     private String workDescription;
@@ -134,5 +137,29 @@ public class Artist implements Performer {
         int hash = 3;
         hash = 17 * hash + Objects.hashCode(this.name);
         return hash;
+    }
+
+    @Override
+    public String toXML() {
+        XStream xstream = new XStream();
+        xstream.alias("artist",Artist.class);
+        String xml = xstream.toXML(this);
+        return xml;
+                    
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        
+        return false;
+
+        
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        File file = new File(filePath);
+        
+        return false;
     }
 }

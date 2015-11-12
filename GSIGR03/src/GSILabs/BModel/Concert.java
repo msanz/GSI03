@@ -7,6 +7,9 @@
 */
 
 package GSILabs.BModel;
+import GSILabs.serializable.XMLRepresentable;
+import com.thoughtworks.xstream.XStream;
+import java.io.File;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,7 +18,7 @@ import java.util.Objects;
  * @author GR03
  * @version 1.0
  */
-public class Concert implements ImpermanentEvent {
+public class Concert implements ImpermanentEvent,XMLRepresentable {
     private DateEvent date;
     private String name;
     private Artist performer;
@@ -214,4 +217,23 @@ public class Concert implements ImpermanentEvent {
     public boolean collisionDay(Date day){
         return !day.before(this.getStartDate()) && !day.after(this.getFinishDate());
     }
+
+    @Override
+    public String toXML() {
+        XStream xstream = new XStream();
+        xstream.alias("Concert",Concert.class);
+        String xml = xstream.toXML(this);
+        return xml;
+    }
+
+    @Override
+    public boolean saveToXML(File f) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean saveToXML(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }
