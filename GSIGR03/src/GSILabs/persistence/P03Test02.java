@@ -7,7 +7,10 @@
  */
 package GSILabs.persistence;
 
+import GSILabs.BModel.Artist;
+import GSILabs.BModel.Performer;
 import GSILabs.BSystem.BusinessSystem;
+import java.io.File;
 
 /**
  * Create a test to exercice 01
@@ -20,10 +23,21 @@ public class P03Test02 {
      */
     public static void main(String args[]){  
         BusinessSystem businessSystem = new BusinessSystem();
-        System.out.println("Object to XML");
-        System.out.println(businessSystem.toXML());
+        Artist artistString = new Artist("Maria", "Cantante de opera", "maria.com");
+        businessSystem.addArtist(artistString);
+        System.out.println("Object to XML" + businessSystem.toXML());
         
         System.out.println("Save to file");
-        businessSystem.saveToXML("./businessSystem");
+        businessSystem.saveToXML("businessSystem.xml");
+        BusinessSystem businessSystemXML = null;
+        try{
+            businessSystemXML = BusinessSystem.parseXMLFile(new File("businessSystem"));
+        }catch(XMLParsingException e){
+            e.errorParsingException("Error al cargar XML");
+        }
+        
+        Performer performer = businessSystemXML.retrievePerformer("Maria");
+        System.out.println(performer);
+        
     }
 }

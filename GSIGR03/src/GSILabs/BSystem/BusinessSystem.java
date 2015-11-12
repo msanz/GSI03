@@ -554,11 +554,20 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
         return saveToXML(new File(filePath));
     }
     
-    public BusinessSystem parseXMLFile(File f) throws XMLParsingException{
-        return this;
+    public static BusinessSystem parseXMLFile(File f) throws XMLParsingException{
+        XStream xstream = new XStream();
+        xstream.alias("businessSystem", BusinessSystem.class);
+        return (BusinessSystem) xstream.fromXML(f);
     }
     
     public boolean loadXMLFile(File f){
+        XStream xstream = new XStream();
+        xstream.alias("businessSystem", BusinessSystem.class);
+        //this.getBusinessSystem() = (BusinessSystem) xstream.fromXML(f);
         return false;
+    }
+    
+    private BusinessSystem getBusinessSystem(){
+        return this;
     }
 }
