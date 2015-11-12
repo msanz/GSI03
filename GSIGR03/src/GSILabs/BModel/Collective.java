@@ -11,7 +11,11 @@ package GSILabs.BModel;
 import GSILabs.serializable.XMLRepresentable;
 import com.thoughtworks.xstream.XStream;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A collective is a collection of artist that take part of concert or exhibition.
@@ -95,8 +99,19 @@ public class Collective extends Artist implements Performer, XMLRepresentable {
                     
     }
 
-    @Override
+    @Override    
     public boolean saveToXML(File f) {
+                
+        String xml = this.toXML();
+        try {
+            FileWriter writer = new FileWriter(f);
+            writer.write(xml);
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         
         return false;
 
@@ -105,8 +120,6 @@ public class Collective extends Artist implements Performer, XMLRepresentable {
 
     @Override
     public boolean saveToXML(String filePath) {
-        File file = new File(filePath);
-        
-        return false;
+        return saveToXML(new File(filePath));
     }
 }

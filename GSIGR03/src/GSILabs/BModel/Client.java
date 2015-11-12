@@ -10,7 +10,11 @@ package GSILabs.BModel;
 import GSILabs.serializable.XMLRepresentable;
 import com.thoughtworks.xstream.XStream;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A client is someone who can buy tickets for diferent events
@@ -200,11 +204,21 @@ public class Client implements XMLRepresentable{
 
     @Override
     public boolean saveToXML(File f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                
+        String xml = this.toXML();
+
+        try (FileWriter writer = new FileWriter(f)) {
+            writer.write(xml);
+            return true;
+        }
+        catch (IOException ex) {
+            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } 
     }
 
     @Override
     public boolean saveToXML(String filePath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return saveToXML(new File(filePath));
     }
 }
