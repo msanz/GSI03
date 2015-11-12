@@ -171,7 +171,9 @@ public class Concert implements ImpermanentEvent,XMLRepresentable {
      */
     @Override
     public boolean involvesPerformer(Performer p) {
-        if (p.getName().toLowerCase().equals(performer.getName().toLowerCase())){
+        if (performers == null){
+            return false;
+        }else if (p.getName().toLowerCase().equals(performer.getName().toLowerCase())){
             return true;
         }else{
             for(Performer performer: performers){

@@ -196,7 +196,7 @@ public class P01Tester {
         Collective collective = businessSystem.retrieveCollective("Flitter");
         Location madrid = businessSystem.getLocation("Madrid");
         Location bilbao = businessSystem.getLocation("Bilbao");
-        DateEvent date = new DateEvent("12/7/2015", "21:30");
+        DateEvent date = new DateEvent("12/7/2015 21:30", "12/7/2015 22:30");
         Concert flitterMadrid = new Concert("Flitter-Madrid", collective, madrid, date);
         Concert flitterBilbao = new Concert("Flitter-Bilbao", collective, bilbao, date);
        
