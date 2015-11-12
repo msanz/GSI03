@@ -149,8 +149,7 @@ public class Artist implements Performer,XMLRepresentable {
         XStream xstream = new XStream();
         xstream.alias("artist",Artist.class);
         String xml = xstream.toXML(this);
-        return xml;
-                    
+        return xml;  
     }
 
     @Override
