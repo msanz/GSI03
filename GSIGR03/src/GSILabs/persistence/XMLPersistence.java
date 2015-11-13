@@ -25,7 +25,7 @@ import com.thoughtworks.xstream.XStream;
 import java.io.File;
 
 /**
- * Read a file XML
+ * Parse a file XML or string in object of the system.
  * @author GR03
  * @version 1.0
  */

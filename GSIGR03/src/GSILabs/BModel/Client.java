@@ -198,21 +198,18 @@ public class Client implements XMLRepresentable{
     public String toXML() { 
         XStream xstream = new XStream();
         xstream.alias("client",Client.class);
-        String xml = xstream.toXML(this);
-        return xml;
+        return xstream.toXML(this);
     }
 
     @Override
     public boolean saveToXML(File f) {
-                
         String xml = this.toXML();
-
         try (FileWriter writer = new FileWriter(f)) {
             writer.write(xml);
             return true;
         }
         catch (IOException ex) {
-            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } 
     }

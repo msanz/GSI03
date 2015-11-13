@@ -148,15 +148,12 @@ public class Artist implements Performer,XMLRepresentable {
     public String toXML() {
         XStream xstream = new XStream();
         xstream.alias("artist",Artist.class);
-        String xml = xstream.toXML(this);
-        return xml;  
+        return xstream.toXML(this); 
     }
 
     @Override
     public boolean saveToXML(File f) {
-                
         String xml = this.toXML();
-
         try (FileWriter writer = new FileWriter(f)) {
             writer.write(xml);
             return true;

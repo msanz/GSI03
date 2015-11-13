@@ -45,7 +45,8 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
     private final TicketSystem ticketSystem;
     private final PerformerSystem performerSystem;
     private final AtomicInteger atomicInteger;
-
+    private BusinessSystem businessSystem;
+    
     public BusinessSystem (){
         clientSystem = new ClientSystem();
         eventSystem = new EventSystem();
@@ -53,6 +54,7 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
         performerSystem = new PerformerSystem();
         ticketSystem = new TicketSystem();
         atomicInteger = new AtomicInteger();
+        businessSystem = null;
     }
 
     public AtomicInteger getAtomicInteger() {
@@ -394,11 +396,11 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
      * @return the number of tickets that have been imported
      */
     public int importTickets (File file){
-        
-        Ticket t;
         int importedTickets = 0;
         try {
             String eventName;
+            Ticket t;
+            int j = 1;
             int passes;
             int passesConsumed;
             final Sheet sheet = SpreadSheet.createFromFile(file).getSheet(0);
@@ -413,7 +415,6 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
                 else {
                     t = new Ticket(eventName, atomicInteger);
                     //recorremos las columnas hasta encontrar una vacia
-                    int j = 1;
                     passes = 0;
                     passesConsumed = 0;
                     while( (j < sheet.getColumnCount()) && (!sheet.getCellAt(j, i ).isEmpty()) ) {
@@ -428,17 +429,16 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
                     for (int k = 0; k < passesConsumed; k++) {
                         t.useTicket();
                     }
-//                    System.out.println(t);
                     this.addNewTicket(t);
                     importedTickets++;
                 }
             }
+            return importedTickets;
         }
         catch(IOException exception) {
             System.out.println(exception.getMessage());
+            return importedTickets;
         }
-        return importedTickets;
-        
     }
     
     private String[] ODSFestival(File file){
@@ -460,7 +460,8 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
   
             return festivals.toArray(new String[festivals.size()]);
         } catch (IOException e) {
-            return null;
+            System.out.println(e.getMessage());
+            return festivals.toArray(new String[0]);
         }   
     }
     
@@ -474,6 +475,10 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
         Concert concert;
         Performer performer;
         int n = 0;
+        
+        if (festivals.length == 0){
+            return n;
+        }
         
         for (int i = 0; i < (festivals.length) ; i = i + 6) {
             //Check if the festival exist
@@ -544,7 +549,7 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
             writer.write(xml);
             return true;
         } catch (IOException ex) {
-            Logger.getLogger(Artist.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
             return false;
         }
     }
@@ -561,13 +566,18 @@ public class BusinessSystem implements TicketOffice, XMLRepresentable{
     }
     
     public boolean loadXMLFile(File f){
-        XStream xstream = new XStream();
-        xstream.alias("businessSystem", BusinessSystem.class);
-        //this.getBusinessSystem() = (BusinessSystem) xstream.fromXML(f);
-        return false;
+        try{
+            XStream xstream = new XStream();
+            xstream.alias("businessSystem", BusinessSystem.class);
+            businessSystem = (BusinessSystem) xstream.fromXML(f);
+            return true;
+        }catch(Exception ex){
+            Logger.getLogger(BusinessSystem.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
-    private BusinessSystem getBusinessSystem(){
-        return this;
+    public BusinessSystem getBusinessSystem(){
+        return businessSystem;
     }
 }
