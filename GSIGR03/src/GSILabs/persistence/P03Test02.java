@@ -26,14 +26,15 @@ public class P03Test02 {
         BusinessSystem businessSystem = new BusinessSystem();
         Artist artistString = new Artist("Maria", "Cantante de opera", "maria.com");
         businessSystem.addArtist(artistString);
+        String filePath = "xml/businessSystem.xml";
         System.out.println("Object to XML" + businessSystem.toXML());
         
         System.out.println("Save to file");
-        businessSystem.saveToXML("businessSystem.xml");
+        businessSystem.saveToXML(filePath);
         BusinessSystem businessSystemXML = null;
         
         try{
-            businessSystemXML = BusinessSystem.parseXMLFile(new File("businessSystem"));
+            businessSystemXML = BusinessSystem.parseXMLFile(new File(filePath));
         }catch(XMLParsingException e){
             e.errorParsingException("Error al cargar XML");
         }
@@ -42,7 +43,7 @@ public class P03Test02 {
         System.out.println(performer);
         
         BusinessSystem businessSystemclean = new BusinessSystem();
-        businessSystemclean.loadXMLFile(new File ("businessSystem.xml"));
+        businessSystemclean.loadXMLFile(new File (filePath));
         businessSystemclean = businessSystemclean.getBusinessSystem();
         
         Performer performer1 = businessSystemclean.retrievePerformer("Maria");
