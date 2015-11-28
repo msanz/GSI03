@@ -1,0 +1,12 @@
+Si un cliente ejecuta dos veces getClient con el mismo id, puede poblar dos variables de tipo Client. Corresponden, en el cliente, al mismo espacio de memoria? Es decir, son dos copias idénticas o dos punteros al mismo objeto?
+Si el cliente crea dos variables de tipo Client, corresponden a espacios de memoria diferentes, aunque las dos variables puedan tener el mismo contenido.
+¿puntero al mismo objeto porque no tiene sentido que un mismo cliente remoto modifique los datos de un Client en dos instancias diferentes?
+No son dos copias idénticas porque entre la primera llamada y la segunda, se pueden haber modificado los datos de dicho cliente.
+
+Cuál es la diferencia entre ejecutar el retrieveClient de BusinessSystem de manera local, y el getClient de manera remota? Piense en la gestión del objeto obtenido.
+Si la llamada se hace de forma local, se obtiene un puntero al objeto Client de nuestro BusinessSystem. Es decir, tenemos acceso total al objeto y trabajamos directamente sobre el cliente original.
+Mientras que si la llamada se hace remotamente, el cliente obtenido será una copia del cliente que tenemos en el sistema. Esta copia puede tener toda la información del cliente o puede haberse restringido el acceso a alguna propiedad, marcando dicha propiedad como transient  y evitando su serialización.
+
+Tenemos claro (repito, claro) que al invocar un método remoto se realiza, y serializa, una copia del argumento de retorno para su envío al cliente remoto. Dado que el cliente está en una máquina (física, y JVM) diferente, ocupará un espacio de memoria diferente. No? Bueno, venga, sea que sí. Pero si la invocación remota se hace desde la misma máquina, y desde la misma JVM, se hace una copia del objeto? Es decir, si el cliente remoto no es remoto, y se ejecuta sobre la misma JVM, se realiza una copia del objeto, o se obtiene un puntero al original?
+El hecho de que el cliente se esté ejecutando en la misma máquina y sobre la misma JVM no hace que tenga permisos para acceder a toda la información de Client ni a la funcionalidad del sistema local.
+El cliente está conectándose al servidor y pidiendo un stub de los ofrecidos por éste último, por tanto, obtendrá una copia del objeto, la cuál no habrá sido serializada. ?????
