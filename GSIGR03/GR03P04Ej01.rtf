@@ -1,0 +1,2 @@
+Hemos decidido crear una nueva clase llamada PublicBusinessSystem que extiende de BusinessSystem e implementa las interfaces ClientGateway y EventGateway.
+Con esto coseguimos separar la implementación de los métodos que se publicarán, quedando estos en una clase diferente. Así, nuestros clientes remotos tendrán acceso únicamente al servidor público, el cual no deja de ser un BusinessSystem.
