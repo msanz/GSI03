@@ -1,0 +1,1 @@
+Para que el servidor publique los objetos correctamente y el cliente pueda acceder a ellos, estos deben ser serializables. Este es el único cambio que hemos realizado en el modelo, los objetos que envian implementan la interfaz java.io.Serializable y si estos tienen miembros que no se deben enviar, son marcados como transient.
